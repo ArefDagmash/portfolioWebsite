@@ -1,183 +1,238 @@
-# Terminal Portfolio Website — Design & Documentation
+# Aref's Portfolio Website — Design & Documentation (Continuous-Scroll Version)
 
-## Overview
+## Current Version: Continuous-Scroll Design (May 2026)
 
-A **premium, visually sophisticated** terminal-themed personal portfolio website that mimics a real terminal session with **exceptional attention to aesthetic details**. The interface combines authentic terminal aesthetics with cutting-edge web design: CRT glow effects, vignette overlays, scanline animations, accent color systems, glitch effects, micro-interactions, and a live-updating sidebar dashboard.
+### Latest Updates
 
-**Key Aesthetic Direction**: Brutalist retro-futurism with maximalist motion—bold colors, atmospheric depth, intentional visual effects, and responsive feedback on every interaction.
+**Recent Implementation (Current Session):**
+- ✅ Complete redesign from terminal aesthetic to modern continuous-scroll portfolio
+- ✅ Integrated Excalidraw SVG graphics (whoami.svg, Projects.svg)
+- ✅ Integrated SVG icons for contact and stack sections (phone-calling-svgrepo-com.svg, experience-information-knowledge-svgrepo-com.svg)
+- ✅ Removed white backgrounds from SVGs for full transparency
+- ✅ Made `.section-visual` containers transparent to blend seamlessly with page background
+- ✅ Implemented rotating typewriter tagline in sticky header
+- ✅ Responsive design with mobile breakpoints (single column on ≤768px)
+- ✅ Smooth scroll behavior with Intersection Observer animations
+
+### Design Direction
+
+A **modern, visually elegant** continuous-scroll portfolio that showcases work through hand-drawn Excalidraw graphics and clean typography. The design emphasizes:
+- **Visual hierarchy** with full-height sections and alternating backgrounds
+- **Hand-drawn aesthetics** integrating Excalidraw SVGs for personality
+- **Light, modern color palette** from Catppuccin Mocha adapted for light backgrounds
+- **Smooth interactions** with typewriter animations and scroll-based reveals
+- **Accessibility** with semantic HTML and readable color contrast
+
+## Overview (Archived)
+
+A **premium, visually sophisticated** terminal-themed personal portfolio website that mimics a real terminal session with **exceptional attention to aesthetic details**. *(This was the initial design direction before pivoting to continuous-scroll.)*
+
+**Previous Aesthetic Direction**: Brutalist retro-futurism with maximalist motion—bold colors, atmospheric depth, intentional visual effects, and responsive feedback on every interaction. *(Archived for reference.)*
 
 ## Visual Design
 
-### Color Palette
+### Color Palette (Current: Light Catppuccin Mocha)
 
-**Default (Green Terminal)**
-- Background: `#0a0e27` (deep navy/black)
-- Text: `#00ff41` (bright lime green)
-- Bright/Highlights: `#00ff41` (same as text)
-- Dim/Secondary: `#004d00` (dark green)
+Based on user's terminal configuration (Catppuccin Mocha), adapted for light mode:
 
-**Alternative (Amber Terminal)**
-- Background: `#0a0e27` (deep navy/black, unchanged)
-- Text: `#ffaa00` (warm amber/orange)
-- Bright/Highlights: `#ffaa00` (same as text)
-- Dim/Secondary: `#4d2800` (dark brown)
+**Primary Colors**
+- Background: `#F5F5F7` (soft off-white)
+- Alternate Background: `#EBEBF0` (light gray)
+- Foreground/Text: `#1E1E2E` (dark charcoal)
+- Foreground Light: `#45475A` (medium gray)
+
+**Accent Colors**
+- Cyan: `#94E2D5` (bright teal/cyan)
+- Magenta: `#F5C2E7` (soft pink/magenta)
+- Yellow: `#F9E2AF` (warm yellow)
+- Blue: `#89B4FA` (periwinkle blue)
 
 ### Typography
 
 - **Font**: JetBrains Mono (loaded from Google Fonts)
 - **Fallback**: System monospace
-- **Size**: Base 1em, scales responsively
-- **Line Height**: 1.6em for readability
+- **Base Font Size**: 1em, scales responsively
+- **Line Height**:
+  - Body text: 1.6em
+  - Section descriptions: 1.8em for better readability
+- **Font Weights**: 400 (regular), 500 (medium), 700 (bold)
 
 ### Layout
 
+**Header (Sticky)**
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│ arefd@portfolio ~ $      [whoami] [ls projects/] [cat contact]  │
-│                          [cat stack.txt] [🎨 theme]             │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│ Welcome to Arefd's terminal portfolio                            │
-│ Type any command below or use the navigation buttons            │
-│                                                                   │
-│ $ whoami█                                                        │
-│                                                                   │
-│ [$ whoami]  [$ ls projects/]  [$ cat contact.txt]              │
-│ [$ cat stack.txt]                                               │
-│                                                                   │
-├─────────────────────────────────────────────────────────────────┤
-│ [clear]                                                          │
-└─────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────┐
+│ Aref: [rotating tagline text]          │
+│ ↓ scroll to explore                    │
+└────────────────────────────────────────┘
 ```
+
+**Page Sections (Full-height, alternating backgrounds)**
+```
+┌────────────────────────────────────────┐
+│  whoami                    [SVG Visual]│
+│  (Text on left)                        │
+└────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  [SVG Visual]              projects    │
+│                           (Text on R)  │
+└────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  contact                   [SVG Icon] │
+│  (Text on left)                        │
+└────────────────────────────────────────┘
+
+┌────────────────────────────────────────┐
+│  [SVG Icon]                stack       │
+│                           (Text on R)  │
+└────────────────────────────────────────┘
+```
+
+**Responsive (Mobile ≤768px)**
+- Single column layout
+- Text above visual/icon
+- Full-width sections
+- Reduced padding
 
 ### Key Visual Elements
 
-1. **Header/Navigation Bar**
-   - Title: `arefd@portfolio ~ $` in bright green
-   - Pill-shaped buttons for commands: `[whoami] [ls projects/] [cat contact.txt] [cat stack.txt]`
-   - Theme toggle button: `[🎨 theme]`
-   - Border-bottom separator in dim color
-   - Fully responsive; stacks on mobile
+1. **Sticky Header**
+   - Title: `Aref:` (cyan) + rotating tagline (yellow)
+   - Tagline cycles through 6 different descriptions
+   - Typewriter effect: ~50ms per character to type, ~30ms to delete
+   - Scroll hint: `↓ scroll to explore` in light gray
+   - Backdrop blur effect with semi-transparent white
+   - `position: sticky; top: 0; z-index: 100`
 
-2. **Terminal Window**
-   - `min-height: 400px` (grows with content)
-   - Dark background with subtle darker tint
-   - 1px border in dim color, rounded corners
-   - Scrollable with custom scrollbar styling
-   - Subtle scanline overlay (repeating horizontal lines for CRT effect)
+2. **Full-Height Sections**
+   - `min-height: 100vh` for each section
+   - Grid layout: 2 columns on desktop (1fr 1fr gap: 60px)
+   - Alternating backgrounds: `--bg` and `--bg-alt`
+   - Smooth fade-in animation on scroll (`section-fade-in` keyframes)
+   - Responsive: single column on mobile
 
-3. **Command Line**
-   - Prefix: `$` in bright color
-   - Command text: in main text color
-   - **Blinking cursor**: `█` character, animates at 1s cycle (50% on, 50% off)
-   - Lines spaced with `margin: 15px 0`
+3. **Section Text Content**
+   - Section title: 2.5em, bold, dark text
+   - Title spans in cyan accent color
+   - Description: 1.1em, light gray, pre-wrapped (preserves formatting)
+   - Clean monospace typography with proper line spacing
 
-4. **Output Text**
-   - `white-space: pre-wrap` for monospace formatting
-   - Line-by-line output with `margin: 5px 0` between lines
-   - Slightly longer line-height (1.8) for readability
-   - Word wrapping enabled
+4. **Visual Elements (SVGs)**
+   - `width: 100%; height: 100%; object-fit: contain`
+   - Transparent background (no white boxes)
+   - Hand-drawn Excalidraw graphics for personality
+   - Scalable and crisp at any resolution
+   - SVG icons from SVGRepo for contact/stack sections
 
-5. **Option Buttons**
-   - Styled as terminal suggestions
-   - `$ ` prefix in bright color, followed by command text
-   - Hover: border brightens, subtle highlight background
-   - Active/focus: same treatment
-   - Flex column layout, full width, `gap: 10px`
+5. **Contact Section Special**
+   - Contact info displayed inline in description text
+   - Phone icon SVG visual
+   - Links with contact details (GitHub, Email, LinkedIn)
 
-6. **Clear Button**
-   - Bottom of page
-   - Styled like option buttons
-   - Hover: slight red tint background
+6. **Stack Section**
+   - Tech stack displayed as formatted text
+   - Languages, environment, tools listed with arrows
+   - Experience/knowledge icon visual
 
 ### Animations & Interactions
 
-- **Typing Animation**: ~50ms per character, runs sequentially character-by-character
-- **Output Printing**: Each line appears with ~30ms delay between them
-- **Cursor Blink**: CSS `@keyframes blink` at 1s cycle
-- **Smooth Scroll**: Automatic scroll to terminal bottom after output
-- **Button Hover**: Smooth color transitions (0.2s)
-- **Scanlines**: Fixed overlay, doesn't scroll, creates CRT authenticity
+- **Typewriter Tagline**: Character-by-character typing (~50ms per char), deletion (~30ms per char), 2.5s pause between cycles
+- **Section Fade-In**: Intersection Observer triggers `section-fade-in` animation (0.8s ease-out) when section enters viewport
+- **Smooth Scroll**: HTML `scroll-behavior: smooth` for all internal navigation
+- **Hover Effects**: Subtle color transitions (0.2s) on interactive elements
+- **Title Animation**: Initial fade-in on page load (0.8s ease-out)
 
 ## Interaction Flow
 
 ### Initial Load
-1. Welcome text displays instantly
-2. Command prompt appears with blinking cursor
-3. Four clickable command buttons appear below
+1. Page renders with sticky header
+2. Title: "Aref:" + initial tagline displayed instantly
+3. Typewriter animation starts: cycles through 6 taglines continuously
+4. Scroll hint appears below
+5. Sections load with fade-in animations as user scrolls
 
-### Command Execution (e.g., user clicks "whoami")
-1. Prompt line is created: `$ `
-2. Command text types out character-by-character: `$ whoami` (with cursor following)
-3. Cursor disappears after typing completes
-4. Output section appears below
-5. Output lines print one-by-one with slight delays
-6. Terminal auto-scrolls to bottom
-7. New option buttons appear for next action
-8. Previous command/output stay visible in history
+### User Scrolling
+1. Page scrolls smoothly with `scroll-behavior: smooth`
+2. As each section enters viewport (threshold: 10%), Intersection Observer triggers fade-in animation
+3. SVG graphics display transparently against background colors
+4. Text content remains statically positioned
 
-### Theme Toggle
-- Clicking `🎨 theme` swaps color scheme
-- Preference saved to `localStorage` (persists across sessions)
-- All text/highlight colors update instantly
+### Tagline Animation (Continuous)
+1. Current tagline types out character-by-character (50ms per character)
+2. Holds displayed for 2.5 seconds
+3. Deletes character-by-character (30ms per character)
+4. 300ms pause
+5. Next tagline begins typing
+6. Cycles repeat indefinitely through array of 6 taglines:
+   - "an open source contributor"
+   - "a backend engineer"
+   - "a systems enthusiast"
+   - "a problem solver"
+   - "crafting elegant code"
+   - "always learning"
 
-### Clear
-- Clears all history
-- Returns to initial welcome state
-- Resets navigation buttons
+### Responsive Behavior
+- Desktop (>768px): Grid layout with text and SVG side-by-side
+- Mobile (≤768px): Single column with text above SVG/icon
 
-## Command Sections
+## Section Content
 
-### `whoami`
-**Output**: Name, brief bio, graduation date, interests
+### whoami Section
+**Visual**: Hand-drawn stick figure with question mark (whoami.svg)
+**Content**:
 ```
-arefd
+Aref
 
-→ AUS CS student, graduating Spring 2026
-→ Systems & backend enthusiast
-→ Linux advocate (currently daily-driving Nobara/Niri)
-→ Always tinkering with low-level systems
+AUS CS student, graduating Spring 2026
+Systems & backend enthusiast
+Linux advocate (currently daily-driving Nobara/Niri)
+Always tinkering with low-level systems
 ```
 
-### `ls projects/`
-**Output**: Three projects with descriptions
+### projects Section
+**Visual**: Complex hand-drawn architecture diagram (Projects.svg)
+**Content**: Three projects with descriptions
 ```
 LipSync/
-  → Real-time lip reading system for AR
-  → Jetson Orin + Vuzix Z-4K glasses
-  → Custom ONNX model pipeline, streaming inference
+Real-time lip reading system for AR
+Jetson Orin + Vuzix Z-4K glasses
+Custom ONNX model pipeline
 
 repo2mermaid/
-  → CLI tool: convert codebases to architecture diagrams
-  → Automated visual documentation
+CLI tool: convert codebases to architecture diagrams
+Automated visual documentation
 
 cv-tailor/
-  → Claude API + LaTeX integration
-  → AI-powered CV tailoring for job applications
+Claude API + LaTeX integration
+AI-powered CV tailoring
 ```
 
-### `cat contact.txt`
-**Output**: Contact links
+### contact Section
+**Visual**: Phone icon (phone-calling-svgrepo-com.svg)
+**Content**:
 ```
-GitHub    https://github.com/arefd
-Email     arefd [at] email [dot] com
-LinkedIn  https://linkedin.com/in/arefd
+Open to opportunities, questions, or just chatting about systems! Reach out and let's connect.
 
-Open to opportunities, questions, or just chatting about systems!
+GitHub: https://github.com/Aref
+Email: aref@email.com
+LinkedIn: https://linkedin.com/in/Aref
 ```
 
-### `cat stack.txt`
-**Output**: Tech stack and tools
+### stack Section
+**Visual**: Knowledge/experience icon (experience-information-knowledge-svgrepo-com.svg)
+**Content**: Tech stack and tools
 ```
 Languages:
-  → Go      (systems, networking, tooling)
-  → Rust    (performance-critical, embedded)
-  → C       (low-level, kernel work)
+Go - systems, networking, tooling
+Rust - performance-critical, embedded
+C - low-level, kernel work
 
 Environment:
-  → Linux   Nobara / Niri (Wayland compositor)
-  → Shell   Fish shell
-  → Editor  Neovim + custom config
+Linux - Nobara / Niri (Wayland compositor)
+Shell - Fish shell
+Editor - Neovim + custom config
 
 Currently exploring: eBPF, async runtimes, distributed systems
 ```
@@ -185,88 +240,70 @@ Currently exploring: eBPF, async runtimes, distributed systems
 ## Responsive Design
 
 ### Desktop (>768px)
-- Full width sidebar if needed
-- Comfortable padding and spacing
-- Standard font sizes
+- Two-column grid layout: section text on left/right, SVG visual on opposite side
+- Alternating layouts for visual interest
+- Comfortable padding (60px) and spacing (gap: 60px)
+- Standard font sizes (2.5em titles, 1.1em body)
+- Full SVG/icon display at max dimensions
 
 ### Mobile/Tablet (≤768px)
-- Navigation stacks vertically on smaller screens
-- Reduced padding (15px)
-- Slightly smaller font size (0.9em)
-- Single-column layout
-- Buttons remain full-width and tappable (touch targets ≥44px)
+- Single-column layout: text stacked above SVG/icon
+- Reduced padding (40px vertical, 20px horizontal)
+- Smaller section titles (1.8em)
+- Smaller body text (1em)
+- SVG containers: `min-height: 300px` (reduced from 400px)
+- Header padding reduced (15px)
+- All touch targets maintain ≥44px for accessibility
 
-## Technical Implementation
+## Technical Stack
 
-- **Single File**: All HTML, CSS, and JavaScript in one file
-- **No Dependencies**: Vanilla JavaScript, Google Fonts only
-- **Static Deployment**: Can be hosted anywhere (GitHub Pages, Netlify, etc.)
-- **Local Storage**: Theme preference persisted
-- **Accessibility**: Semantic HTML, readable color contrast, keyboard-navigable
+- **HTML**: Semantic structure with section elements
+- **CSS**: Custom properties, grid/flexbox layouts, responsive design
+- **JavaScript**: Async/await for typewriter effect, Intersection Observer for scroll animations
+- **Assets**: 4 SVG files (whoami.svg, Projects.svg, phone-calling-svgrepo-com.svg, experience-information-knowledge-svgrepo-com.svg)
+- **Fonts**: Google Fonts (JetBrains Mono)
+- **Deployment**: Static hosting (GitHub Pages, Netlify, Vercel, custom server)
 
-## ✨ Recently Implemented Improvements
+## ✨ Implementation Summary (Current Version)
 
-### Typography & Typography Display
-- **Space Mono** font loaded alongside JetBrains Mono for distinctive header styling
-- Headers and titles use Space Mono for more character and visual distinctiveness
-- Text glow effect on body (`text-shadow: 0 0 8px`) creates atmospheric depth
+### Frontend Architecture
+- **Single HTML File**: All-in-one implementation with embedded CSS and JavaScript
+- **Framework**: Vanilla JavaScript (no dependencies)
+- **Fonts**: Google Fonts (JetBrains Mono)
+- **Graphics**: Excalidraw SVGs + SVGRepo icons
+- **Styling**: CSS custom properties (variables) for theming
 
-### Visual Depth & Atmosphere
-- **Enhanced Scanlines**: Increased opacity (0.25) and thickness (3px) with subtle flicker animation
-- **Vignette Overlay**: Radial gradient overlay creates dark border fade effect
-- **CRT Glow Effects**:
-  - Cursor has glowing box-shadow with blinking animation
-  - Prompt prefix glows with bright color
-  - Text shadows provide atmospheric depth throughout
-- **Window Chrome**: Visual maximize/minimize buttons in header decoration
+### Key Features Implemented
+1. **Rotating Typewriter Tagline**
+   - Async/await pattern with character-by-character typing
+   - 6 rotating descriptions cycling continuously
+   - CSS animations for smooth visual appearance
 
-### Accent Color System
-- **Cyan accents** (`#00ffff` / `#ffdd00`): Project names, highlights
-- **Magenta accents** (`#ff00ff` / `#ff6600`): Link colors, interactive elements
-- **Red accents** (`#ff0055` / `#ff3300`): Clear button hover state (warning aesthetic)
-- **Success accents** (`#00ff88` / `#ffaa00`): Secondary confirmations
-- **Theme-aware**: All accents adapt to green/amber theme
+2. **Scroll-based Animations**
+   - Intersection Observer API monitors section visibility
+   - Fade-in animations trigger when sections enter viewport
+   - `scroll-behavior: smooth` for native scroll smoothing
 
-### Micro-interactions & Animations
-- **Glitch Effect on Load**: Subtle RGB separation animation on title during initialization (0.6s)
-- **Screen Flash**: Brief white flash when theme toggles (0.4s fade)
-- **Fade-in Output**: All output sections animate in with `fade-in-output` keyframes
-- **Button Press Animation**:
-  - Hover: scale up (1.05), glow effect, slide right (3px)
-  - Active: scale down (0.98) for tactile feedback
-- **Shine Effect**: Gradient shine passes through option buttons on hover
-- **Enhanced Cursor**: Glow intensifies on blink, creates mesmerizing effect
+3. **Transparent SVG Integration**
+   - Removed white background rectangles from Excalidraw exports
+   - Used `background: transparent` on `.section-visual` containers
+   - `object-fit: contain` ensures proper scaling
 
-### Layout & Sidebar
-- **Left Sidebar** (desktop only):
-  - Tracks total lines output in session
-  - Shows real-time session time (MM:SS format)
-  - Displays current mode (which command was last run)
-  - Responsive: transforms to horizontal flex on mobile
-- **Window Layout**: Flexbox wrapper enables sidebar + main content layout
-- **Status Bar**: Bottom bar shows current mode, working directory, and theme
+4. **Responsive Grid Layout**
+   - CSS Grid for desktop (2 columns)
+   - Media query breakpoint at 768px
+   - Flexbox fallback for mobile (single column)
 
-### Enhanced Styling Details
-- **Terminal Container**:
-  - Deeper box-shadow for depth (inset + outer)
-  - Subtle gradient overlay for shine effect
-  - Enhanced border styling
-- **Scrollbar**: Custom styled with glow effects on hover
-- **Links**: Magenta color with glow, hover state adds intensity
-- **Clear Button**: Red hover state with glow, press animation
+5. **Color System**
+   - CSS custom properties (--bg, --fg, --accent-cyan, etc.)
+   - Catppuccin Mocha color palette
+   - Light mode adaptation for modern aesthetic
 
-### JavaScript Enhancements
-- **Session Tracking**: Real-time session timer (updates every 1s)
-- **Line Counting**: Tracks total output lines throughout session
-- **Status Updates**: Sidebar and status bar update with each command
-- **Theme Persistence**: Saved to localStorage + status bar display
-- **Animation Sequencing**: Staggered output animations with `animation-delay`
-- **Flash Functions**: Screen flash effect for theme toggle feedback
-
-### Responsive Design Updates
-- **Sidebar Collapse**: Sidebar becomes horizontal bar on mobile (≤768px)
-- **Maintained Touch Targets**: All buttons remain ≥44px for mobile usability
-- **Flexible Status Bar**: Wraps on smaller screens
+### Performance Optimizations
+- Single HTTP request (one HTML file)
+- No external build process needed
+- Static file deployment anywhere
+- Efficient Intersection Observer for animations
 
 ## Remaining Potential Improvements
 
@@ -363,10 +400,20 @@ Currently exploring: eBPF, async runtimes, distributed systems
 
 ```
 portfolioWebsite/
-├── index.html          # Main file (all-in-one)
-├── DESIGN.md           # This file
-└── README.md           # (optional) Deployment instructions
+├── index.html                                    # Main file (all-in-one HTML/CSS/JS)
+├── whoami.svg                                    # Hand-drawn stick figure
+├── Projects.svg                                  # Complex project diagram
+├── phone-calling-svgrepo-com.svg               # Contact section icon
+├── experience-information-knowledge-svgrepo-com.svg  # Stack section icon
+├── DESIGN.md                                    # This documentation
+└── README.md                                    # (optional) Deployment instructions
 ```
+
+### Asset Specifications
+- **whoami.svg**: 138×187px viewBox (displays at 300×400px max)
+- **Projects.svg**: 408×490px viewBox (displays at 400×400px max)
+- **phone-calling-svgrepo-com.svg**: 24×24px viewBox (scalable)
+- **experience-information-knowledge-svgrepo-com.svg**: 64×64px viewBox (scalable)
 
 ## Deployment Options
 
