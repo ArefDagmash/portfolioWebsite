@@ -137,12 +137,15 @@
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
+            height: 120px;
+            width: 100%;
         }
 
         .menu-item canvas {
             width: 100%;
             height: 100%;
             display: block;
+            pointer-events: none;
         }
 
         .menu-item-content {
@@ -161,6 +164,7 @@
             padding: 15px;
             cursor: pointer;
             z-index: 10;
+            pointer-events: all;
         }
 
         .menu-item:hover {
@@ -419,27 +423,40 @@ Currently exploring: eBPF, async runtimes, distributed systems`
             rc.rectangle(10, 10, 180, 100, options);
         }
 
-        // Initialize all menu boxes
-        ['whoami', 'ls', 'contact', 'stack'].forEach(cmd => {
-            drawMenuBox(`canvas-${cmd}`, false);
-        });
-
-        // Menu click handlers
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const cmd = item.dataset.cmd;
-                showContent(cmd);
-
-                // Update active state
-                document.querySelectorAll('.menu-item').forEach(i => {
-                    i.classList.remove('active');
-                    const canvasId = i.dataset.cmd;
-                    drawMenuBox(`canvas-${canvasId}`, false);
-                });
-                item.classList.add('active');
-                drawMenuBox(`canvas-${cmd}`, true);
+        // Wait for DOM to load
+        function initializeMenu() {
+            // Initialize all menu boxes
+            ['whoami', 'ls', 'contact', 'stack'].forEach(cmd => {
+                drawMenuBox(`canvas-${cmd}`, false);
             });
-        });
+
+            // Menu click handlers
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const cmd = item.dataset.cmd;
+                    showContent(cmd);
+
+                    // Update active state
+                    document.querySelectorAll('.menu-item').forEach(i => {
+                        i.classList.remove('active');
+                        const canvasId = i.dataset.cmd;
+                        drawMenuBox(`canvas-${canvasId}`, false);
+                    });
+                    item.classList.add('active');
+                    drawMenuBox(`canvas-${cmd}`, true);
+                });
+            });
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeMenu);
+        } else {
+            initializeMenu();
+        }
 
         // Show content
         function showContent(cmd) {
@@ -457,19 +474,23 @@ Currently exploring: eBPF, async runtimes, distributed systems`
             }, 100);
         }
 
-        // Clear button
-        document.getElementById('clear-btn').addEventListener('click', () => {
-            document.getElementById('content-section').style.display = 'none';
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-                const canvasId = item.dataset.cmd;
-                drawMenuBox(`canvas-${canvasId}`, false);
-            });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+            // Clear button
+            const clearBtn = document.getElementById('clear-btn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    document.getElementById('content-section').style.display = 'none';
+                    document.querySelectorAll('.menu-item').forEach(item => {
+                        item.classList.remove('active');
+                        const canvasId = item.dataset.cmd;
+                        drawMenuBox(`canvas-${canvasId}`, false);
+                    });
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
 
-        // Start tagline animation
-        typeTagline(taglines[0]);
+            // Start tagline animation
+            typeTagline(taglines[0]);
+        }
     </script>
 </body>
 </html>
