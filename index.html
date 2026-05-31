@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/roughjs@4.5.0/bundled/rough.esm.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,84 +15,46 @@
         }
 
         :root {
-            --bg: #1E1E2E;
-            --fg: #CDD6F4;
-            --fg-alt: #BAC2DE;
+            --bg: #F5F5F7;
+            --bg-alt: #EBEBF0;
+            --fg: #1E1E2E;
+            --fg-light: #45475A;
             --accent-cyan: #94E2D5;
             --accent-magenta: #F5C2E7;
             --accent-yellow: #F9E2AF;
             --accent-blue: #89B4FA;
-            --dim: #45475A;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'JetBrains Mono', monospace;
             background-color: var(--bg);
             color: var(--fg);
-            overflow-x: hidden;
-            position: relative;
+            line-height: 1.6;
         }
 
-        /* Subtle scanline effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                repeating-linear-gradient(
-                    0deg,
-                    rgba(0, 0, 0, 0.08),
-                    rgba(0, 0, 0, 0.08) 1px,
-                    transparent 1px,
-                    transparent 2px
-                );
-            pointer-events: none;
-            z-index: 999;
-        }
-
-        @keyframes fade-in-header {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes tagline-rotate {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
+        /* Header section */
         header {
-            margin-bottom: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(245, 245, 247, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid var(--bg-alt);
             text-align: center;
         }
 
         .title {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: 700;
             letter-spacing: 0.5px;
             color: var(--accent-cyan);
-            animation: fade-in-header 0.8s ease-out;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            animation: fade-in 0.8s ease-out;
         }
 
         .title-colon {
@@ -102,87 +63,13 @@
 
         .title-tagline {
             color: var(--accent-yellow);
-            animation: tagline-rotate 0.6s ease-out;
-            display: inline;
             min-width: 280px;
         }
 
-        .subtitle {
-            font-size: 1.1em;
-            color: var(--fg-alt);
+        .scroll-hint {
+            font-size: 0.85em;
+            color: var(--fg-light);
             margin-top: 10px;
-            font-weight: 400;
-        }
-
-        /* Menu section */
-        .menu-section {
-            margin-bottom: 40px;
-        }
-
-        .menu-label {
-            font-size: 1.2em;
-            color: var(--accent-cyan);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .menu-item {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            height: 120px;
-            width: 100%;
-        }
-
-        .menu-item canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-            pointer-events: none;
-        }
-
-        .menu-item-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: var(--fg);
-            text-align: center;
-            padding: 15px;
-            cursor: pointer;
-            z-index: 10;
-            pointer-events: all;
-        }
-
-        .menu-item:hover {
-            transform: scale(1.05);
-        }
-
-        .menu-item.active .menu-item-content {
-            color: var(--bg);
-        }
-
-        /* Content section */
-        .content-section {
-            background: rgba(49, 50, 68, 0.5);
-            border: 1px solid var(--dim);
-            border-radius: 6px;
-            padding: 30px;
-            margin-top: 40px;
-            animation: fade-in 0.6s ease-out;
         }
 
         @keyframes fade-in {
@@ -196,135 +83,163 @@
             }
         }
 
-        .content-title {
-            font-size: 1.5em;
-            color: var(--accent-cyan);
-            margin-bottom: 20px;
+        /* Section styles */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            animation: section-fade-in 0.8s ease-out;
+        }
+
+        @keyframes section-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(odd) {
+            background: var(--bg);
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-alt);
+        }
+
+        .section-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .section-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 2.5em;
             font-weight: 700;
-        }
-
-        .content-text {
-            line-height: 1.8;
             color: var(--fg);
-            white-space: pre-wrap;
-            word-wrap: break-word;
+            margin-bottom: 15px;
         }
 
-        .content-line {
-            margin: 8px 0;
-        }
-
-        /* Links */
-        a {
-            color: var(--accent-blue);
-            text-decoration: none;
-            border-bottom: 1px dotted var(--accent-blue);
-            transition: all 0.2s;
-        }
-
-        a:hover {
+        .section-title span {
             color: var(--accent-cyan);
-            border-bottom-color: var(--accent-cyan);
         }
 
-        /* Clear button */
-        .clear-btn {
-            padding: 12px 20px;
-            background: transparent;
-            border: 1px solid var(--dim);
-            color: var(--fg);
-            cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1em;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border-radius: 4px;
-            margin-top: 20px;
+        .section-description {
+            font-size: 1.1em;
+            color: var(--fg-light);
+            line-height: 1.8;
+            white-space: pre-wrap;
         }
 
-        .clear-btn:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(148, 226, 213, 0.1);
+        .section-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            min-height: 400px;
         }
 
-        .clear-btn:active {
-            transform: scale(0.98);
+        .section-visual svg {
+            width: 100%;
+            height: 100%;
+            max-width: 400px;
+            max-height: 400px;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
         }
+
 
         /* Responsive */
         @media (max-width: 768px) {
-            .title {
+            section {
+                padding: 40px 20px;
+                min-height: auto;
+            }
+
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-title {
                 font-size: 1.8em;
             }
 
-            .menu-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .section-description {
+                font-size: 1em;
             }
 
-            .container {
-                padding: 20px 15px;
+            .section-visual {
+                min-height: 300px;
             }
+
+            header {
+                padding: 15px;
+            }
+
+            .title {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Smooth transitions */
+        section {
+            transition: all 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
-            <div class="subtitle">hand-drawn exploration</div>
-        </header>
+    <header>
+        <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
+        <div class="scroll-hint">↓ scroll to explore</div>
+    </header>
 
-        <!-- Menu -->
-        <div class="menu-section">
-            <div class="menu-label">Choose a section:</div>
-            <div class="menu-grid" id="menu-grid">
-                <div class="menu-item" data-cmd="whoami">
-                    <canvas id="canvas-whoami"></canvas>
-                    <div class="menu-item-content">whoami</div>
-                </div>
-                <div class="menu-item" data-cmd="ls">
-                    <canvas id="canvas-ls"></canvas>
-                    <div class="menu-item-content">projects</div>
-                </div>
-                <div class="menu-item" data-cmd="contact">
-                    <canvas id="canvas-contact"></canvas>
-                    <div class="menu-item-content">contact</div>
-                </div>
-                <div class="menu-item" data-cmd="stack">
-                    <canvas id="canvas-stack"></canvas>
-                    <div class="menu-item-content">stack</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Content section -->
-        <div class="content-section" id="content-section" style="display: none;">
-            <div class="content-title" id="content-title"></div>
-            <div class="content-text" id="content-text"></div>
-            <button class="clear-btn" id="clear-btn">← back to menu</button>
-        </div>
-    </div>
-
-    <script>
-        const rc = rough.canvas(document.createElement('canvas'));
-
-        // Command data
-        const commands = {
-            whoami: {
-                title: 'whoami',
-                content: `Aref
+    <!-- Whoami Section -->
+    <section id="whoami">
+        <div class="section-content">
+            <div class="section-text">
+                <h1 class="section-title"><span>whoami</span></h1>
+                <p class="section-description">Aref
 
 AUS CS student, graduating Spring 2026
 Systems & backend enthusiast
 Linux advocate (currently daily-driving Nobara/Niri)
-Always tinkering with low-level systems`
-            },
-            ls: {
-                title: 'projects',
-                content: `LipSync/
+Always tinkering with low-level systems</p>
+            </div>
+            <div class="section-visual">
+                <img src="whoami.svg" alt="Who am I" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-content">
+            <div class="section-visual">
+                <img src="Projects.svg" alt="Projects" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <div class="section-text">
+                <h1 class="section-title"><span>projects</span></h1>
+                <p class="section-description">LipSync/
 Real-time lip reading system for AR
 Jetson Orin + Vuzix Z-4K glasses
-Custom ONNX model pipeline, streaming inference
+Custom ONNX model pipeline
 
 repo2mermaid/
 CLI tool: convert codebases to architecture diagrams
@@ -332,33 +247,52 @@ Automated visual documentation
 
 cv-tailor/
 Claude API + LaTeX integration
-AI-powered CV tailoring for job applications`
-            },
-            contact: {
-                title: 'contact',
-                content: `GitHub    https://github.com/Aref
-Email     Aref [at] email [dot] com
-LinkedIn  https://linkedin.com/in/Aref
+AI-powered CV tailoring</p>
+            </div>
+        </div>
+    </section>
 
-Open to opportunities, questions, or just chatting about systems!`
-            },
-            stack: {
-                title: 'stack',
-                content: `Languages:
-  Go       - systems, networking, tooling
-  Rust     - performance-critical, embedded
-  C        - low-level, kernel work
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-content">
+            <div class="section-text">
+                <h1 class="section-title"><span>contact</span></h1>
+                <p class="section-description">Open to opportunities, questions, or just chatting about systems! Reach out and let's connect.
+
+GitHub: https://github.com/Aref
+Email: aref@email.com
+LinkedIn: https://linkedin.com/in/Aref</p>
+            </div>
+            <div class="section-visual">
+                <img src="phone-calling-svgrepo-com.svg" alt="Contact" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stack Section -->
+    <section id="stack">
+        <div class="section-content">
+            <div class="section-text">
+                <h1 class="section-title"><span>stack</span></h1>
+                <p class="section-description">Languages:
+Go - systems, networking, tooling
+Rust - performance-critical, embedded
+C - low-level, kernel work
 
 Environment:
-  Linux    - Nobara / Niri (Wayland compositor)
-  Shell    - Fish shell
-  Editor   - Neovim + custom config
+Linux - Nobara / Niri (Wayland compositor)
+Shell - Fish shell
+Editor - Neovim + custom config
 
-Currently exploring: eBPF, async runtimes, distributed systems`
-            }
-        };
+Currently exploring: eBPF, async runtimes, distributed systems</p>
+            </div>
+            <div class="section-visual">
+                <img src="experience-information-knowledge-svgrepo-com.svg" alt="Tech Stack" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+        </div>
+    </section>
 
-        // Tagline rotation
+    <script>
         const taglines = [
             'an open source contributor',
             'a backend engineer',
@@ -400,97 +334,21 @@ Currently exploring: eBPF, async runtimes, distributed systems`
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        // Draw rough boxes for menu items
-        function drawMenuBox(canvasId, isActive = false) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
+        // Start tagline animation
+        typeTagline(taglines[0]);
 
-            const ctx = canvas.getContext('2d');
-            canvas.width = 200;
-            canvas.height = 120;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const rc = rough.canvas(canvas);
-
-            const options = {
-                stroke: isActive ? '#94E2D5' : '#F5C2E7',
-                strokeWidth: isActive ? 3 : 2,
-                roughness: 1.5,
-                fill: isActive ? 'rgba(148, 226, 213, 0.15)' : 'transparent'
-            };
-
-            rc.rectangle(10, 10, 180, 100, options);
-        }
-
-        // Wait for DOM to load
-        function initializeMenu() {
-            // Initialize all menu boxes
-            ['whoami', 'ls', 'contact', 'stack'].forEach(cmd => {
-                drawMenuBox(`canvas-${cmd}`, false);
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'section-fade-in 0.8s ease-out';
+                }
             });
+        }, { threshold: 0.1 });
 
-            // Menu click handlers
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const cmd = item.dataset.cmd;
-                    showContent(cmd);
-
-                    // Update active state
-                    document.querySelectorAll('.menu-item').forEach(i => {
-                        i.classList.remove('active');
-                        const canvasId = i.dataset.cmd;
-                        drawMenuBox(`canvas-${canvasId}`, false);
-                    });
-                    item.classList.add('active');
-                    drawMenuBox(`canvas-${cmd}`, true);
-                });
-            });
-        }
-
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeMenu);
-        } else {
-            initializeMenu();
-        }
-
-        // Show content
-        function showContent(cmd) {
-            const content = commands[cmd];
-            if (!content) return;
-
-            const contentSection = document.getElementById('content-section');
-            document.getElementById('content-title').textContent = content.title;
-            document.getElementById('content-text').textContent = content.content;
-            contentSection.style.display = 'block';
-
-            // Scroll to content
-            setTimeout(() => {
-                contentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-
-            // Clear button
-            const clearBtn = document.getElementById('clear-btn');
-            if (clearBtn) {
-                clearBtn.addEventListener('click', () => {
-                    document.getElementById('content-section').style.display = 'none';
-                    document.querySelectorAll('.menu-item').forEach(item => {
-                        item.classList.remove('active');
-                        const canvasId = item.dataset.cmd;
-                        drawMenuBox(`canvas-${canvasId}`, false);
-                    });
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-
-            // Start tagline animation
-            typeTagline(taglines[0]);
-        }
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
     </script>
 </body>
 </html>
