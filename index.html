@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arefd | Terminal Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Catppuccin Mocha */
+            --bg: #1E1E2E;
+            --bg-alt: #313244;
+            --fg: #CDD6F4;
+            --fg-alt: #BAC2DE;
+            --accent-cyan: #94E2D5;
+            --accent-magenta: #F5C2E7;
+            --accent-red: #F38BA8;
+            --accent-yellow: #F9E2AF;
+            --accent-blue: #89B4FA;
+            --accent-green: #A6E3A1;
+            --dim: #45475A;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg);
+            color: var(--fg);
+            line-height: 1.3;
+            overflow-x: hidden;
+            position: relative;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Subtle scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.08),
+                    rgba(0, 0, 0, 0.08) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes fade-in-output {
+            from {
+                opacity: 0;
+                transform: translateY(-3px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { text-shadow: 0 0 0 var(--accent-cyan); }
+            50% { text-shadow: 0 0 6px var(--accent-cyan); }
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Left sidebar - hidden */
+        .sidebar {
+            display: none;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 30px 40px;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 20px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            position: relative;
+        }
+
+        .title {
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--accent-cyan);
+            animation: fade-in-header 0.8s ease-out;
+        }
+
+        .title-colon {
+            color: var(--accent-magenta);
+        }
+
+        .title-tagline {
+            color: var(--accent-yellow);
+            animation: tagline-rotate 0.6s ease-out;
+            display: inline-block;
+            min-width: 280px;
+        }
+
+        @keyframes fade-in-header {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes tagline-rotate {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Terminal output area */
+        .terminal {
+            flex: 1;
+            min-height: 450px;
+            padding: 42px 30px 30px;
+            background: rgba(30, 30, 46, 0.8);
+            border: 1px solid var(--dim);
+            border-radius: 6px;
+            overflow-y: auto;
+            word-break: break-word;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Terminal window title bar */
+        .terminal::before {
+            content: 'terminal';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 28px;
+            padding: 0 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid var(--dim);
+            border-radius: 6px 6px 0 0;
+            font-size: 0.8em;
+            color: var(--dim);
+            display: flex;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .terminal::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .terminal::-webkit-scrollbar-thumb {
+            background: var(--dim);
+            border-radius: 4px;
+        }
+
+        .terminal::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Command line */
+        .prompt-line {
+            display: flex;
+            align-items: baseline;
+            margin: 2px 0;
+            min-height: 1.4em;
+            position: relative;
+        }
+
+        .prompt-prefix {
+            color: var(--accent-magenta);
+            margin-right: 6px;
+            font-weight: 700;
+        }
+
+        .command-text {
+            flex: 1;
+            word-break: break-all;
+            color: var(--fg);
+            font-weight: 500;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: var(--accent-cyan);
+            margin-left: 4px;
+            animation: blink 1s infinite;
+        }
+
+        .cursor.hidden {
+            display: none;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* Output section */
+        .output {
+            margin: 3px 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: var(--fg);
+            line-height: 1.3;
+            animation: fade-in-output 0.4s ease-out forwards;
+        }
+
+        .output-line {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin: 8px 0 10px 0;
+        }
+
+        .option-btn {
+            padding: 6px 0;
+            background: transparent;
+            border: none;
+            color: var(--fg);
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95em;
+            text-align: left;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            color: var(--accent-cyan);
+            transform: translateX(2px);
+        }
+
+        .option-btn:active {
+            transform: scale(0.98) translateX(2px);
+        }
+
+        .option-number {
+            color: var(--accent-magenta);
+            font-weight: 700;
+            min-width: 25px;
+        }
+
+        .option-prefix {
+            display: none;
+        }
+
+        /* Links */
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--accent-blue);
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+        }
+
+        /* Clear button */
+        .clear-btn {
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid var(--dim);
+            color: var(--fg);
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .clear-btn:hover {
+            border-color: var(--accent-red);
+            background: rgba(243, 139, 168, 0.08);
+        }
+
+        .clear-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Section divider */
+        .section-divider {
+            color: var(--dim);
+            margin: 8px 0;
+            font-size: 0.9em;
+            letter-spacing: 4px;
+        }
+
+        /* Command item */
+        .command-item {
+            display: flex;
+            gap: 16px;
+            align-items: baseline;
+            margin: 6px 0;
+            padding: 6px 0;
+        }
+
+        .command-name {
+            color: var(--accent-magenta);
+            font-weight: 700;
+            min-width: 60px;
+        }
+
+        .command-desc {
+            color: var(--accent-yellow);
+            font-weight: 500;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--dim);
+                padding: 15px 20px;
+                display: flex;
+                gap: 30px;
+                overflow-x: auto;
+            }
+
+            .sidebar-section {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+                white-space: nowrap;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .terminal {
+                font-size: 0.9em;
+                padding: 20px;
+                min-height: 350px;
+            }
+
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-label">lines</div>
+                <div class="sidebar-value" id="line-count">0</div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">session</div>
+                <div class="sidebar-value" id="session-time">00:00</div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">pwd</div>
+                <div class="sidebar-value" id="current-pwd">~/</div>
+            </div>
+        </div>
+
+        <div class="container">
+            <header>
+                <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
+            </header>
+
+            <div class="terminal" id="terminal">
+                <!-- Initial welcome - commands only -->
+                <div class="output" style="margin: 0;"></div>
+
+                <!-- Initial prompt -->
+                <div class="prompt-line" id="initial-prompt">
+                    <span class="prompt-prefix">></span>
+                    <span class="command-text" id="initial-cmd"></span>
+                    <span class="cursor" id="initial-cursor"></span>
+                </div>
+
+                <!-- Options will appear here -->
+                <div class="options" id="options"></div>
+            </div>
+
+
+            <button class="clear-btn" id="clear-btn">> clear</button>
+        </div>
+    </div>
+
+    <script>
+        const TYPING_SPEED = 50; // ms per character
+        const terminal = document.getElementById('terminal');
+        const optionsContainer = document.getElementById('options');
+        const clearBtn = document.getElementById('clear-btn');
+        const themeToggle = document.getElementById('theme-toggle');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const lineCountEl = document.getElementById('line-count');
+        const sessionTimeEl = document.getElementById('session-time');
+        const taglineEl = document.getElementById('tagline');
+
+        // Session tracking
+        let sessionStartTime = Date.now();
+        let totalLines = 0;
+
+        // Update session time every second
+        setInterval(() => {
+            const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            sessionTimeEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }, 1000);
+
+        // Typing taglines
+        const taglines = [
+            'an open source contributor',
+            'a backend engineer',
+            'a systems enthusiast',
+            'a problem solver',
+            'crafting elegant code',
+            'always learning'
+        ];
+
+        let currentTaglineIndex = 0;
+        let isTypingTagline = false;
+
+        async function typeTagline(text) {
+            isTypingTagline = true;
+            taglineEl.textContent = '';
+
+            // Type out the text
+            for (let char of text) {
+                taglineEl.textContent += char;
+                await sleep(50);
+            }
+
+            // Wait before deleting
+            await sleep(2500);
+
+            // Delete the text character by character
+            while (taglineEl.textContent.length > 0) {
+                taglineEl.textContent = taglineEl.textContent.slice(0, -1);
+                await sleep(30);
+            }
+
+            // Move to next tagline
+            currentTaglineIndex = (currentTaglineIndex + 1) % taglines.length;
+            await sleep(300);
+
+            isTypingTagline = false;
+            typeTagline(taglines[currentTaglineIndex]);
+        }
+
+        // Start the typing animation
+        typeTagline(taglines[0]);
+
+        // Command data
+        const commands = {
+            whoami: {
+                name: 'whoami',
+                output: [
+                    'Aref',
+                    '',
+                    'AUS CS student, graduating Spring 2026',
+                    'Systems & backend enthusiast',
+                    'Linux advocate (currently daily-driving Nobara/Niri)',
+                    'Always tinkering with low-level systems',
+                    ''
+                ],
+                options: ['ls projects', 'cat contact', 'cat stack']
+            },
+            ls: {
+                name: 'ls projects',
+                output: [
+                    'total 3 projects',
+                    '',
+                    'LipSync/',
+                    '  Real-time lip reading system for AR',
+                    '  Jetson Orin + Vuzix Z-4K glasses',
+                    '  Custom ONNX model pipeline, streaming inference',
+                    '',
+                    'repo2mermaid/',
+                    '  CLI tool: convert codebases to architecture diagrams',
+                    '  Automated visual documentation',
+                    '',
+                    'cv-tailor/',
+                    '  Claude API + LaTeX integration',
+                    '  AI-powered CV tailoring for job applications',
+                    ''
+                ],
+                options: ['whoami', 'cat contact', 'cat stack']
+            },
+            contact: {
+                name: 'cat contact',
+                output: [
+                    'GitHub    https://github.com/Aref',
+                    'Email     Aref [at] email [dot] com',
+                    'LinkedIn  https://linkedin.com/in/Aref',
+                    '',
+                    'Open to opportunities, questions, or just chatting about systems!'
+                ],
+                options: ['whoami', 'ls projects', 'cat stack']
+            },
+            stack: {
+                name: 'cat stack',
+                output: [
+                    'Languages:',
+                    '  Go       - systems, networking, tooling',
+                    '  Rust     - performance-critical, embedded',
+                    '  C        - low-level, kernel work',
+                    '',
+                    'Environment:',
+                    '  Linux    - Nobara / Niri (Wayland compositor)',
+                    '  Shell    - Fish shell',
+                    '  Editor   - Neovim + custom config',
+                    '',
+                    'Currently exploring: eBPF, async runtimes, distributed systems'
+                ],
+                options: ['whoami', 'ls projects', 'cat contact']
+            }
+        };
+
+        // State
+        let isTyping = false;
+        let currentCommand = null;
+
+        // Initialize with welcome screen
+        showInitialOptions();
+
+        // Event listener
+        clearBtn.addEventListener('click', clearTerminal);
+
+        function showInitialOptions() {
+            const options = ['whoami', 'projects', 'contact', 'stack'];
+            renderOptions(options);
+        }
+
+        function renderOptions(options) {
+            optionsContainer.innerHTML = '';
+            options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                const label = getOptionLabel(option);
+                const number = index + 1;
+                btn.innerHTML = `<span class="option-number">${number}.</span> ${label}`;
+                btn.addEventListener('click', () => {
+                    const cmdKey = getCommandKey(option);
+                    executeCommand(cmdKey);
+                });
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // Show initial commands on load
+        function showInitialWithoutWelcome() {
+            const initialOutput = terminal.querySelector('.output:first-of-type');
+            if (initialOutput) {
+                initialOutput.innerHTML = '';
+            }
+            const options = ['whoami', 'projects', 'contact', 'stack'];
+            renderOptions(options);
+        }
+
+        function getOptionLabel(option) {
+            if (option.includes('whoami')) return 'whoami';
+            if (option.includes('projects')) return 'projects';
+            if (option.includes('contact')) return 'contact';
+            if (option.includes('stack')) return 'stack';
+            return option;
+        }
+
+        function getCommandKey(optionText) {
+            if (optionText.includes('whoami')) return 'whoami';
+            if (optionText.includes('projects')) return 'ls';
+            if (optionText.includes('contact')) return 'contact';
+            if (optionText.includes('stack')) return 'stack';
+            return 'whoami';
+        }
+
+        async function executeCommand(cmd) {
+            if (isTyping) return;
+            isTyping = true;
+
+            // If switching to a different command, clear previous content
+            if (currentCommand && currentCommand.name !== commands[cmd].name) {
+                // Clear all children except the options container
+                const children = Array.from(terminal.children);
+                children.forEach(child => {
+                    if (child.id !== 'options') {
+                        child.remove();
+                    }
+                });
+                totalLines = 0;
+                optionsContainer.innerHTML = ''; // Clear old options
+            }
+
+            currentCommand = commands[cmd];
+            if (!currentCommand) return;
+
+            // Create prompt line
+            const promptLine = document.createElement('div');
+            promptLine.className = 'prompt-line';
+            promptLine.innerHTML = `<span class="prompt-prefix">></span><span class="command-text" id="cmd-text"></span><span class="cursor" id="cmd-cursor"></span>`;
+            terminal.appendChild(promptLine);
+            totalLines++;
+
+            // Type command
+            const cmdText = document.getElementById('cmd-text');
+            const cursor = document.getElementById('cmd-cursor');
+            await typeText(currentCommand.name, cmdText, cursor);
+
+            // Hide cursor after typing
+            cursor.classList.add('hidden');
+
+            // Add output
+            const outputDiv = document.createElement('div');
+            outputDiv.className = 'output';
+            terminal.appendChild(outputDiv);
+
+            // Print output line by line with staggered animation
+            for (let i = 0; i < currentCommand.output.length; i++) {
+                const line = currentCommand.output[i];
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'output-line';
+                lineDiv.textContent = line;
+                lineDiv.style.animationDelay = `${i * 0.05}s`;
+                outputDiv.appendChild(lineDiv);
+                totalLines++;
+                await sleep(30);
+            }
+
+            // Update line count
+            updateLineCount();
+
+            // Scroll to bottom
+            await sleep(200);
+            terminal.scrollTop = terminal.scrollHeight;
+
+            // Render options
+            renderOptions(currentCommand.options);
+
+            isTyping = false;
+        }
+
+        function updateLineCount() {
+            lineCountEl.textContent = totalLines;
+        }
+
+        async function typeText(text, element, cursor) {
+            for (let i = 0; i < text.length; i++) {
+                element.textContent += text[i];
+                await sleep(TYPING_SPEED);
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function updateNavButtons(activeCmd) {
+            navBtns.forEach(btn => {
+                if (btn.id === 'theme-toggle') return;
+                btn.classList.remove('active');
+                if (btn.dataset.cmd === activeCmd) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function clearTerminal() {
+            if (isTyping) return;
+            terminal.innerHTML = '';
+            optionsContainer.innerHTML = '';
+            currentCommand = null;
+            totalLines = 0;
+            updateLineCount();
+
+            // Add empty output div for styling
+            const emptyOutput = document.createElement('div');
+            emptyOutput.className = 'output';
+            terminal.appendChild(emptyOutput);
+
+            // Add prompt line
+            const promptLine = document.createElement('div');
+            promptLine.className = 'prompt-line';
+            promptLine.innerHTML = `<span class="prompt-prefix">></span><span class="command-text"></span><span class="cursor"></span>`;
+            terminal.appendChild(promptLine);
+
+            showInitialOptions();
+
+            terminal.scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
