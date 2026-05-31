@@ -46,6 +46,10 @@
             padding: 20px;
             border-bottom: 1px solid var(--bg-alt);
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
 
         .title {
@@ -164,9 +168,129 @@
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
         }
 
+        /* Smooth transitions */
+        section {
+            transition: all 0.3s ease;
+        }
 
-        /* Responsive */
+        /* Sidebar */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: var(--bg-alt);
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 200;
+        }
+
+        .sidebar-header {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-section-label {
+            font-size: 0.9em;
+            color: var(--fg-light);
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .sidebar-link {
+            color: var(--fg-light);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: block;
+            cursor: pointer;
+        }
+
+        .sidebar-link:hover {
+            color: var(--accent-cyan);
+            background-color: rgba(148, 226, 213, 0.1);
+        }
+
+        .sidebar-link.active {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Main content shifted right */
+        #main-content {
+            margin-left: 200px;
+            width: calc(100% - 200px);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(245, 245, 247, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-bottom: 1px solid var(--bg-alt);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--fg);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Mobile responsive */
         @media (max-width: 768px) {
+            #sidebar {
+                width: 250px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 300;
+            }
+
+            body.sidebar-open #sidebar {
+                transform: translateX(0);
+            }
+
+            #main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .sidebar-toggle {
+                display: block;
+            }
+
+            header {
+                justify-content: flex-start;
+            }
+
+            .title {
+                flex: 1;
+                text-align: center;
+            }
+
+            .scroll-hint {
+                display: none;
+            }
+
             section {
                 padding: 40px 20px;
                 min-height: auto;
@@ -188,28 +312,37 @@
             .section-visual {
                 min-height: 300px;
             }
-
-            header {
-                padding: 15px;
-            }
-
-            .title {
-                font-size: 1.5em;
-            }
-        }
-
-        /* Smooth transitions */
-        section {
-            transition: all 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
-        <div class="scroll-hint">↓ scroll to explore</div>
-    </header>
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h2 style="font-size: 1.2em; color: var(--accent-cyan); margin-bottom: 20px;">Aref</h2>
+        </div>
 
+        <nav class="sidebar-nav">
+            <div class="sidebar-section-label">— portfolio —</div>
+            <a href="#whoami" class="sidebar-link" data-section="whoami">whoami</a>
+            <a href="#projects" class="sidebar-link" data-section="projects">projects</a>
+            <a href="#stack" class="sidebar-link" data-section="stack">stack</a>
+            <a href="#contact" class="sidebar-link" data-section="contact">contact</a>
+
+            <div class="sidebar-section-label" style="margin-top: 20px;">— blog —</div>
+            <a href="#" class="sidebar-link" data-view="blog" id="blog-link">blog</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <header>
+            <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+            <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
+        </header>
+
+        <!-- Portfolio View -->
+        <div id="portfolio-view">
     <!-- Whoami Section -->
     <section id="whoami">
         <div class="section-content">
@@ -275,22 +408,38 @@ Environment:
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="section-content">
-            <div class="section-text">
-                <h1 class="section-title"><span>contact</span></h1>
-                <p class="section-description">Open to opportunities, questions, or just chatting about systems! Reach out and let's connect.
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-content">
+                <div class="section-text">
+                    <h1 class="section-title"><span>contact</span></h1>
+                    <p class="section-description">Open to opportunities, questions, or just chatting about systems! Reach out and let's connect.
 
 → GitHub: https://github.com/Aref
 → Email: aref@email.com
 → LinkedIn: https://linkedin.com/in/Aref</p>
+                </div>
+                <div class="section-visual">
+                    <img src="Contact.svg" alt="Contact" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
             </div>
-            <div class="section-visual">
-                <img src="Contact.svg" alt="Contact" style="width: 100%; height: 100%; object-fit: contain;">
-            </div>
+        </section>
         </div>
-    </section>
+
+        <!-- Blog View -->
+        <div id="blog-view" style="display: none;">
+            <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 40px;">
+                <div class="section-content">
+                    <div class="section-text" style="max-width: 600px;">
+                        <h1 class="section-title"><span>blog</span></h1>
+                        <p class="section-description" style="font-size: 1.2em; color: var(--fg-light);">
+no posts yet — check back soon
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 
     <script>
         const taglines = [
@@ -348,6 +497,84 @@ Environment:
 
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+
+        // Navigation and view switching
+        const portfolioView = document.getElementById('portfolio-view');
+        const blogView = document.getElementById('blog-view');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        // Show portfolio view
+        function showPortfolioView() {
+            portfolioView.style.display = 'block';
+            blogView.style.display = 'none';
+        }
+
+        // Show blog view
+        function showBlogView() {
+            portfolioView.style.display = 'none';
+            blogView.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // Portfolio section links
+        document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPortfolioView();
+                const sectionId = link.getAttribute('data-section');
+                setTimeout(() => {
+                    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+                closeSidebarOnMobile();
+            });
+        });
+
+        // Blog link
+        document.getElementById('blog-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            showBlogView();
+            closeSidebarOnMobile();
+        });
+
+        // Sidebar toggle on mobile
+        sidebarToggle.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-open');
+        });
+
+        // Close sidebar when clicking on a link (mobile)
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 768) {
+                document.body.classList.remove('sidebar-open');
+            }
+        }
+
+        // Active link tracking while scrolling
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    sidebarLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`.sidebar-link[data-section="${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('#portfolio-view section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Close sidebar when clicking outside (mobile)
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && document.body.classList.contains('sidebar-open')) {
+                if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    document.body.classList.remove('sidebar-open');
+                }
+            }
         });
     </script>
 </body>
