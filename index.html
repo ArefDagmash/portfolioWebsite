@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2394E2D5'/><text x='16' y='23' font-size='20' font-family='monospace' font-weight='bold' fill='%231E1E2E' text-anchor='middle'>A</text></svg>">
     <style>
         * {
             margin: 0;
@@ -15,10 +16,23 @@
         }
 
         :root {
+            /* Light theme (default) */
             --bg: #F5F5F7;
             --bg-alt: #EBEBF0;
             --fg: #1E1E2E;
             --fg-light: #45475A;
+            --accent-cyan: #94E2D5;
+            --accent-magenta: #F5C2E7;
+            --accent-yellow: #F9E2AF;
+            --accent-blue: #89B4FA;
+        }
+
+        /* Dark theme */
+        body.dark-theme {
+            --bg: #1E1E2E;
+            --bg-alt: #313244;
+            --fg: #F5F5F9;
+            --fg-light: #E0E0E8;
             --accent-cyan: #94E2D5;
             --accent-magenta: #F5C2E7;
             --accent-yellow: #F9E2AF;
@@ -45,11 +59,43 @@
             backdrop-filter: blur(10px);
             padding: 20px;
             border-bottom: 1px solid var(--bg-alt);
-            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 20px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body.dark-theme header {
+            background: rgba(30, 30, 46, 0.95);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            color: var(--fg);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: scale(1.15);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
         .title {
@@ -143,11 +189,16 @@
         }
 
         .section-description {
-            font-size: 1.1em;
+            font-size: 1.5em;
             color: var(--fg-light);
             line-height: 1.8;
             white-space: pre-wrap;
         }
+
+        .hl-cyan { color: #169c8b; font-weight: 500; }
+        .hl-magenta { color: #c7559c; font-weight: 500; }
+        .hl-yellow { color: #b38f3a; font-weight: 500; }
+        .hl-blue { color: #5a8de0; font-weight: 500; }
 
         .section-visual {
             display: flex;
@@ -166,6 +217,80 @@
             max-width: 400px;
             max-height: 400px;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+            transition: filter 0.3s ease;
+        }
+
+        body.dark-theme .section-visual svg {
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) brightness(1.3) invert(1);
+        }
+
+        body.dark-theme .section-visual img {
+            filter: brightness(1.3) invert(1);
+            transition: filter 0.3s ease;
+        }
+
+        /* Project cards */
+        .project-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--bg);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        body.dark-theme .project-card {
+            border-color: #444;
+            background: var(--bg-alt);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-theme .project-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--fg);
+            margin-bottom: 8px;
+        }
+
+        .project-card-desc {
+            font-size: 1em;
+            color: var(--fg-light);
+            line-height: 1.6;
+        }
+
+        .project-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            color: var(--fg-light);
+            text-decoration: none;
+            font-size: 0.85em;
+            transition: color 0.2s ease;
+        }
+
+        .project-card-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .project-card-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         /* Smooth transitions */
@@ -184,7 +309,52 @@
             border-right: 1px solid #ddd;
             padding: 20px;
             overflow-y: auto;
-            z-index: 200;
+            z-index: 150;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body.dark-theme #sidebar {
+            border-right-color: #444;
+        }
+
+        body.sidebar-open #sidebar {
+            transform: translateX(0);
+        }
+
+        /* Desktop: sidebar always visible and pushes content */
+        @media (min-width: 769px) {
+            #sidebar {
+                transform: translateX(0);
+                position: fixed;
+            }
+
+            #main-content {
+                margin-left: 200px;
+                transition: margin-left 0.3s ease;
+            }
+
+            body:not(.sidebar-open) #sidebar {
+                transform: translateX(-100%);
+            }
+
+            body:not(.sidebar-open) #main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Mobile: sidebar overlays with backdrop */
+        @media (max-width: 768px) {
+            body.sidebar-open::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 140;
+            }
         }
 
         .sidebar-header {
@@ -225,10 +395,10 @@
             font-weight: 600;
         }
 
-        /* Main content shifted right */
+        /* Main content */
         #main-content {
-            margin-left: 200px;
-            width: calc(100% - 200px);
+            width: 100%;
+            transition: margin-left 0.3s ease;
         }
 
         header {
@@ -247,44 +417,168 @@
         }
 
         .sidebar-toggle {
-            display: none;
             background: none;
             border: none;
             color: var(--fg);
             font-size: 1.5em;
             cursor: pointer;
             padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-toggle:hover {
+            color: var(--accent-cyan);
+            background-color: rgba(148, 226, 213, 0.1);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--fg);
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            margin-left: 10px;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-cyan);
+            background-color: rgba(148, 226, 213, 0.1);
+        }
+
+        /* Stack layout */
+        .stack-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stack-line {
+            font-size: 1em;
+            color: var(--fg-light);
+            line-height: 1.6;
+        }
+
+        .stack-label {
+            font-weight: 500;
+            color: var(--fg);
+            margin-right: 8px;
+        }
+
+        .stack-focus {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        body.dark-theme .stack-focus {
+            border-top-color: #444;
+        }
+
+        /* Contact with labels */
+        .contact-grid {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--fg);
+            padding: 16px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            min-width: 100px;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        body.dark-theme .contact-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fg);
+        }
+
+        .contact-item-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .contact-item-icon.email {
+            font-size: 2.5em;
+            line-height: 1;
+        }
+
+        .contact-item-label {
+            font-size: 0.85em;
+            color: var(--fg-light);
+        }
+
+        /* Section divider accent */
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--accent-cyan);
+            border-radius: 2px;
+            margin-top: 4px;
         }
 
         /* Mobile responsive */
         @media (max-width: 768px) {
             #sidebar {
                 width: 250px;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-                z-index: 300;
-            }
-
-            body.sidebar-open #sidebar {
-                transform: translateX(0);
-            }
-
-            #main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .sidebar-toggle {
-                display: block;
             }
 
             header {
-                justify-content: flex-start;
+                justify-content: space-between;
             }
 
             .title {
                 flex: 1;
                 text-align: center;
+            }
+
+            .social-links {
+                gap: 12px;
+            }
+
+            .social-link {
+                width: 28px;
+                height: 28px;
+            }
+
+            .social-link svg {
+                width: 16px;
+                height: 16px;
             }
 
             .scroll-hint {
@@ -301,12 +595,16 @@
                 gap: 40px;
             }
 
+            .title-tagline {
+                min-width: auto;
+            }
+
             .section-title {
                 font-size: 1.8em;
             }
 
             .section-description {
-                font-size: 1em;
+                font-size: 1.1em;
             }
 
             .section-visual {
@@ -318,9 +616,6 @@
 <body>
     <!-- Sidebar Navigation -->
     <aside id="sidebar">
-        <div class="sidebar-header">
-            <h2 style="font-size: 1.2em; color: var(--accent-cyan); margin-bottom: 20px;">Aref</h2>
-        </div>
 
         <nav class="sidebar-nav">
             <div class="sidebar-section-label">— portfolio —</div>
@@ -338,7 +633,22 @@
     <div id="main-content">
         <header>
             <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
-            <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
+            <div style="flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+                <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
+                <div class="social-links">
+                    <button id="theme-toggle" class="theme-toggle" title="Toggle theme">🌙</button>
+                    <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </header>
 
         <!-- Portfolio View -->
@@ -348,12 +658,8 @@
         <div class="section-content">
             <div class="section-text">
                 <h1 class="section-title"><span>whoami</span></h1>
-                <p class="section-description">Aref
-
-→ AUS CS student, graduating Spring 2026
-→ Systems & backend enthusiast
-→ Linux advocate (currently daily-driving Nobara/Niri)
-→ Always tinkering with low-level systems</p>
+                <div class="section-divider"></div>
+                <p class="section-description"><span class="hl-magenta">Aref</span>, a <span class="hl-magenta">CS student</span> at AUS who specializes in <span class="hl-magenta">backend engineering</span> and <span class="hl-magenta">low-level systems</span>. Daily-driving Nobara Linux on <span class="hl-magenta">Niri</span>, building with Go and Rust.</p>
             </div>
             <div class="section-visual">
                 <img src="whoami.svg" alt="Who am I" style="width: 100%; height: 100%; object-fit: contain;">
@@ -369,18 +675,25 @@
             </div>
             <div class="section-text">
                 <h1 class="section-title"><span>projects</span></h1>
-                <p class="section-description">→ LipSync/
-  • Real-time lip reading system for AR
-  • Jetson Orin + Vuzix Z-4K glasses
-  • Custom ONNX model pipeline
-
-→ repo2mermaid/
-  • CLI tool: convert codebases to architecture diagrams
-  • Automated visual documentation
-
-→ cv-tailor/
-  • Claude API + LaTeX integration
-  • AI-powered CV tailoring</p>
+                <div class="section-divider"></div>
+                <div class="project-cards">
+                    <div class="project-card" onclick="window.open('https://github.com/ArefDagmash/LipSync', '_blank')">
+                        <div class="project-card-title">LipSync</div>
+                        <div class="project-card-desc">Real-time lip reading pipeline for AR glasses. Runs a custom ONNX model on Jetson Orin, streaming decoded speech to Vuzix Z-4K.</div>
+                        <a href="https://github.com/ArefDagmash/LipSync" target="_blank" rel="noopener noreferrer" class="project-card-link" onclick="event.stopPropagation()">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                    <div class="project-card" onclick="window.open('https://github.com/ArefDagmash/Gilgamesh', '_blank')">
+                        <div class="project-card-title">Gilgamesh</div>
+                        <div class="project-card-desc">Cross-platform hand tracking that turns your fingers into animated swords. Uses MediaPipe for hand detection with OpenCV and PyQt6.</div>
+                        <a href="https://github.com/ArefDagmash/Gilgamesh" target="_blank" rel="noopener noreferrer" class="project-card-link" onclick="event.stopPropagation()">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -390,17 +703,14 @@
         <div class="section-content">
             <div class="section-text">
                 <h1 class="section-title"><span>stack</span></h1>
-                <p class="section-description">Languages:
-→ Go - systems, networking, tooling
-→ Rust - performance-critical, embedded
-→ C - low-level, kernel work
-
-Environment:
-→ Linux - Nobara / Niri (Wayland compositor)
-→ Shell - Fish shell
-→ Editor - Neovim + custom config
-
-→ Currently exploring: eBPF, async runtimes, distributed systems</p>
+                <div class="section-divider"></div>
+                <div class="stack-lines">
+                    <div class="stack-line"><span class="stack-label">Languages</span> Go, Rust, C</div>
+                    <div class="stack-line"><span class="stack-label">Environment</span> Linux (Nobara / Niri)</div>
+                    <div class="stack-line"><span class="stack-label">Shell</span> Fish, Bash, Zsh</div>
+                    <div class="stack-line"><span class="stack-label">Editor</span> Neovim + custom config</div>
+                    <div class="stack-focus"><span class="hl-magenta">Rebuilding HTTP from scratch</span></div>
+                </div>
             </div>
             <div class="section-visual">
                 <img src="Stack.svg" alt="Tech Stack" style="width: 100%; height: 100%; object-fit: contain;">
@@ -413,11 +723,30 @@ Environment:
             <div class="section-content">
                 <div class="section-text">
                     <h1 class="section-title"><span>contact</span></h1>
-                    <p class="section-description">Open to opportunities, questions, or just chatting about systems! Reach out and let's connect.
-
-→ GitHub: https://github.com/Aref
-→ Email: aref@email.com
-→ LinkedIn: https://linkedin.com/in/Aref</p>
+                    <div class="section-divider"></div>
+                    <p class="section-description" style="font-size: 1.2em;">Open to opportunities, questions, or just chatting about systems — reach out!</p>
+                    <div class="contact-grid">
+                        <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" class="contact-item" title="GitHub">
+                            <span class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </span>
+                            <span class="contact-item-label">GitHub</span>
+                        </a>
+                        <a href="mailto:arefdagmash@gmail.com" class="contact-item" title="Email">
+                            <span class="contact-item-icon email">✉️</span>
+                            <span class="contact-item-label">Email</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" class="contact-item" title="LinkedIn">
+                            <span class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                                </svg>
+                            </span>
+                            <span class="contact-item-label">LinkedIn</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="section-visual">
                     <img src="Contact.svg" alt="Contact" style="width: 100%; height: 100%; object-fit: contain;">
@@ -482,6 +811,39 @@ no posts yet — check back soon
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+
+        // Email handler
+        const emailLink = document.querySelector('a[href^="mailto:"]');
+        if (emailLink) {
+            emailLink.addEventListener('click', (e) => {
+                const email = 'arefdagmash@gmail.com';
+                // Try to open default email client
+                window.location.href = `mailto:${email}`;
+                // Fallback: copy to clipboard after 500ms if mailto didn't work
+                setTimeout(() => {
+                    navigator.clipboard.writeText(email);
+                    alert('Email copied to clipboard: ' + email);
+                }, 500);
+            });
+        }
+
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.textContent = '☀️';
+        } else {
+            themeToggle.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
 
         // Start tagline animation
         typeTagline(taglines[0]);
