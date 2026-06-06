@@ -193,12 +193,17 @@ Always tinkering with low-level systems
 
 ### projects Section
 **Visual**: Complex hand-drawn architecture diagram (Projects.svg)
-**Content**: Three projects with descriptions
+**Content**: Four projects with descriptions
 ```
 LipSync/
 Real-time lip reading system for AR
 Jetson Orin + Vuzix Z-4K glasses
 Custom ONNX model pipeline
+
+Tracer/
+CLI tool: scans repos & generates Mermaid diagrams
+Supports Python, JS/TS, Rust, Go, Java, C++
+No LLM required — works with local paths & GitHub URLs
 
 repo2mermaid/
 CLI tool: convert codebases to architecture diagrams
@@ -228,6 +233,8 @@ Languages:
 Go - systems, networking, tooling
 Rust - performance-critical, embedded
 C - low-level, kernel work
+Python - scripting, automation, tooling
+Java - enterprise, backend systems
 
 Environment:
 Linux - Nobara / Niri (Wayland compositor)
