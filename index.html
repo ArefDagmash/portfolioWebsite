@@ -236,6 +236,7 @@
             gap: 20px;
         }
 
+        /* Project cards */
         .project-card {
             background: var(--bg);
             border: 1px solid #ddd;
@@ -243,6 +244,11 @@
             padding: 24px;
             transition: all 0.2s ease;
             cursor: pointer;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
         }
 
         body.dark-theme .project-card {
@@ -259,6 +265,11 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
+        .project-card-main {
+            flex: 1;
+            min-width: 0;
+        }
+
         .project-card-title {
             font-size: 1.2em;
             font-weight: 700;
@@ -270,27 +281,6 @@
             font-size: 1em;
             color: var(--fg-light);
             line-height: 1.6;
-        }
-
-        .project-card-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 12px;
-            color: var(--fg-light);
-            text-decoration: none;
-            font-size: 0.85em;
-            transition: color 0.2s ease;
-        }
-
-        .project-card-link:hover {
-            color: var(--accent-cyan);
-        }
-
-        .project-card-link svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
         }
 
         /* Expandable project cards */
@@ -325,10 +315,12 @@
         }
 
         .project-details {
+            width: 100%;
             max-height: 0;
             overflow: hidden;
             opacity: 0;
             transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            order: 3;
         }
 
         .project-card.expanded .project-details {
@@ -384,12 +376,21 @@
             border-color: #555;
         }
 
-        /* Project Explained button */
+        /* Project action buttons */
+        .project-card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: stretch;
+            align-self: center;
+            flex-shrink: 0;
+        }
+
         .project-explained-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            margin-top: 12px;
             padding: 10px 18px;
             background: var(--accent-cyan);
             color: var(--bg);
@@ -406,6 +407,40 @@
             background: var(--accent-magenta);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .project-github-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--bg-alt);
+            color: var(--fg-light);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .project-github-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        body.dark-theme .project-github-btn {
+            border-color: #444;
+        }
+
+        .project-github-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         /* Project detail view overlay */
@@ -957,11 +992,20 @@
                 <div class="section-divider"></div>
                 <div class="project-cards">
                     <div class="project-card" data-project="lipsync">
-                        <div class="project-card-header">
-                            <div class="project-card-title">LipSync</div>
-                            <div class="project-card-desc">Real-time lip reading pipeline for AR glasses. Runs a custom ONNX model on Jetson Orin, streaming decoded speech to Vuzix Z-4K.</div>
+                        <div class="project-card-main">
+                            <div class="project-card-header">
+                                <div class="project-card-title">LipSync</div>
+                                <div class="project-card-desc">Real-time lip reading pipeline for AR glasses. Runs a custom ONNX model on Jetson Orin, streaming decoded speech to Vuzix Z-4K.</div>
+                            </div>
+                            <div class="expand-hint">click to expand</div>
                         </div>
-                        <div class="expand-hint">click to expand</div>
+                        <div class="project-card-actions">
+                            <button class="project-explained-btn" data-project="lipsync">&#128196; Project Explained</button>
+                            <a href="https://github.com/ArefDagmash/Visual_Speech_Recognition_for_Multiple_Languages" target="_blank" rel="noopener noreferrer" class="project-github-btn">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                        </div>
                         <div class="project-details">
                             <div class="project-tech">
                                 <span class="tech-tag">Python</span>
@@ -970,23 +1014,26 @@
                                 <span class="tech-tag">Jetson</span>
                                 <span class="tech-tag">AR</span>
                             </div>
-                            <div class="project-visual">[demo visual placeholder]</div>
                             <div class="project-long-desc">
                                 Built an end-to-end visual speech recognition system optimized for edge deployment. The pipeline captures video from AR glasses, processes frames through a lightweight lip-reading model, and streams decoded text in real-time. Trained on multiple languages with data augmentation for robustness in noisy environments.
                             </div>
-                            <button class="project-explained-btn" data-project="lipsync">&#128196; Project Explained</button>
-                            <a href="https://github.com/ArefDagmash/Visual_Speech_Recognition_for_Multiple_Languages" target="_blank" rel="noopener noreferrer" class="project-card-link">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                View on GitHub
-                            </a>
                         </div>
                     </div>
                     <div class="project-card" data-project="gilgamesh">
-                        <div class="project-card-header">
-                            <div class="project-card-title">Gilgamesh</div>
-                            <div class="project-card-desc">Cross-platform hand tracking that turns your fingers into animated swords. Uses MediaPipe for hand detection with OpenCV and PyQt6.</div>
+                        <div class="project-card-main">
+                            <div class="project-card-header">
+                                <div class="project-card-title">Gilgamesh</div>
+                                <div class="project-card-desc">Cross-platform hand tracking that turns your fingers into animated swords. Uses MediaPipe for hand detection with OpenCV and PyQt6.</div>
+                            </div>
+                            <div class="expand-hint">click to expand</div>
                         </div>
-                        <div class="expand-hint">click to expand</div>
+                        <div class="project-card-actions">
+                            <button class="project-explained-btn" data-project="gilgamesh">&#128196; Project Explained</button>
+                            <a href="https://github.com/ArefDagmash/Gilgamesh" target="_blank" rel="noopener noreferrer" class="project-github-btn">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                        </div>
                         <div class="project-details">
                             <div class="project-tech">
                                 <span class="tech-tag">Python</span>
@@ -995,23 +1042,26 @@
                                 <span class="tech-tag">PyQt6</span>
                                 <span class="tech-tag">Computer Vision</span>
                             </div>
-                            <div class="project-visual">[demo visual placeholder]</div>
                             <div class="project-long-desc">
                                 A gesture-controlled application that maps hand landmarks to animated sword trails in real-time. Leverages MediaPipe's hand tracking model with custom gesture recognition to trigger effects. Built with a PyQt6 interface for cross-platform support and OpenCV for frame processing and rendering.
                             </div>
-                            <button class="project-explained-btn" data-project="gilgamesh">&#128196; Project Explained</button>
-                            <a href="https://github.com/ArefDagmash/Gilgamesh" target="_blank" rel="noopener noreferrer" class="project-card-link">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                View on GitHub
-                            </a>
                         </div>
                     </div>
                     <div class="project-card" data-project="tracer">
-                        <div class="project-card-header">
-                            <div class="project-card-title">Tracer</div>
-                            <div class="project-card-desc">CLI tool that scans code repositories and generates Mermaid architecture diagrams. Supports Python, JS/TS, Rust, Go, Java, and C++ — no LLM required.</div>
+                        <div class="project-card-main">
+                            <div class="project-card-header">
+                                <div class="project-card-title">Tracer</div>
+                                <div class="project-card-desc">CLI tool that scans code repositories and generates Mermaid architecture diagrams. Supports Python, JS/TS, Rust, Go, Java, and C++ — no LLM required.</div>
+                            </div>
+                            <div class="expand-hint">click to expand</div>
                         </div>
-                        <div class="expand-hint">click to expand</div>
+                        <div class="project-card-actions">
+                            <button class="project-explained-btn" data-project="tracer">&#128196; Project Explained</button>
+                            <a href="https://github.com/ArefDagmash/Tracer" target="_blank" rel="noopener noreferrer" class="project-github-btn">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                        </div>
                         <div class="project-details">
                             <div class="project-tech">
                                 <span class="tech-tag">Python</span>
@@ -1019,23 +1069,26 @@
                                 <span class="tech-tag">CLI</span>
                                 <span class="tech-tag">Static Analysis</span>
                             </div>
-                            <div class="project-visual">[demo visual placeholder]</div>
                             <div class="project-long-desc">
                                 Tracer parses import statements, class hierarchies, and function calls across multiple languages to build accurate dependency graphs. It outputs clean Mermaid diagram files that can be rendered anywhere. Works with both local repositories and GitHub URLs, with optional LLM backends for enhanced summaries.
                             </div>
-                            <button class="project-explained-btn" data-project="tracer">&#128196; Project Explained</button>
-                            <a href="https://github.com/ArefDagmash/Tracer" target="_blank" rel="noopener noreferrer" class="project-card-link">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                View on GitHub
-                            </a>
                         </div>
                     </div>
                     <div class="project-card" data-project="cicd">
-                        <div class="project-card-header">
-                            <div class="project-card-title">CICD Is Overrated</div>
-                            <div class="project-card-desc">FastAPI app with a full CI/CD pipeline. Lint, test, coverage, type checking, security scanning, and Docker deployment to GitHub Container Registry.</div>
+                        <div class="project-card-main">
+                            <div class="project-card-header">
+                                <div class="project-card-title">CICD Is Overrated</div>
+                                <div class="project-card-desc">FastAPI app with a full CI/CD pipeline. Lint, test, coverage, type checking, security scanning, and Docker deployment to GitHub Container Registry.</div>
+                            </div>
+                            <div class="expand-hint">click to expand</div>
                         </div>
-                        <div class="expand-hint">click to expand</div>
+                        <div class="project-card-actions">
+                            <button class="project-explained-btn" data-project="cicd">&#128196; Project Explained</button>
+                            <a href="https://github.com/ArefDagmash/CICD_Is_overrated" target="_blank" rel="noopener noreferrer" class="project-github-btn">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                GitHub
+                            </a>
+                        </div>
                         <div class="project-details">
                             <div class="project-tech">
                                 <span class="tech-tag">Python</span>
@@ -1044,15 +1097,9 @@
                                 <span class="tech-tag">GitHub Actions</span>
                                 <span class="tech-tag">CI/CD</span>
                             </div>
-                            <div class="project-visual">[demo visual placeholder]</div>
                             <div class="project-long-desc">
                                 A production-ready FastAPI application demonstrating enterprise-grade CI/CD practices. Features six parallel GitHub Actions jobs (lint, test, coverage, type-check, security, audit), semantic-release auto-versioning, and multi-stage Docker builds pushed to GHCR. Coverage gate set at 90% with Bandit security scanning and pip-audit vulnerability checks.
                             </div>
-                            <button class="project-explained-btn" data-project="cicd">&#128196; Project Explained</button>
-                            <a href="https://github.com/ArefDagmash/CICD_Is_overrated" target="_blank" rel="noopener noreferrer" class="project-card-link">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                View on GitHub
-                            </a>
                         </div>
                     </div>
                 </div>
