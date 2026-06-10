@@ -1314,40 +1314,29 @@ no posts yet — check back soon
             });
         });
 
-        // Project Explained detail view
-        const projectDetailView = document.getElementById('project-detail-view');
-        const projectDetailTitle = document.getElementById('project-detail-title');
-        const projectDetailContent = document.getElementById('project-detail-content');
-        const projectDetailBack = document.getElementById('project-detail-back');
+    </script>
 
-        // Simple markdown parser
-        function parseMarkdown(md) {
-            // Convert headers
-            md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-            md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-            md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-            // Convert bold
-            md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Convert images
-            md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="documentation/$2" alt="$1">');
-            // Convert links
-            md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-            // Convert code
-            md = md.replace(/`([^`]+)`/g, '<code>$1</code>');
-            // Convert paragraphs
-            md = md.replace(/\n\n/g, '</p><p>');
-            // Wrap in paragraphs
-            md = '<p>' + md + '</p>';
-            // Clean up empty paragraphs
-            md = md.replace(/<p><\/p>/g, '');
-            // Convert hr
-            md = md.replace(/<p>---<\/p>/g, '<hr>');
-            return md;
-        }
+    <!-- Project Detail View Overlay -->
+    <div class="project-detail-view" id="project-detail-view">
+        <div class="project-detail-container">
+            <div class="project-detail-header">
+                <h2 class="project-detail-title" id="project-detail-title">Project Details</h2>
+                <button class="project-detail-back" id="project-detail-back">&#8592; Back to Projects</button>
+            </div>
+            <div class="project-detail-content" id="project-detail-content"></div>
+        </div>
+    </div>
 
-        // Project content data (embedded for static sites)
-        const projectContent = {
-            'cicd': `# Visual Walkthrough
+    <script>
+        // Project detail view - runs after DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectDetailView = document.getElementById('project-detail-view');
+            const projectDetailTitle = document.getElementById('project-detail-title');
+            const projectDetailContent = document.getElementById('project-detail-content');
+            const projectDetailBack = document.getElementById('project-detail-back');
+
+            const projectContent = {
+                'cicd': `# Visual Walkthrough
 
 Modern software teams don't manually test and ship code. They build a pipeline that does it for them. Every push, automatically. Here's how I did it.
 
@@ -1392,78 +1381,68 @@ Docker builds an image — your code, Python runtime, and all dependencies bundl
 **Handling a Request**
 
 Once the server is running the image, this is what happens on every single request. Uvicorn sits on port 8000 and receives incoming HTTP requests. FastAPI matches the path and calls the right function. The function runs and returns a Python dict. FastAPI converts it to JSON and sends it back.`
-        };
+            };
 
-        const projectNames = {
-            'lipsync': 'LipSync',
-            'gilgamesh': 'Gilgamesh',
-            'tracer': 'Tracer',
-            'cicd': 'CICD Is Overrated'
-        };
+            const projectNames = {
+                'lipsync': 'LipSync',
+                'gilgamesh': 'Gilgamesh',
+                'tracer': 'Tracer',
+                'cicd': 'CICD Is Overrated'
+            };
 
-        // Show project detail view
-        function showProjectDetail(projectKey) {
-            const name = projectNames[projectKey] || 'Project Details';
-            projectDetailTitle.innerHTML = `<span>${name}</span>`;
+            function parseMarkdown(md) {
+                md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+                md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+                md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+                md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="documentation/$2" alt="$1">');
+                md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+                md = md.replace(/`([^`]+)`/g, '<code>$1</code>');
+                md = md.replace(/\n\n/g, '</p><p>');
+                md = '<p>' + md + '</p>';
+                md = md.replace(/<p><\/p>/g, '');
+                md = md.replace(/<p>---<\/p>/g, '<hr>');
+                return md;
+            }
 
-            // Try to fetch from file first, fallback to embedded
-            const mdPath = `documentation/${projectKey}.md`;
-            fetch(mdPath)
-                .then(response => {
-                    if (response.ok) return response.text();
-                    throw new Error('File not found');
-                })
-                .then(md => {
-                    projectDetailContent.innerHTML = parseMarkdown(md);
-                })
-                .catch(() => {
-                    // Fallback to embedded content
-                    if (projectContent[projectKey]) {
-                        projectDetailContent.innerHTML = parseMarkdown(projectContent[projectKey]);
-                    } else {
-                        projectDetailContent.innerHTML = '<p>Detailed documentation coming soon.</p>';
-                    }
+            function showProjectDetail(projectKey) {
+                const name = projectNames[projectKey] || 'Project Details';
+                projectDetailTitle.innerHTML = `<span>${name}</span>`;
+                
+                if (projectContent[projectKey]) {
+                    projectDetailContent.innerHTML = parseMarkdown(projectContent[projectKey]);
+                } else {
+                    projectDetailContent.innerHTML = '<p>Detailed documentation coming soon.</p>';
+                }
+
+                projectDetailView.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function hideProjectDetail() {
+                projectDetailView.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Handle Project Explained button clicks
+            document.querySelectorAll('.project-explained-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const projectKey = btn.getAttribute('data-project');
+                    showProjectDetail(projectKey);
                 });
+            });
 
-            projectDetailView.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+            // Handle back button
+            projectDetailBack.addEventListener('click', hideProjectDetail);
 
-        // Hide project detail view
-        function hideProjectDetail() {
-            projectDetailView.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Handle Project Explained button clicks
-        document.querySelectorAll('.project-explained-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const projectKey = btn.getAttribute('data-project');
-                showProjectDetail(projectKey);
+            // Handle escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && projectDetailView.classList.contains('active')) {
+                    hideProjectDetail();
+                }
             });
         });
-
-        // Handle back button
-        projectDetailBack.addEventListener('click', hideProjectDetail);
-
-        // Handle escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && projectDetailView.classList.contains('active')) {
-                hideProjectDetail();
-            }
-        });
     </script>
-
-    <!-- Project Detail View Overlay -->
-    <div class="project-detail-view" id="project-detail-view">
-        <div class="project-detail-container">
-            <div class="project-detail-header">
-                <h2 class="project-detail-title" id="project-detail-title">Project Details</h2>
-                <button class="project-detail-back" id="project-detail-back">&#8592; Back to Projects</button>
-            </div>
-            <div class="project-detail-content" id="project-detail-content"></div>
-        </div>
-    </div>
 </body>
 </html>
