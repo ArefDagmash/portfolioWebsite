@@ -193,12 +193,17 @@ Always tinkering with low-level systems
 
 ### projects Section
 **Visual**: Complex hand-drawn architecture diagram (Projects.svg)
-**Content**: Four projects with descriptions
+**Content**: Five projects with descriptions
 ```
 LipSync/
 Real-time lip reading system for AR
 Jetson Orin + Vuzix Z-4K glasses
 Custom ONNX model pipeline
+
+CICD Is Overrated/
+FastAPI app with full CI/CD pipeline
+Six parallel GitHub Actions jobs (lint, test, coverage, type-check, security, audit)
+Auto-versioning with semantic-release, Docker deployment to GHCR
 
 Tracer/
 CLI tool: scans repos & generates Mermaid diagrams
