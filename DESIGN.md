@@ -6,13 +6,18 @@
 
 **Recent Implementation (Current Session):**
 - ✅ Complete redesign from terminal aesthetic to modern continuous-scroll portfolio
-- ✅ Integrated Excalidraw SVG graphics (whoami.svg, Projects.svg)
-- ✅ Integrated SVG icons for contact and stack sections (phone-calling-svgrepo-com.svg, experience-information-knowledge-svgrepo-com.svg)
-- ✅ Removed white backgrounds from SVGs for full transparency
-- ✅ Made `.section-visual` containers transparent to blend seamlessly with page background
+- ✅ Integrated Excalidraw SVG graphics (whoami.svg, Projects.svg, Contact.svg, Stack.svg)
 - ✅ Implemented rotating typewriter tagline in sticky header
 - ✅ Responsive design with mobile breakpoints (single column on ≤768px)
 - ✅ Smooth scroll behavior with Intersection Observer animations
+- ✅ Expandable project cards with tech tags and longer descriptions
+- ✅ **"How It Works" detail view**: Full-screen overlay with markdown support for project walkthroughs
+- ✅ GitHub button on each card (always visible)
+- ✅ Dark/light theme toggle with localStorage persistence
+- ✅ Sidebar navigation with active section tracking
+- ✅ Separate blog/portfolio views
+- ✅ `documentation/` folder with `.md` files and images for project explanations
+- ✅ Project list: LipSync, Gilgamesh, Tracer, CICD Is Overrated
 
 ### Design Direction
 
@@ -42,10 +47,10 @@ Based on user's terminal configuration (Catppuccin Mocha), adapted for light mod
 - Foreground Light: `#45475A` (medium gray)
 
 **Accent Colors**
-- Cyan: `#94E2D5` (bright teal/cyan)
-- Magenta: `#F5C2E7` (soft pink/magenta)
-- Yellow: `#F9E2AF` (warm yellow)
-- Blue: `#89B4FA` (periwinkle blue)
+- Cyan: `#0EA5A0` (bright teal) / `#94E2D5` (dark mode)
+- Magenta: `#C7559C` (pink) / `#F5C2E7` (dark mode)
+- Yellow: `#D97706` (orange) / `#F9E2AF` (dark mode)
+- Blue: `#3B82F6` (blue) / `#89B4FA` (dark mode)
 
 ### Typography
 
@@ -193,30 +198,40 @@ Always tinkering with low-level systems
 
 ### projects Section
 **Visual**: Complex hand-drawn architecture diagram (Projects.svg)
-**Content**: Five projects with descriptions
+**Content**: Four projects with expandable cards
+
+**Card Layout (Default):**
+- Left: Title + short description + "click to expand" hint
+- Right: GitHub button (always visible)
+
+**Card Layout (Expanded):**
+- Tech tags (pill-shaped badges)
+- Longer description
+- "How It Works" button (opens full-screen markdown overlay)
+
+**Projects:**
 ```
 LipSync/
-Real-time lip reading system for AR
-Jetson Orin + Vuzix Z-4K glasses
-Custom ONNX model pipeline
+Real-time lip reading pipeline for AR glasses
+Custom ONNX model on Jetson Orin
+Tech: Python, ONNX, OpenCV, Jetson, AR
+
+Gilgamesh/
+Cross-platform hand tracking with animated swords
+MediaPipe + OpenCV + PyQt6
+Tech: Python, MediaPipe, OpenCV, PyQt6, Computer Vision
+
+Tracer/
+CLI tool: repo → Mermaid architecture diagrams
+Supports Python, JS/TS, Rust, Go, Java, C++
+No LLM required
+Tech: Python, Mermaid, CLI, Static Analysis
 
 CICD Is Overrated/
 FastAPI app with full CI/CD pipeline
 Six parallel GitHub Actions jobs (lint, test, coverage, type-check, security, audit)
-Auto-versioning with semantic-release, Docker deployment to GHCR
-
-Tracer/
-CLI tool: scans repos & generates Mermaid diagrams
-Supports Python, JS/TS, Rust, Go, Java, C++
-No LLM required — works with local paths & GitHub URLs
-
-repo2mermaid/
-CLI tool: convert codebases to architecture diagrams
-Automated visual documentation
-
-cv-tailor/
-Claude API + LaTeX integration
-AI-powered CV tailoring
+Semantic-release + Docker deployment to GHCR
+Tech: Python, FastAPI, Docker, GitHub Actions, CI/CD
 ```
 
 ### contact Section
@@ -272,7 +287,7 @@ Currently exploring: eBPF, async runtimes, distributed systems
 - **HTML**: Semantic structure with section elements
 - **CSS**: Custom properties, grid/flexbox layouts, responsive design
 - **JavaScript**: Async/await for typewriter effect, Intersection Observer for scroll animations
-- **Assets**: 4 SVG files (whoami.svg, Projects.svg, phone-calling-svgrepo-com.svg, experience-information-knowledge-svgrepo-com.svg)
+- **Assets**: 4 SVG files (whoami.svg, Projects.svg, Contact.svg, Stack.svg) + documentation folder
 - **Fonts**: Google Fonts (JetBrains Mono)
 - **Deployment**: Static hosting (GitHub Pages, Netlify, Vercel, custom server)
 
@@ -308,8 +323,35 @@ Currently exploring: eBPF, async runtimes, distributed systems
 
 5. **Color System**
    - CSS custom properties (--bg, --fg, --accent-cyan, etc.)
-   - Catppuccin Mocha color palette
-   - Light mode adaptation for modern aesthetic
+   - Catppuccin Mocha color palette adapted for light mode
+   - Dark mode: full Catppuccin Mocha colors
+   - Theme toggle: 🌙/☀️ with localStorage persistence
+
+6. **Project Cards**
+   - Expandable with click-to-expand hint
+   - Tech tags: pill-shaped badges with cyan border
+   - GitHub button: always visible on right side
+   - "How It Works" button: in expanded details, opens overlay
+
+7. **Project Detail Overlay**
+   - Full-screen view with smooth slide-up animation
+   - Markdown parser: headers, bold, images, links, code
+   - Reads from `documentation/<project>.md` with image assets
+   - Back button + Escape key to close
+   - Background: page background with scroll lock
+
+8. **Sidebar Navigation**
+   - Fixed left sidebar (200px) on desktop
+   - Collapsible on mobile (hamburger menu)
+   - Active section tracking via Intersection Observer
+   - Links: whoami, projects, stack, contact, blog
+   - Blog view toggle: separate portfolio/blog views
+
+9. **Dark Mode**
+   - Toggle button in header
+   - CSS custom properties swap values
+   - Invert SVGs on dark mode for visibility
+   - LocalStorage persists preference
 
 ### Performance Optimizations
 - Single HTTP request (one HTML file)
@@ -321,91 +363,66 @@ Currently exploring: eBPF, async runtimes, distributed systems
 
 ### High Priority
 
-1. **Project Card Expansion**
-   - Click on a project in `ls projects/` to see more details
-   - Could show: GitHub links, live demos, tech stack used, dates
-   - Example: `cd LipSync/` → shows README-like details
+1. **Add More Project Walkthroughs**
+   - Create `.md` files for LipSync, Gilgamesh, Tracer in `documentation/`
+   - Add screenshots/diagrams for each project
+   - Currently only CICD has a walkthrough
 
 2. **Experience/Resume Section**
-   - New command: `cat resume.txt` or `history --jobs`
-   - List internships, work experience, key accomplishments
+   - Add a new section or page for work experience
    - Timeline format or bullet points
+   - Could be in the sidebar or a new section
 
 3. **Blog/Articles**
-   - Command: `ls blog/` → lists recent posts
-   - Click to expand: `cat blog/post-title.txt`
+   - The blog view exists but is empty
+   - Add actual blog posts
    - Showcase writing, tutorials, technical insights
 
-4. **Interactive Features**
-   - Keyboard support: Allow actual typing instead of just buttons
-   - Command history with arrow keys
-   - Search functionality (`grep`)
-   - Tab completion suggestions
+4. **Live Demo Links**
+   - Add "Live Demo" button for projects that have one
+   - Deploy some projects to show off
 
-5. **Enhanced Project Details**
-   - Real GitHub repo links (clickable)
-   - GitHub stats: stars, language breakdown
-   - Live demo links where applicable
+5. **GitHub Stats**
    - Pull in real-time data from GitHub API
+   - Stars, language breakdown, last updated
+   - Dynamic badges
 
 ### Medium Priority
 
 6. **Additional Visual Improvements**
-   - Color-coded output sections (warnings in red, success in green)
-   - Glitch effects on error states
-   - More sophisticated cursor styles (underscore variant)
-   - Different prompt styling based on context
+   - Smooth height transitions for expanding sections (already partially done)
+   - More sophisticated hover effects
+   - Better mobile card layout
 
-7. **Additional Animation Enhancements**
-   - Option to slow down/speed up typing animation
-   - Smooth height transitions for expanding sections
-   - Optional "screen burn-in" effect overlay
-   - Matrix-style rain effect on long idle times
-
-8. **More Theme Variants**
+7. **More Theme Variants**
    - Add color schemes: Dracula, Nord, Solarized, Cyberpunk, Retro
    - System preference detection (`prefers-color-scheme`)
    - Quick toggle between multiple themes (dropdown menu)
 
-9. **Sound Effects** (optional)
-   - Subtle keyboard typing sounds
-   - Beep on command completion
+8. **Sound Effects** (optional)
+   - Subtle keyboard typing sounds on tagline
    - Option to toggle audio
 
-10. **Performance & PWA**
-    - Service Worker for offline support
-    - Icon and manifest for installable PWA
-    - Lazy-load images (if added)
+9. **Performance & PWA**
+   - Service Worker for offline support
+   - Icon and manifest for installable PWA
+   - Lazy-load images in walkthroughs
 
 ### Lower Priority
 
-11. **Social Links & Metadata**
+10. **Social Links & Metadata**
     - Open Graph tags for better sharing
-    - Favicon with terminal symbol
     - Social media preview image
     - Twitter/OG metadata
 
-12. **Analytics**
+11. **Analytics**
     - Track which sections are most viewed
     - Scroll depth metrics
-    - Command popularity
+    - "How It Works" click tracking
 
-13. **Advanced Terminal Features**
-    - `man <command>` → show help/details
-    - `whoami --verbose` → expanded version
-    - `pwd` → show current directory (for navigation context)
-    - `echo` → custom input handling
-
-14. **Database/Backend** (if needed)
-    - Store visitor messages
-    - Contact form submission
-    - Blog comments
-    - Project view counts
-
-15. **Mobile-Specific**
+12. **Mobile-Specific**
     - Fullscreen mode option
     - Haptic feedback on button taps
-    - Landscape/portrait optimization
     - Swipe gestures for navigation
 
 ## File Structure
@@ -415,17 +432,25 @@ portfolioWebsite/
 ├── index.html                                    # Main file (all-in-one HTML/CSS/JS)
 ├── whoami.svg                                    # Hand-drawn stick figure
 ├── Projects.svg                                  # Complex project diagram
-├── phone-calling-svgrepo-com.svg               # Contact section icon
-├── experience-information-knowledge-svgrepo-com.svg  # Stack section icon
+├── Contact.svg                                   # Contact section icon
+├── Stack.svg                                     # Stack section icon
 ├── DESIGN.md                                    # This documentation
-└── README.md                                    # (optional) Deployment instructions
+├── README.md                                    # (optional) Deployment instructions
+└── documentation/                               # Project markdown docs
+    ├── lipsync.md                               # (placeholder for future)
+    ├── gilgamesh.md                             # (placeholder for future)
+    ├── tracer.md                                # (placeholder for future)
+    ├── cicd.md                                  # CICD project walkthrough
+    └── *.png                                    # CICD walkthrough images
 ```
 
 ### Asset Specifications
-- **whoami.svg**: 138×187px viewBox (displays at 300×400px max)
-- **Projects.svg**: 408×490px viewBox (displays at 400×400px max)
-- **phone-calling-svgrepo-com.svg**: 24×24px viewBox (scalable)
-- **experience-information-knowledge-svgrepo-com.svg**: 64×64px viewBox (scalable)
+- **whoami.svg**: Hand-drawn stick figure (displays at 300×400px max)
+- **Projects.svg**: Complex project diagram (displays at 400×400px max)
+- **Contact.svg**: Contact section icon
+- **Stack.svg**: Tech stack icon
+- **documentation/*.md**: Project walkthrough markdown files
+- **documentation/*.png**: Image assets for walkthroughs
 
 ## Deployment Options
 
