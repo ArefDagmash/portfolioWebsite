@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Aref | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -211,7 +211,8 @@
             min-height: 400px;
         }
 
-        .section-visual svg {
+        .section-visual svg,
+        .section-visual img {
             width: 100%;
             height: 100%;
             max-width: 400px;
@@ -877,25 +878,32 @@
 
             header {
                 justify-content: space-between;
+                padding: 12px;
             }
 
             .title {
                 flex: 1;
                 text-align: center;
+                font-size: 1.4em;
+            }
+
+            .title-tagline {
+                font-size: 0.85em;
+                display: inline-block;
             }
 
             .social-links {
-                gap: 12px;
+                gap: 8px;
             }
 
             .social-link {
-                width: 28px;
-                height: 28px;
+                width: 24px;
+                height: 24px;
             }
 
             .social-link svg {
-                width: 16px;
-                height: 16px;
+                width: 14px;
+                height: 14px;
             }
 
             .scroll-hint {
@@ -903,21 +911,22 @@
             }
 
             section {
-                padding: 40px 20px;
+                padding: 40px 16px;
                 min-height: auto;
             }
 
             .section-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 12px;
             }
 
-            .title-tagline {
-                min-width: auto;
+            .section-text {
+                padding: 0 1.25rem;
             }
 
             .section-title {
-                font-size: 1.8em;
+                font-size: 2rem;
+                letter-spacing: -0.5px;
             }
 
             .section-description {
@@ -925,7 +934,166 @@
             }
 
             .section-visual {
-                min-height: 300px;
+                min-height: 200px;
+                padding: 20px;
+            }
+
+            .section-visual img {
+                max-width: 280px;
+                max-height: 45vh;
+            }
+        }
+
+        /* iOS safe area + touch-first improvements */
+        @media (max-width: 768px) {
+            /* Safe area insets for notch / home indicator */
+            header {
+                padding-top: max(12px, env(safe-area-inset-top));
+                padding-left: max(12px, env(safe-area-inset-left));
+                padding-right: max(12px, env(safe-area-inset-right));
+            }
+
+            /* Touch targets: 44px minimum (iOS HIG) */
+            .sidebar-toggle,
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .social-link {
+                width: 44px;
+                height: 44px;
+            }
+
+            .social-link svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .sidebar-link {
+                min-height: 44px;
+                padding: 12px 12px;
+                display: flex;
+                align-items: center;
+            }
+
+            .project-github-btn {
+                min-height: 44px;
+                padding: 12px 16px;
+                font-size: 0.9em;
+            }
+
+            .project-explained-btn {
+                min-height: 44px;
+                padding: 14px 18px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .project-detail-back {
+                min-height: 44px;
+            }
+
+            /* Project card actions: stack full-width on mobile */
+            .project-card-actions {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .project-github-btn {
+                flex: 1;
+            }
+
+            /* Project detail overlay: safe padding */
+            .project-detail-view {
+                padding: 24px 16px;
+                padding-top: max(24px, env(safe-area-inset-top));
+                padding-bottom: max(24px, env(safe-area-inset-bottom));
+            }
+
+            .project-detail-title {
+                font-size: 1.4em;
+            }
+
+            .project-detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 24px;
+            }
+
+            /* Touch feedback (replaces hover on iOS) */
+            .project-card:active {
+                border-color: var(--accent-cyan);
+                transform: scale(0.99);
+            }
+
+            .contact-item:active {
+                transform: scale(0.97);
+                background: rgba(0, 0, 0, 0.05);
+            }
+
+            body.dark-theme .contact-item:active {
+                background: rgba(255, 255, 255, 0.07);
+            }
+
+            .project-github-btn:active,
+            .project-explained-btn:active {
+                opacity: 0.8;
+            }
+
+            /* Stack section font */
+            .stack-line {
+                font-size: 1.1em;
+            }
+
+            /* Contact items: better touch area */
+            .contact-item {
+                min-width: 80px;
+                padding: 14px 12px;
+            }
+
+            /* Bottom safe area for last section */
+            #contact {
+                padding-bottom: max(40px, calc(40px + env(safe-area-inset-bottom)));
+            }
+
+            /* Section content gap */
+            .section-content {
+                gap: 24px;
+            }
+
+            /* Prevent min-width overflow if tagline ever shows */
+            .title-tagline {
+                min-width: unset;
+            }
+        }
+
+        /* Disable hover transforms on touch devices to avoid sticky states */
+        @media (hover: none) {
+            .project-card:hover {
+                box-shadow: none;
+                border-color: inherit;
+            }
+
+            .project-explained-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .project-github-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .contact-item:hover {
+                transform: none;
+                background: transparent;
+            }
+
+            .social-link:hover {
+                transform: none;
             }
         }
     </style>
@@ -1257,8 +1425,38 @@ no posts yet — check back soon
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
-        // Start tagline animation
-        typeTagline(taglines[0]);
+        // Change "click to expand" to "tap to expand" on touch devices
+        const isTouchDevice = window.matchMedia('(hover: none)').matches;
+        if (isTouchDevice) {
+            document.querySelectorAll('.expand-hint').forEach(hint => {
+                hint.textContent = 'tap to expand';
+            });
+        }
+
+        // Start tagline animation (desktop only)
+        const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+        if (isDesktop) {
+            typeTagline(taglines[0]);
+        } else {
+            taglineEl.textContent = '';
+            // ponytail: type out the name once on mobile, no prompts
+            const titleEl = document.querySelector('.title');
+            const nameText = 'Aref';
+            // clear the colon and tagline, then type name
+            document.querySelector('.title-colon').style.display = 'none';
+            taglineEl.style.display = 'none';
+            // append a span for the typewriter
+            const nameSpan = document.createElement('span');
+            nameSpan.style.color = 'var(--accent-cyan)';
+            titleEl.textContent = '';
+            titleEl.appendChild(nameSpan);
+            (async () => {
+                for (let char of nameText) {
+                    nameSpan.textContent += char;
+                    await sleep(200);
+                }
+            })();
+        }
 
         // Intersection Observer for scroll animations
         const observer = new IntersectionObserver((entries) => {
@@ -1446,7 +1644,7 @@ Once the server is running the image, this is what happens on every single reque
                 md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
                 md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                 md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="documentation/$2" alt="$1">');
-                md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+                md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
                 md = md.replace(/`([^`]+)`/g, '<code>$1</code>');
                 md = md.replace(/\n\n/g, '</p><p>');
                 md = '<p>' + md + '</p>';
