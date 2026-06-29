@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Aref | Portfolio</title>
+    <meta name="description" content="Aref — full-stack developer building from low-level systems to polished frontends. Projects in CV, AR, CLI tools, and CI/CD.">
+    <meta property="og:title" content="Aref | Portfolio">
+    <meta property="og:description" content="Full-stack developer — systems to frontends. LipSync AR, Gilgamesh hand tracking, Tracer, CI/CD.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://arefdagmash.me">
+    <meta name="twitter:card" content="summary_large_text">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -1065,6 +1071,16 @@
             /* Section content gap */
             .section-content {
                 gap: 24px;
+            }
+
+            /* Hide project descriptions on mobile, show on expand */
+            .project-card-desc {
+                display: none;
+            }
+
+            .project-card.expanded .project-card-desc {
+                display: block;
+                margin-top: 8px;
             }
 
             /* Prevent min-width overflow if tagline ever shows */
