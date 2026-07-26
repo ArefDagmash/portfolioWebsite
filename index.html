@@ -1188,6 +1188,34 @@
                 <h1 class="section-title"><span>projects</span></h1>
                 <div class="section-divider"></div>
                 <div class="project-cards">
+                    <div class="project-card" data-project="rehero">
+                        <div class="project-card-main">
+                            <div class="project-card-header">
+                                <div class="project-card-title">ReHero</div>
+                                <div class="project-card-desc">Desktop research paper reader with an AI copilot, hand-drawn annotations, and a built-in whiteboard. Bring your own LLM or run one locally.</div>
+                            </div>
+                            <div class="expand-hint">click to expand</div>
+                        </div>
+                        <div class="project-card-actions">
+                            <a href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer" class="project-github-btn">
+                                <img src="github-logo.png" alt="GitHub" style="width:16px;height:16px">
+                                GitHub
+                            </a>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-tech">
+                                <span class="tech-tag">Tauri</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">LLM</span>
+                            </div>
+                            <div class="project-long-desc">
+                                A Tauri desktop app that puts AI explanations, hand-drawn annotations, and an Excalidraw canvas right alongside your PDF. Highlight text and the AI simplifies, explains, illustrates, or diagrams it without leaving the page. Features semantic arXiv search with AI-ranked results, Kokoro TTS audio narration, and Scholar XP — a gamification system with 7 tier levels and 18 achievements for reading streaks and annotations.
+                            </div>
+                            <button class="project-explained-btn" data-project="rehero">&#128196; How It Works</button>
+                        </div>
+                    </div>
                     <div class="project-card" data-project="lipsync">
                         <div class="project-card-main">
                             <div class="project-card-header">
@@ -1637,6 +1665,7 @@ Once the server is running the image, this is what happens on every single reque
             };
 
             const projectNames = {
+                'rehero': 'ReHero',
                 'lipsync': 'LipSync',
                 'gilgamesh': 'Gilgamesh',
                 'tracer': 'Tracer',
