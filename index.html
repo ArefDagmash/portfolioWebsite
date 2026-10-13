@@ -13,6 +13,13 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/png" href="tab-logo.png">
     <style>
+        @font-face {
+            font-family: 'Caveat';
+            src: url('Caveat-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -45,6 +52,15 @@
 
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        /* Desktop reads small at 100% zoom with the 16px base — bump the root
+           so every em/rem-sized text and spacing value scales up together. */
+        @media (min-width: 769px) {
+            html {
+                font-size: 18px;
+            }
         }
 
         body {
@@ -84,8 +100,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 96px;
+            height: 96px;
             border-radius: 6px;
             color: var(--fg);
             transition: all 0.2s ease;
@@ -102,28 +118,11 @@
             fill: currentColor;
         }
 
-        .title {
-            font-size: 2em;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--accent-cyan);
-            animation: fade-in 0.8s ease-out;
-        }
-
-        .title-colon {
-            color: var(--accent-magenta);
-        }
-
-        .title-tagline {
-            color: var(--accent-yellow);
-            min-width: 280px;
-        }
-
         .header-inner {
             flex: 1;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
             gap: 20px;
             min-width: 0;
         }
@@ -132,17 +131,6 @@
             font-size: 0.85em;
             color: var(--fg-light);
             margin-top: 10px;
-        }
-
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Section styles */
@@ -196,6 +184,84 @@
             color: var(--accent-cyan);
         }
 
+        /* Projects: full-width so the card grid has room to breathe */
+        #projects .projects-content {
+            max-width: 1200px;
+            grid-template-columns: 1fr;
+        }
+
+        #projects .projects-text {
+            max-width: 100%;
+        }
+
+        /* Hero (whoami) intro: Aref's name as the big centered headline */
+        #whoami .hero-content {
+            max-width: 100%;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            text-align: center;
+        }
+
+        #whoami .hero-text {
+            align-items: center;
+            max-width: 1200px;
+        }
+
+        .hero-letters {
+            display: flex;
+            align-items: flex-end;
+            margin: 0;
+        }
+
+        .hero-letter {
+            height: clamp(4.5em, 16vw, 11em);
+            opacity: 0;
+            transform: translateY(24px) scale(0.85);
+            animation: hero-letter-spawn 0.6s ease-out forwards;
+        }
+
+        .hero-letter:not(:first-child) {
+            margin-left: -0.9vw;
+        }
+
+        .hero-letter:nth-child(1) { animation-delay: 0s; }
+        .hero-letter:nth-child(2) { animation-delay: 0.35s; }
+        .hero-letter:nth-child(3) { animation-delay: 0.7s; }
+        .hero-letter:nth-child(4) { animation-delay: 1.05s; }
+
+        @keyframes hero-letter-spawn {
+            0% {
+                opacity: 0;
+                transform: translateY(24px) scale(0.85);
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        body.dark-theme .hero-letter {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-letter {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .hero-headline {
+            font-size: clamp(1.2em, 2.5vw, 1.8em);
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--fg-light);
+        }
+
         .section-description {
             font-size: 1.5em;
             color: var(--fg-light);
@@ -240,8 +306,9 @@
 
         /* Project cards */
         .project-cards {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            align-items: start;
             gap: 20px;
         }
 
@@ -746,11 +813,11 @@
             background: none;
             border: none;
             color: var(--fg);
-            font-size: 1.5em;
+            font-size: 4.5em;
             cursor: pointer;
             padding: 0;
-            width: 32px;
-            height: 32px;
+            width: 96px;
+            height: 96px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -767,11 +834,11 @@
             background: none;
             border: none;
             color: var(--fg);
-            font-size: 1.2em;
+            font-size: 3.6em;
             cursor: pointer;
             padding: 0;
-            width: 32px;
-            height: 32px;
+            width: 96px;
+            height: 96px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -886,17 +953,6 @@
 
             .header-inner {
                 justify-content: flex-end;
-            }
-
-            .title {
-                flex: 1;
-                text-align: center;
-                font-size: 1.4em;
-            }
-
-            .title-tagline {
-                font-size: 0.85em;
-                display: inline-block;
             }
 
             .social-links {
@@ -1081,23 +1137,6 @@
                 margin-top: 8px;
             }
 
-            /* Prevent min-width overflow if tagline ever shows */
-            .title-tagline {
-                min-width: unset;
-            }
-        }
-
-        /* Whoami: text-focused on mobile, hide decorative visual */
-        @media (max-width: 768px) {
-            #whoami .section-visual {
-                display: none;
-            }
-            #whoami .section-content {
-                text-align: center;
-            }
-            #whoami .section-divider {
-                margin: 0 auto;
-            }
         }
 
         /* Disable hover transforms on touch devices to avoid sticky states */
@@ -1149,14 +1188,13 @@
         <header>
             <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
             <div class="header-inner">
-                <div class="title">Aref<span class="title-colon">:</span> <span class="title-tagline" id="tagline">an open source contributor</span></div>
                 <div class="social-links">
                     <button id="theme-toggle" class="theme-toggle" title="Toggle theme">🌙</button>
                     <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
-                        <img src="github-logo.png" alt="GitHub" style="width:24px;height:24px">
+                        <img src="github-logo.png" alt="GitHub" style="width:72px;height:72px">
                     </a>
                     <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
-                        <img src="linkedin-logo.png" alt="LinkedIn" style="width:24px;height:24px">
+                        <img src="linkedin-logo.png" alt="LinkedIn" style="width:72px;height:72px">
                     </a>
                 </div>
             </div>
@@ -1166,25 +1204,23 @@
         <div id="portfolio-view">
     <!-- Whoami Section -->
     <section id="whoami">
-        <div class="section-content">
-            <div class="section-text">
-                <h1 class="section-title"><span>whoami</span></h1>
-                <div class="section-divider"></div>
-                <p class="section-description"><span class="hl-magenta">Aref</span>, a <span class="hl-magenta">full-stack developer</span> who builds from <span class="hl-magenta">low-level systems</span> to <span class="hl-magenta">polished frontends</span>. Comfortable with a bunch of languages, always picking up new tools.</p>
-            </div>
-            <div class="section-visual">
-                <img src="whoami.svg" alt="Who am I" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="section-content hero-content">
+            <div class="section-text hero-text">
+                <h1 class="hero-letters" role="img" aria-label="Aref">
+                    <img src="A.excalidraw.svg" alt="" class="hero-letter">
+                    <img src="r.excalidraw.svg" alt="" class="hero-letter">
+                    <img src="e.excalidraw.svg" alt="" class="hero-letter">
+                    <img src="f.excalidraw.svg" alt="" class="hero-letter">
+                </h1>
+                <p class="hero-headline">Ai Engineer · System Designer · Agentic Workflow</p>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects">
-        <div class="section-content">
-            <div class="section-visual">
-                <img src="Projects.svg" alt="Projects" style="width: 100%; height: 100%; object-fit: contain;">
-            </div>
-            <div class="section-text">
+        <div class="section-content projects-content">
+            <div class="section-text projects-text">
                 <h1 class="section-title"><span>projects</span></h1>
                 <div class="section-divider"></div>
                 <div class="project-cards">
@@ -1401,47 +1437,6 @@ no posts yet — check back soon
     </div>
 
     <script>
-        const taglines = [
-            'a full-stack developer',
-            'a backend engineer',
-            'a systems programmer',
-            'an open source contributor',
-            'a Linux lover',
-            'always learning'
-        ];
-
-        let currentTaglineIndex = 0;
-        const taglineEl = document.getElementById('tagline');
-
-        async function typeTagline(text) {
-            taglineEl.textContent = '';
-
-            // Type out the text
-            for (let char of text) {
-                taglineEl.textContent += char;
-                await sleep(50);
-            }
-
-            // Wait before deleting
-            await sleep(2500);
-
-            // Delete the text character by character
-            while (taglineEl.textContent.length > 0) {
-                taglineEl.textContent = taglineEl.textContent.slice(0, -1);
-                await sleep(30);
-            }
-
-            // Move to next tagline
-            currentTaglineIndex = (currentTaglineIndex + 1) % taglines.length;
-            await sleep(300);
-
-            typeTagline(taglines[currentTaglineIndex]);
-        }
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
         // Email handler
         const emailLink = document.querySelector('a[href^="mailto:"]');
         if (emailLink) {
@@ -1481,14 +1476,6 @@ no posts yet — check back soon
             document.querySelectorAll('.expand-hint').forEach(hint => {
                 hint.textContent = 'tap to expand';
             });
-        }
-
-        // Start tagline animation (desktop only)
-        const isDesktop = window.matchMedia('(min-width: 769px)').matches;
-        if (isDesktop) {
-            typeTagline(taglines[0]);
-        } else {
-            document.querySelector('.title').style.display = 'none';
         }
 
         // Intersection Observer for scroll animations
