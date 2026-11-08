@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Aref | Portfolio</title>
-    <meta name="description" content="Aref — full-stack developer building from low-level systems to polished frontends. Projects in CV, AR, CLI tools, and CI/CD.">
-    <meta property="og:title" content="Aref | Portfolio">
-    <meta property="og:description" content="Full-stack developer — systems to frontends. LipSync AR, Gilgamesh hand tracking, Tracer, CI/CD.">
+    <title>Aref Dagmash — Dev Portfolio</title>
+    <meta name="description" content="Aref Dagmash — System Architect building AI systems, AR pipelines, and dev tools.">
+    <meta property="og:title" content="Aref Dagmash — Dev Portfolio">
+    <meta property="og:description" content="Aref Dagmash — System Architect.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://arefdagmash.com">
-    <meta property="og:image" content="https://arefdagmash.com/Projects.svg">
-    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'Caveat';
@@ -27,1428 +27,783 @@
         }
 
         :root {
-            /* Light theme (default) — warm cream / navy / steel blue */
-            --bg: #F4F1DE;
-            --bg-alt: #D4C4A8;
-            --fg: #0D1B2A;
-            --fg-light: #3D4F63;
-            --accent-cyan: #415A77;
-            --accent-magenta: #BC6C25;
-            --accent-yellow: #8B6F47;
-            --accent-blue: #415A77;
-            --accent-pop: #F2CB4E;
+            --ink: #161616;
+            --cream: #F7F2E7;
+            --white: #FFFFFF;
+            --muted: #5c5c5c;
+            --blue: #6FA8DC;
+            --pink: #F3B6C8;
+            --orange: #F2A65A;
+            --green: #B7D98C;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-        }
-
-        /* Dark theme */
-        body.dark-theme {
-            --bg: #0D1B2A;
-            --bg-alt: #1B263B;
-            --fg: #F4F1DE;
-            --fg-light: #C9C3AE;
-            --accent-cyan: color-mix(in srgb, #415A77 65%, white 35%);
-            --accent-magenta: color-mix(in srgb, #BC6C25 70%, white 30%);
-            --accent-yellow: color-mix(in srgb, #8B6F47 70%, white 30%);
-            --accent-blue: color-mix(in srgb, #415A77 65%, white 35%);
-            --accent-pop: #F2CB4E;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        /* Desktop reads small at 100% zoom with the 16px base — bump the root
-           so every em/rem-sized text and spacing value scales up together. */
-        @media (min-width: 769px) {
-            html {
-                font-size: 18px;
-            }
         }
 
         body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: var(--bg);
-            color: var(--fg);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.5;
         }
 
-        /* Intro loader */
-        #intro-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 700ms var(--ease-out);
+        a {
+            color: inherit;
         }
 
-        #intro-overlay.intro-exit {
-            transform: translateY(-100%);
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 32px;
         }
 
-        #intro-name {
-            display: flex;
-            font-size: clamp(3em, 11vw, 8em);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--fg);
-        }
-
-        #intro-name span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(28px);
-            animation: introLetter 550ms var(--ease-out) forwards;
-        }
-
-        #intro-name span:nth-child(1) { animation-delay: 0ms; }
-        #intro-name span:nth-child(2) { animation-delay: 90ms; }
-        #intro-name span:nth-child(3) { animation-delay: 180ms; }
-        #intro-name span:nth-child(4) { animation-delay: 270ms; }
-
-        @keyframes introLetter {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            #intro-overlay {
-                display: none;
-            }
-        }
-
-        /* Header section */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(244, 241, 222, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-bottom: 1px solid var(--bg-alt);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        body.dark-theme header {
-            background: rgba(13, 27, 42, 0.95);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 6px;
-            color: var(--fg);
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .social-link img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .social-link:hover {
-            transform: scale(1.15);
-        }
-
-        .social-link svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        .header-inner {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 20px;
-            min-width: 0;
-        }
-
-        .scroll-hint {
-            font-size: 0.85em;
-            color: var(--fg-light);
-            margin-top: 10px;
-        }
-
-        /* Section styles */
-        section {
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 40px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        section.section-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        section:nth-child(odd) {
-            background: var(--bg);
-        }
-
-        section:nth-child(even) {
-            background: var(--bg-alt);
-        }
-
-        .section-content {
-            max-width: 1200px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .section-text {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .section-title {
-            font-size: 2.5em;
+        .script {
+            font-family: 'Caveat', cursive;
             font-weight: 700;
-            color: var(--fg);
-            margin-bottom: 15px;
         }
 
-        .section-title span {
-            color: var(--accent-cyan);
-        }
-
-        /* Projects: full-width single-project showcase with prev/next nav */
-        #projects .projects-content {
-            max-width: 1000px;
-            grid-template-columns: minmax(0, 1fr);
-        }
-
-        #projects .projects-text {
-            max-width: 100%;
-        }
-
-        .project-showcase {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            opacity: 0;
-        }
-
-        #projects.section-visible .project-showcase {
-            animation: showcaseIn 550ms var(--ease-out) both;
-        }
-
-        @keyframes showcaseIn {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .about-photo,
-            .section-visual img.edu-photo {
-                opacity: 0;
-                clip-path: none;
-                transform: none;
-                transition: opacity 300ms ease;
-            }
-
-            section.section-visible .about-photo,
-            section.section-visible .section-visual img.edu-photo {
-                opacity: 1;
-                clip-path: none;
-                transform: none;
-            }
-
-            .project-showcase {
-                opacity: 1;
-                animation: none;
-            }
-
-            .project-slides {
-                transition: none !important;
-            }
-        }
-
-        .project-nav {
-            flex: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 2px solid var(--fg);
-            background: var(--bg);
-            color: var(--fg);
-            font-size: 1.2em;
-            line-height: 1;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 160ms ease-out, background 160ms ease-out;
-        }
-
-        .project-nav:hover {
-            background: var(--accent-pop);
-            border-color: var(--accent-pop);
-            color: #1a1a1a;
-        }
-
-        .project-nav:active {
-            transform: scale(0.93);
-        }
-
-        .project-slide-viewport {
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-        }
-
-        .project-slides {
-            display: flex;
-            transition: transform 500ms var(--ease-in-out);
-        }
-
-        .project-slide {
-            flex: none;
-            width: 100%;
-            display: flex;
-        }
-
-        .project-slide-visual {
-            flex: none;
-            width: 42%;
-            aspect-ratio: 4 / 3.4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            border-radius: 16px;
-        }
-
-        .project-slide-sprite {
-            width: 55%;
-            height: 55%;
-            object-fit: contain;
-            filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.15));
-        }
-
-        .project-slide-body {
-            flex: 1;
-            padding: 8px 0 8px 32px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .project-slide-eyebrow {
-            font-size: 0.8em;
-            font-weight: 600;
-            letter-spacing: 0.08em;
+        .block {
+            font-family: 'Anton', sans-serif;
+            font-weight: 400;
             text-transform: uppercase;
-            color: var(--fg-light);
-            margin-bottom: 8px;
+            letter-spacing: 0.01em;
         }
 
-        .project-slide-title {
-            font-size: 1.6em;
+        /* ---------- Nav ---------- */
+
+        nav.topnav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+        }
+
+        .nav-name {
             font-weight: 700;
-            color: var(--fg);
-            margin-bottom: 12px;
+            font-size: 1.1em;
+            letter-spacing: 0.04em;
         }
 
-        .project-slide-desc {
-            font-size: 1em;
-            color: var(--fg-light);
-            line-height: 1.6;
-            margin-bottom: 16px;
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
         }
 
-        .project-slide-link {
-            align-self: flex-start;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: var(--accent-cyan);
+        .nav-links a {
             text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            letter-spacing: 0.03em;
         }
 
-        .project-slide-link:hover {
+        .nav-links a:hover {
             text-decoration: underline;
         }
 
-        .project-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+        /* ---------- Hero ---------- */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 20px 0 60px;
         }
 
-        .project-dot {
+        .hero-headline {
+            font-size: clamp(2.6em, 5vw, 3.4em);
+            line-height: 0.95;
+        }
+
+        .hero-headline .script {
+            display: block;
+            font-size: 1.3em;
+            line-height: 1;
+        }
+
+        .hero-sub {
+            margin-top: 24px;
+            max-width: 440px;
+            color: var(--muted);
+            font-size: 1.05em;
+        }
+
+        .cta-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .cta-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex: none;
+        }
+
+        .cta-line {
+            width: 28px;
+            height: 2px;
+            background: var(--blue);
+            flex: none;
+        }
+
+        .cta-btn {
+            background: var(--blue);
+            color: var(--ink);
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-size: 0.95em;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .hero-socials a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 140ms var(--ease-out);
+        }
+
+        .hero-socials a:hover {
+            transform: translateY(-3px);
+        }
+
+        .hero-socials svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-photo-frame {
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 3 / 3.6;
+            background: var(--blue);
+            border-radius: 16px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .hero-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .sticker {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sticker-folder {
+            width: 54px;
+            height: 40px;
+        }
+
+        .sticker-label {
+            font-size: 0.68em;
+            font-weight: 600;
+            background: var(--white);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .sticker-1 { top: -18px; left: -28px; transform: rotate(-8deg); }
+        .sticker-2 { top: -10px; right: -24px; transform: rotate(6deg); }
+        .sticker-3 { bottom: 60px; left: -36px; transform: rotate(10deg); }
+        .sticker-4 { bottom: 40px; right: -30px; transform: rotate(-6deg); }
+
+        .hero-caption {
+            margin-top: 20px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            font-size: 0.95em;
+        }
+
+        /* ---------- Bio section ---------- */
+
+        .bio-section {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 48px;
+            align-items: center;
+            padding: 60px 0;
+        }
+
+        .browser-frame {
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .browser-bar {
+            display: flex;
+            gap: 6px;
+            padding: 10px 12px;
+            background: #EDEDED;
+        }
+
+        .browser-dot {
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            border: none;
-            padding: 0;
-            background: var(--bg-alt);
-            cursor: pointer;
-            transition: background 160ms ease-out, transform 160ms ease-out;
         }
 
-        .project-dot:hover {
-            transform: scale(1.2);
-        }
+        .browser-dot:nth-child(1) { background: #FF5F57; }
+        .browser-dot:nth-child(2) { background: #FEBC2E; }
+        .browser-dot:nth-child(3) { background: #28C840; }
 
-        .project-dot.active {
-            background: var(--accent-pop);
-        }
-
-        @media (max-width: 700px) {
-            .project-slide {
-                flex-direction: column;
-            }
-
-            .project-slide-visual {
-                width: 100%;
-                aspect-ratio: 16 / 9;
-            }
-
-            .project-slide-body {
-                padding: 20px 0 0 0;
-            }
-
-            .project-nav {
-                width: 36px;
-                height: 36px;
-                font-size: 1em;
-            }
-        }
-
-        /* Hero (whoami) intro: sits close under the header instead of
-           centering in a full 100vh block, which read as too spread out */
-        #whoami {
-            min-height: auto;
-            padding-top: 72px;
-            padding-bottom: 72px;
-        }
-
-        #whoami .hero-content {
-            max-width: 100%;
-            grid-template-columns: 1.15fr 0.85fr;
-            align-items: center;
-            text-align: left;
-        }
-
-        #whoami .hero-text {
-            align-items: flex-start;
-            max-width: 100%;
-            gap: 28px;
-        }
-
-        .hero-eyebrow {
-            font-size: 1.1em;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--accent-magenta);
-            margin: 0;
-        }
-
-        .hero-name {
-            font-size: clamp(3em, 6.5vw, 5.4em);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            color: var(--fg);
-            margin: 0;
-        }
-
-        .hero-qualifier {
-            font-size: clamp(1em, 1.6vw, 1.3em);
-            font-weight: 500;
-            color: var(--fg-light);
-            margin: 0;
-        }
-
-        .section-description {
-            font-size: 1.5em;
-            color: var(--fg-light);
-            line-height: 1.8;
-            white-space: pre-wrap;
-        }
-
-        .hl-cyan { color: #169c8b; font-weight: 500; }
-        .hl-magenta { color: #c7559c; font-weight: 500; }
-        .hl-yellow { color: #b38f3a; font-weight: 500; }
-        .hl-blue { color: #5a8de0; font-weight: 500; }
-
-        /* Highlighter-marker behind the key phrase. "AI" and "systems" are
-           separate spans (one per line) so each can sweep in on its own
-           turn instead of both lines filling at once. */
-        .about-highlight {
-            background-image: linear-gradient(var(--accent-pop), var(--accent-pop));
-            background-repeat: no-repeat;
-            background-position: left center;
-            background-size: 0% 100%;
-            color: #1a1a1a;
-            padding: 0.05em 0.3em;
-            border-radius: 2px;
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-        }
-
-        .hl-step-1 { animation: highlightSweep 1100ms var(--ease-out) 1450ms both; }
-        .hl-step-2 { animation: highlightSweep 1100ms var(--ease-out) 2550ms both; }
-
-        @keyframes highlightSweep {
-            from { background-size: 0% 100%; }
-            to { background-size: 100% 100%; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .about-highlight.hl-step-1,
-            .about-highlight.hl-step-2 {
-                animation: none;
-                background-size: 100% 100%;
-            }
-        }
-
-        .project-explained-btn.about-cta {
-            align-self: flex-start;
-            text-decoration: none;
-            background: var(--accent-pop);
-            color: #1a1a1a;
-            border: 2px solid var(--fg);
-            border-radius: 8px;
-            box-shadow: 4px 4px 0 var(--fg);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            padding: 16px 28px;
-            font-size: 1.2em;
-        }
-
-        .project-explained-btn.about-cta:hover {
-            background: var(--accent-pop);
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0 var(--fg);
-        }
-
-        /* Education */
-        .edu-school {
-            font-weight: 700;
-            color: var(--fg);
-        }
-
-        .edu-degree {
-            font-size: 1.3em;
-            color: var(--fg-light);
-        }
-
-        .edu-visual {
-            min-height: auto;
-            padding: 0;
-        }
-
-        .section-visual img.edu-photo {
+        .browser-frame img {
             width: 100%;
-            max-width: 340px;
-            max-height: 100%;
-            border-radius: 16px;
-            object-fit: cover;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
-            clip-path: inset(0 0 100% 0 round 16px);
-            transform: scale(0.97);
-            transition: clip-path 750ms var(--ease-out), transform 750ms var(--ease-out);
-        }
-
-        section.section-visible .section-visual img.edu-photo {
-            clip-path: inset(0 0 0 0 round 16px);
-            transform: scale(1);
-        }
-
-        body.dark-theme .section-visual img.edu-photo {
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
-        }
-
-        .about-visual {
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            min-height: 640px;
-        }
-
-        .about-visual::before {
-            content: '';
-            position: absolute;
-            inset: 4% 2% 0 2%;
-            background: color-mix(in srgb, var(--accent-cyan) 20%, var(--bg-alt));
-            border-radius: 24px;
-        }
-
-        .about-photo {
-            position: relative;
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
-            clip-path: inset(0 0 100% 0);
-            transform: scale(0.97);
-            transition: clip-path 750ms var(--ease-out), transform 750ms var(--ease-out);
-        }
-
-        section.section-visible .about-photo {
-            clip-path: inset(0 0 0 0);
-            transform: scale(1);
-        }
-
-        .section-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: none;
-            min-height: 400px;
-        }
-
-        .section-visual svg,
-        .section-visual img {
-            width: 100%;
-            height: 100%;
-            max-width: 400px;
-            max-height: 400px;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
-            transition: filter 0.3s ease;
-        }
-
-        body.dark-theme .section-visual svg {
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) brightness(1.3) invert(1);
-        }
-
-        body.dark-theme .section-visual img {
-            filter: brightness(1.3) invert(1);
-            transition: filter 0.3s ease;
-        }
-
-        .project-explained-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: var(--accent-cyan);
-            color: var(--bg);
-            border: none;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.9em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .project-explained-btn:hover {
-            background: var(--accent-magenta);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        /* Smooth transitions */
-        section {
-            transition: all 0.3s ease;
-        }
-
-        /* Sidebar */
-        #sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 200px;
-            height: 100vh;
-            height: 100dvh;
-            background-color: var(--bg-alt);
-            border-right: 1px solid #ddd;
-            padding: 20px;
-            overflow-y: auto;
-            z-index: 150;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        body.dark-theme #sidebar {
-            border-right-color: #444;
-        }
-
-        body.sidebar-open #sidebar {
-            transform: translateX(0);
-        }
-
-        /* Desktop: sidebar always visible and pushes content */
-        @media (min-width: 769px) {
-            #sidebar {
-                transform: translateX(0);
-                position: fixed;
-            }
-
-            #main-content {
-                margin-left: 200px;
-                transition: margin-left 0.3s ease;
-            }
-
-            body:not(.sidebar-open) #sidebar {
-                transform: translateX(-100%);
-            }
-
-            body:not(.sidebar-open) #main-content {
-                margin-left: 0;
-            }
-        }
-
-        /* Mobile: sidebar overlays with backdrop */
-        @media (max-width: 768px) {
-            body.sidebar-open::before {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 140;
-            }
-        }
-
-        .sidebar-header {
-            margin-bottom: 30px;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .sidebar-section-label {
-            font-size: 0.9em;
-            color: var(--fg-light);
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .sidebar-link {
-            color: var(--fg-light);
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
             display: block;
-            cursor: pointer;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
         }
 
-        .sidebar-link:hover {
-            color: var(--accent-cyan);
-            background-color: rgba(148, 226, 213, 0.1);
+        .bio-heading {
+            font-size: 2.2em;
         }
 
-        .sidebar-link.active {
-            color: var(--accent-cyan);
-            font-weight: 600;
+        .bio-text {
+            margin-top: 16px;
+            color: var(--muted);
+            max-width: 520px;
         }
 
-        /* Main content */
-        #main-content {
-            width: 100%;
-            transition: margin-left 0.3s ease;
+        .bio-text b {
+            color: var(--ink);
         }
 
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(244, 241, 222, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-bottom: 1px solid var(--bg-alt);
-            text-align: center;
+        .tool-logos {
             display: flex;
+            gap: 26px;
+            margin-top: 28px;
+            flex-wrap: wrap;
             align-items: center;
-            justify-content: center;
+        }
+
+        .tool-logos svg {
+            width: 26px;
+            height: 26px;
+            color: var(--ink);
+            opacity: 0.75;
+        }
+
+        /* ---------- Work grid ---------- */
+
+        .work-section {
+            padding: 40px 0 70px;
+        }
+
+        .work-heading {
+            font-size: 2.4em;
+            margin-bottom: 32px;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
-        .sidebar-toggle {
-            background: none;
-            border: none;
-            color: var(--fg);
-            font-size: 1.6em;
-            cursor: pointer;
-            padding: 0;
-            width: 44px;
-            height: 44px;
+        .work-card {
+            background: var(--white);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e8e2d4;
+        }
+
+        .work-thumb {
+            aspect-ratio: 16 / 10;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 6px;
-            transition: all 0.2s ease;
         }
 
-        .sidebar-toggle:hover {
-            color: var(--accent-cyan);
-            background-color: rgba(148, 226, 213, 0.1);
+        .work-thumb svg {
+            width: 34%;
+            height: 34%;
+            color: #fff;
         }
 
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--fg);
-            font-size: 1.3em;
-            cursor: pointer;
-            padding: 0;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            margin-left: 10px;
+        .work-body {
+            padding: 14px 16px 18px;
         }
 
-        .theme-toggle:hover {
-            color: var(--accent-cyan);
-            background-color: rgba(148, 226, 213, 0.1);
+        .work-title {
+            font-weight: 700;
+            font-size: 0.95em;
+            margin-bottom: 6px;
         }
 
-        .stack-focus {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+        .work-desc {
+            font-size: 0.82em;
+            color: var(--muted);
+            line-height: 1.5;
         }
 
-        body.dark-theme .stack-focus {
-            border-top-color: #444;
+        /* ---------- Case study ---------- */
+
+        .case-section {
+            padding: 20px 0 80px;
         }
 
-        /* Contact with labels */
-        .contact-grid {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-top: 24px;
+        .case-badge {
+            display: inline-block;
+            background: var(--white);
+            border: 1px solid var(--ink);
+            border-radius: 999px;
+            padding: 6px 16px;
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-bottom: 18px;
         }
 
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--fg);
-            padding: 16px;
+        .case-heading {
+            font-size: 2.6em;
+            line-height: 0.95;
+        }
+
+        .case-heading .script {
+            display: block;
+            font-size: 1.2em;
+        }
+
+        .case-sub {
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            font-size: 0.85em;
+            color: var(--muted);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 32px;
+            align-items: start;
+        }
+
+        .case-collage {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .case-collage-tile {
+            aspect-ratio: 1;
             border-radius: 12px;
-            transition: all 0.2s ease;
-            min-width: 100px;
-        }
-
-        .contact-item:hover {
-            transform: scale(1.05);
-            background: rgba(0, 0, 0, 0.03);
-        }
-
-        body.dark-theme .contact-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .contact-item-icon {
-            width: 48px;
-            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--fg);
         }
 
-        .contact-item-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: currentColor;
+        .case-collage-tile img {
+            width: 44%;
+            height: 44%;
+            object-fit: contain;
         }
 
-        .contact-item-label {
-            font-size: 1em;
-            color: var(--fg-light);
+        .case-block {
+            margin-bottom: 20px;
         }
 
-        /* Section divider accent */
-        .section-divider {
-            width: 60px;
-            height: 3px;
-            background: var(--accent-cyan);
-            border-radius: 2px;
-            margin-top: 4px;
+        .case-block-label {
+            font-weight: 700;
+            font-size: 0.85em;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
         }
 
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            #sidebar {
-                width: 250px;
-            }
+        .case-block p {
+            color: var(--muted);
+            font-size: 0.92em;
+        }
 
-            header {
-                justify-content: space-between;
-                padding: 12px;
-            }
+        .process-row {
+            display: flex;
+            gap: 16px;
+            margin: 24px 0;
+        }
 
-            .header-inner {
-                justify-content: flex-end;
-            }
+        .process-step {
+            flex: 1;
+            text-align: center;
+            background: var(--white);
+            border: 1px solid #e8e2d4;
+            border-radius: 12px;
+            padding: 14px 8px;
+        }
 
-            .social-links {
-                gap: 8px;
-            }
+        .process-step svg {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 6px;
+        }
 
-            .scroll-hint {
+        .process-step span {
+            display: block;
+            font-size: 0.72em;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .stack-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .stack-badge {
+            background: var(--ink);
+            color: var(--cream);
+            font-size: 0.78em;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+
+        .case-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid var(--ink);
+            padding-bottom: 2px;
+        }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer-heading {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .footer-socials a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--cream);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-socials svg {
+            width: 19px;
+            height: 19px;
+        }
+
+        /* ---------- Mobile ---------- */
+
+        @media (max-width: 860px) {
+            .nav-links {
                 display: none;
             }
 
-            section {
-                padding: 40px 16px;
-                min-height: auto;
-            }
-
-            .section-content {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 12px;
-            }
-
-            #whoami .hero-content {
+            .hero,
+            .bio-section,
+            .case-grid {
                 grid-template-columns: 1fr;
-                text-align: center;
             }
 
-            #whoami .hero-text {
-                align-items: center;
-                order: 2;
+            .hero-visual {
+                order: -1;
             }
 
-            #whoami .about-visual {
-                order: 1;
+            .work-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .about-visual {
-                min-height: auto;
+            .sticker {
+                display: none;
             }
 
-            .section-text {
-                padding: 0 1.25rem;
+            .process-row {
+                flex-wrap: wrap;
             }
 
-            .section-title {
-                font-size: 2rem;
-                letter-spacing: -0.5px;
-            }
-
-            .section-description {
-                font-size: 1.1em;
-            }
-
-            .section-visual {
-                min-height: 200px;
-                padding: 20px;
-            }
-
-            .section-visual img {
-                max-width: 280px;
-                max-height: 45vh;
+            .process-step {
+                flex: 1 1 40%;
             }
         }
 
-        /* iOS safe area + touch-first improvements */
-        @media (max-width: 768px) {
-            /* Safe area insets for notch / home indicator */
-            header {
-                padding-top: max(12px, env(safe-area-inset-top));
-                padding-left: max(12px, env(safe-area-inset-left));
-                padding-right: max(12px, env(safe-area-inset-right));
-            }
-
-            /* Touch targets: 44px minimum (iOS HIG) */
-            .sidebar-toggle,
-            .theme-toggle {
-                width: 44px;
-                height: 44px;
-            }
-
-            .social-link {
-                width: 44px;
-                height: 44px;
-            }
-
-            .social-link svg {
-                width: 20px;
-                height: 20px;
-            }
-
-            .sidebar-link {
-                min-height: 44px;
-                padding: 12px 12px;
-                display: flex;
-                align-items: center;
-            }
-
-            .project-explained-btn {
-                min-height: 44px;
-                padding: 14px 18px;
-                width: 100%;
-                justify-content: center;
-            }
-
-            /* Touch feedback (replaces hover on iOS) */
-            .contact-item:active {
-                transform: scale(0.97);
-                background: rgba(0, 0, 0, 0.05);
-            }
-
-            body.dark-theme .contact-item:active {
-                background: rgba(255, 255, 255, 0.07);
-            }
-
-            .project-explained-btn:active {
-                opacity: 0.8;
-            }
-
-            /* Contact items: better touch area */
-            .contact-item {
-                min-width: 80px;
-                padding: 14px 12px;
-            }
-
-            /* Bottom safe area for last section */
-            #contact {
-                padding-bottom: max(40px, calc(40px + env(safe-area-inset-bottom)));
-            }
-
-            /* Section content gap */
-            .section-content {
-                gap: 24px;
-            }
-
-        }
-
-        /* Disable hover transforms on touch devices to avoid sticky states */
-        @media (hover: none) {
-            .project-explained-btn:hover {
-                transform: none;
-                box-shadow: none;
-            }
-
-            .contact-item:hover {
-                transform: none;
-                background: transparent;
-            }
-
-            .social-link:hover {
-                transform: none;
+        @media (max-width: 520px) {
+            .work-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Intro loader -->
-    <div id="intro-overlay" aria-hidden="true">
-        <h1 id="intro-name">
-            <span>A</span><span>r</span><span>e</span><span>f</span>
-        </h1>
-    </div>
 
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar">
-
-        <nav class="sidebar-nav">
-            <div class="sidebar-section-label">— portfolio —</div>
-            <a href="#whoami" class="sidebar-link" data-section="whoami">whoami</a>
-            <a href="#education" class="sidebar-link" data-section="education">education</a>
-            <a href="#projects" class="sidebar-link" data-section="projects">projects</a>
-            <a href="#contact" class="sidebar-link" data-section="contact">contact</a>
-
-            <div class="sidebar-section-label" style="margin-top: 20px;">— blog —</div>
-            <a href="#" class="sidebar-link" data-view="blog" id="blog-link">blog</a>
+    <div class="wrap">
+        <nav class="topnav">
+            <span class="nav-name">AREF DAGMASH</span>
+            <ul class="nav-links">
+                <li><a href="#work">Projects</a></li>
+                <li><a href="#case-study">Case Study</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </nav>
-    </aside>
 
-    <!-- Main Content -->
-    <div id="main-content">
-        <header>
-            <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
-            <div class="header-inner">
-                <div class="social-links">
-                    <button id="theme-toggle" class="theme-toggle" title="Toggle theme">🌙</button>
-                    <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
-                        <img src="github-logo.png" alt="GitHub">
+        <section class="hero">
+            <div>
+                <h1 class="hero-headline block">
+                    <span class="script">Dev</span>
+                    Portfolio
+                </h1>
+                <p class="hero-sub">Developer portfolio built to showcase AI systems, AR pipelines, and dev tools &mdash; from research prototypes to shipped projects.</p>
+
+                <div class="cta-row">
+                    <span class="cta-dot"></span>
+                    <span class="cta-line"></span>
+                    <a href="mailto:arefdagmash@gmail.com" class="cta-btn">LET'S CONNECT</a>
+                </div>
+
+                <div class="hero-socials">
+                    <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" title="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
-                        <img src="linkedin-logo.png" alt="LinkedIn">
+                    <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+                    </a>
+                    <a href="mailto:arefdagmash@gmail.com" title="Email">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
                     </a>
                 </div>
             </div>
-        </header>
 
-        <!-- Portfolio View -->
-        <div id="portfolio-view">
-    <!-- Whoami Section -->
-    <section id="whoami">
-        <div class="section-content hero-content">
-            <div class="section-text hero-text">
-                <p class="hero-eyebrow">System Architect</p>
-                <h1 class="hero-name">I build <span class="about-highlight hl-step-1">AI</span> <span class="about-highlight hl-step-2">systems</span>.</h1>
-                <p class="hero-qualifier">Custom, intuitive, and functional.</p>
-                <a href="#projects" class="project-explained-btn about-cta">See my work &#8594;</a>
-            </div>
-            <div class="about-visual">
-                <img src="aref-photo.png" alt="Aref" class="about-photo">
-            </div>
-        </div>
-    </section>
+            <div class="hero-visual">
+                <div class="hero-photo-frame">
+                    <img src="aref-photo-head.png" alt="Aref Dagmash">
 
-    <!-- Education Section -->
-    <section id="education">
-        <div class="section-content">
-            <div class="section-text">
-                <h1 class="section-title"><span>education</span></h1>
-                <div class="section-divider"></div>
-                <p class="section-description edu-school">American University of Sharjah</p>
-                <p class="edu-degree">B.S. in Computer Science &mdash; Class of 2026</p>
-            </div>
-            <div class="section-visual edu-visual">
-                <img src="graduation-photo.jpg" alt="Aref at graduation, American University of Sharjah" class="edu-photo">
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="section-content projects-content">
-            <div class="section-text projects-text">
-                <h1 class="section-title"><span>projects</span></h1>
-                <div class="section-divider"></div>
-
-                <div class="project-showcase">
-                    <button class="project-nav project-nav-prev" id="projectPrev" aria-label="Previous project">&#8592;</button>
-
-                    <div class="project-slide-viewport">
-                        <div class="project-slides" id="projectSlides">
-                            <article class="project-slide">
-                                <div class="project-slide-visual" style="background: var(--accent-cyan);">
-                                    <img src="previews/rehero.png" alt="ReHero icon" loading="lazy" class="project-slide-sprite">
-                                </div>
-                                <div class="project-slide-body">
-                                    <p class="project-slide-eyebrow">01 &mdash; ReHero</p>
-                                    <h3 class="project-slide-title">ReHero</h3>
-                                    <p class="project-slide-desc">Desktop research paper reader with an AI copilot, hand-drawn annotations, and a built-in whiteboard.</p>
-                                    <a href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
-                                </div>
-                            </article>
-                            <article class="project-slide">
-                                <div class="project-slide-visual" style="background: var(--accent-magenta);">
-                                    <img src="previews/lipsync.png" alt="LipSync icon" loading="lazy" class="project-slide-sprite">
-                                </div>
-                                <div class="project-slide-body">
-                                    <p class="project-slide-eyebrow">02 &mdash; LipSync</p>
-                                    <h3 class="project-slide-title">LipSync</h3>
-                                    <p class="project-slide-desc">Real-time lip reading pipeline for AR glasses, streaming decoded speech to a Vuzix display.</p>
-                                    <a href="https://github.com/ArefDagmash/Visual_Speech_Recognition_for_Multiple_Languages" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
-                                </div>
-                            </article>
-                            <article class="project-slide">
-                                <div class="project-slide-visual" style="background: var(--accent-pop);">
-                                    <img src="previews/gilgamesh.png" alt="Gilgamesh sword sprite" loading="lazy" class="project-slide-sprite">
-                                </div>
-                                <div class="project-slide-body">
-                                    <p class="project-slide-eyebrow">03 &mdash; Gilgamesh</p>
-                                    <h3 class="project-slide-title">Gilgamesh</h3>
-                                    <p class="project-slide-desc">Hand tracking that turns your fingers into animated swords, using MediaPipe and OpenCV.</p>
-                                    <a href="https://github.com/ArefDagmash/Gilgamesh" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
-                                </div>
-                            </article>
-                            <article class="project-slide">
-                                <div class="project-slide-visual" style="background: var(--accent-cyan);">
-                                    <img src="previews/tracer.png" alt="Tracer icon" loading="lazy" class="project-slide-sprite">
-                                </div>
-                                <div class="project-slide-body">
-                                    <p class="project-slide-eyebrow">04 &mdash; Tracer</p>
-                                    <h3 class="project-slide-title">Tracer</h3>
-                                    <p class="project-slide-desc">CLI tool that scans a repo and generates Mermaid architecture diagrams &mdash; no LLM required.</p>
-                                    <a href="https://github.com/ArefDagmash/Tracer" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
-                                </div>
-                            </article>
-                        </div>
+                    <div class="sticker sticker-1">
+                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--pink)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#E899AE"/></svg>
+                        <span class="sticker-label">projects_01</span>
                     </div>
-
-                    <button class="project-nav project-nav-next" id="projectNext" aria-label="Next project">&#8594;</button>
+                    <div class="sticker sticker-2">
+                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--orange)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#D98A41"/></svg>
+                        <span class="sticker-label">skills_02</span>
+                    </div>
+                    <div class="sticker sticker-3">
+                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--blue)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#5389C2"/></svg>
+                        <span class="sticker-label">stack_03</span>
+                    </div>
+                    <div class="sticker sticker-4">
+                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--green)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#9BC068"/></svg>
+                        <span class="sticker-label">resume_04</span>
+                    </div>
                 </div>
+                <p class="hero-caption">AREF DAGMASH</p>
+            </div>
+        </section>
 
-                <div class="project-dots" id="projectDots">
-                    <button class="project-dot active" data-index="0" aria-label="Go to ReHero"></button>
-                    <button class="project-dot" data-index="1" aria-label="Go to LipSync"></button>
-                    <button class="project-dot" data-index="2" aria-label="Go to Gilgamesh"></button>
-                    <button class="project-dot" data-index="3" aria-label="Go to Tracer"></button>
+        <section class="bio-section" id="skills">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                    <span class="browser-dot"></span>
+                </div>
+                <img src="aref-photo-head.png" alt="Aref Dagmash">
+            </div>
+
+            <div>
+                <h2 class="bio-heading script">Hi, I'm Aref!</h2>
+                <p class="bio-text"><b>System Architect</b> passionate about building things end to end &mdash; from research prototypes to AR hardware.</p>
+                <p class="bio-text" style="margin-top: 10px;">I specialize in <b>AI systems, computer vision, and desktop tooling</b>, working across <b>C++, Python, Rust, and TypeScript</b> to ship projects that are custom, intuitive, and functional.</p>
+
+                <div class="tool-logos" title="Core stack">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m14.25.18l.9.2l.73.26l.59.3l.45.32l.34.34l.25.34l.16.33l.1.3l.04.26l.02.2l-.01.13V8.5l-.05.63l-.13.55l-.21.46l-.26.38l-.3.31l-.33.25l-.35.19l-.35.14l-.33.1l-.3.07l-.26.04l-.21.02H8.77l-.69.05l-.59.14l-.5.22l-.41.27l-.33.32l-.27.35l-.2.36l-.15.37l-.1.35l-.07.32l-.04.27l-.02.21v3.06H3.17l-.21-.03l-.28-.07l-.32-.12l-.35-.18l-.36-.26l-.36-.36l-.35-.46l-.32-.59l-.28-.73l-.21-.88l-.14-1.05l-.05-1.23l.06-1.22l.16-1.04l.24-.87l.32-.71l.36-.57l.4-.44l.42-.33l.42-.24l.4-.16l.36-.1l.32-.05l.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75l-.02-.37l.05-.34l.11-.31l.17-.28l.25-.26l.31-.23l.38-.2l.44-.18l.51-.15l.58-.12l.64-.1l.71-.06l.77-.04l.84-.02l1.27.05zm-6.3 1.98l-.23.33l-.08.41l.08.41l.23.34l.33.22l.41.09l.41-.09l.33-.22l.23-.34l.08-.41l-.08-.41l-.23-.33l-.33-.22l-.41-.09l-.41.09zm13.09 3.95l.28.06l.32.12l.35.18l.36.27l.36.35l.35.47l.32.59l.28.73l.21.88l.14 1.04l.05 1.23l-.06 1.23l-.16 1.04l-.24.86l-.32.71l-.36.57l-.4.45l-.42.33l-.42.24l-.4.16l-.36.09l-.32.05l-.24.02l-.16-.01h-8.22v.82h5.84l.01 2.76l.02.36l-.05.34l-.11.31l-.17.29l-.25.25l-.31.24l-.38.2l-.44.17l-.51.15l-.58.13l-.64.09l-.71.07l-.77.04l-.84.01l-1.27-.04l-1.07-.14l-.9-.2l-.73-.25l-.59-.3l-.45-.33l-.34-.34l-.25-.34l-.16-.33l-.1-.3l-.04-.25l-.02-.2l.01-.13v-5.34l.05-.64l.13-.54l.21-.46l.26-.38l.3-.32l.33-.24l.35-.2l.35-.14l.33-.1l.3-.06l.26-.04l.21-.02l.13-.01h5.84l.69-.05l.59-.14l.5-.21l.41-.28l.33-.32l.27-.35l.2-.36l.15-.36l.1-.35l.07-.32l.04-.28l.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33l-.08.41l.08.41l.23.33l.33.23l.41.08l.41-.08l.33-.23l.23-.33l.08-.41l-.08-.41l-.23-.33l-.33-.23l-.41-.08l-.41.08z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91s.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69s.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91M12 19.11c-3.92 0-7.109-3.19-7.109-7.11s3.19-7.11 7.11-7.11a7.13 7.13 0 0 1 6.156 3.553l-3.076 1.78a3.57 3.57 0 0 0-3.08-1.78A3.56 3.56 0 0 0 8.444 12A3.56 3.56 0 0 0 12 15.555a3.57 3.57 0 0 0 3.08-1.778l3.078 1.78A7.14 7.14 0 0 1 12 19.11"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12.005 0L4.952 7.053a9.865 9.865 0 0 0 0 14.022a9.866 9.866 0 0 0 14.022 0c3.984-3.9 3.986-10.205.085-14.023l-1.744 1.743c2.904 2.905 2.904 7.634 0 10.538s-7.634 2.904-10.538 0s-2.904-7.634 0-10.538l4.647-4.646l.582-.665zm3.568 3.899a1.327 1.327 0 0 0-1.327 1.327a1.327 1.327 0 0 0 1.327 1.328A1.327 1.327 0 0 0 16.9 5.226A1.327 1.327 0 0 0 15.573 3.9z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75q.918 0 1.627.111a6.4 6.4 0 0 1 1.306.34v2.458a4 4 0 0 0-.643-.361a5 5 0 0 0-.717-.26a5.5 5.5 0 0 0-1.426-.2q-.45 0-.819.086a2.1 2.1 0 0 0-.623.242q-.254.156-.393.374a.9.9 0 0 0-.14.49q0 .294.156.529q.156.234.443.444c.287.21.423.276.696.41q.41.203.926.416q.705.296 1.266.628q.561.333.963.753q.402.418.614.957q.213.538.214 1.253q0 .986-.373 1.656a3 3 0 0 1-1.012 1.085a4.4 4.4 0 0 1-1.487.596q-.85.18-1.79.18a10 10 0 0 1-1.84-.164a5.5 5.5 0 0 1-1.512-.493v-2.63a5.03 5.03 0 0 0 3.237 1.2q.5 0 .872-.09q.373-.09.623-.25q.249-.162.373-.38a1.02 1.02 0 0 0-.074-1.089a2.1 2.1 0 0 0-.537-.5a5.6 5.6 0 0 0-.807-.444a28 28 0 0 0-1.007-.436q-1.377-.575-2.053-1.405t-.676-2.005q0-.92.369-1.582q.368-.662 1.004-1.089a4.5 4.5 0 0 1 1.47-.629a7.5 7.5 0 0 1 1.77-.201m-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.185.186.186M23.763 9.89c-.065-.051-.672-.51-1.954-.51q-.508.001-1.01.087c-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199l-.226.327c-.284.438-.49.922-.612 1.43c-.23.97-.09 1.882.403 2.661c-.595.332-1.55.413-1.744.42H.751a.75.75 0 0 0-.75.748a11.4 11.4 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124c1.18.723 3.1 1.137 5.275 1.137a15.7 15.7 0 0 0 2.93-.266a12.3 12.3 0 0 0 3.823-1.389a10.5 10.5 0 0 0 2.61-2.136c1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009c.309-.293.55-.65.707-1.046l.098-.288Z"/></svg>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <div class="section-content">
-                <div class="section-visual">
-                    <img src="Contact.svg" alt="Contact" style="width: 100%; height: 100%; object-fit: contain;">
+        <section class="work-section" id="work">
+            <h2 class="work-heading block">What I Build</h2>
+            <div class="work-grid">
+                <div class="work-card">
+                    <div class="work-thumb" style="background: #4A7FB5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M8.50226 5.38707C8.81015 5.10997 8.8351 4.63576 8.55801 4.32787C8.28092 4.01999 7.8067 3.99503 7.49882 4.27213L5.76133 5.83587C5.02499 6.49853 4.41418 7.04822 3.99477 7.54679C3.55374 8.07104 3.24023 8.6343 3.24023 9.3296C3.24023 10.0249 3.55374 10.5882 3.99477 11.1124C4.41418 11.611 5.02498 12.1607 5.76132 12.8233L7.49882 14.3871C7.8067 14.6642 8.28092 14.6392 8.55801 14.3313C8.8351 14.0234 8.81015 13.5492 8.50226 13.2721L6.80579 11.7453C6.01792 11.0362 5.48672 10.5558 5.14262 10.1468C4.81237 9.7542 4.74023 9.52502 4.74023 9.3296C4.74023 9.13417 4.81237 8.90499 5.14262 8.51241C5.48672 8.10338 6.01792 7.62298 6.80579 6.91389L8.50226 5.38707Z"/><path fill="currentColor" d="M14.18 4.27517C14.5803 4.38157 14.8185 4.79234 14.7121 5.19266L10.7253 20.1927C10.6189 20.593 10.2082 20.8312 9.80784 20.7248C9.40752 20.6184 9.16926 20.2077 9.27565 19.8074L13.2625 4.80735C13.3689 4.40704 13.7796 4.16877 14.18 4.27517Z"/><path fill="currentColor" d="M15.443 10.4983C15.7201 10.1904 16.1943 10.1654 16.5022 10.4425L18.2397 12.0063C18.976 12.6689 19.5868 13.2186 20.0063 13.7172C20.4473 14.2415 20.7608 14.8047 20.7608 15.5C20.7608 16.1953 20.4473 16.7586 20.0063 17.2828C19.5868 17.7814 18.976 18.3311 18.2397 18.9937L16.5022 20.5575C16.1943 20.8346 15.7201 20.8096 15.443 20.5017C15.1659 20.1938 15.1909 19.7196 15.4988 19.4425L17.1952 17.9157C17.9831 17.2066 18.5143 16.7262 18.8584 16.3172C19.1887 15.9246 19.2608 15.6954 19.2608 15.5C19.2608 15.3046 19.1887 15.0754 18.8584 14.6828C18.5143 14.2738 17.9831 13.7934 17.1952 13.0843L15.4988 11.5575C15.1909 11.2804 15.1659 10.8062 15.443 10.4983Z"/></svg>
+                    </div>
+                    <div class="work-body">
+                        <p class="work-title">Languages</p>
+                        <p class="work-desc">C++, Python, Java, Rust, TypeScript, SQL &mdash; the core toolkit across every project.</p>
+                    </div>
                 </div>
-                <div class="section-text">
-                    <h1 class="section-title"><span>contact</span></h1>
-                    <div class="section-divider"></div>
-                    <p class="section-description" style="font-size: 1.4em;">Open to opportunities, questions, or just chatting about systems — reach out!</p>
-                    <div class="contact-grid">
-                        <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" class="contact-item" title="GitHub">
-                            <span class="contact-item-icon">
-                                <img src="github-logo.png" alt="GitHub" style="width:48px;height:48px">
-                            </span>
-                            <span class="contact-item-label">GitHub</span>
-                        </a>
-                        <a href="mailto:arefdagmash@gmail.com" class="contact-item" title="Email">
-                            <span class="contact-item-icon"><img src="email-logo.png" alt="Email" style="width:48px;height:48px"></span>
-                            <span class="contact-item-label">Email</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" class="contact-item" title="LinkedIn">
-                            <span class="contact-item-icon">
-                                <img src="linkedin-logo.png" alt="LinkedIn" style="width:48px;height:48px">
-                            </span>
-                            <span class="contact-item-label">LinkedIn</span>
-                        </a>
+
+                <div class="work-card">
+                    <div class="work-thumb" style="background: #8E44AD;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M9.63166 9.02161C9.32905 9.0623 9.2342 9.12798 9.18109 9.18109C9.12798 9.2342 9.0623 9.32905 9.02161 9.63166C8.97823 9.95434 8.97675 10.3923 8.97675 11.0698V12.9302C8.97675 13.6077 8.97823 14.0457 9.02161 14.3684C9.0623 14.671 9.12798 14.7658 9.18109 14.8189C9.2342 14.872 9.32905 14.9377 9.63166 14.9784C9.95434 15.0218 10.3923 15.0233 11.0698 15.0233H12.9302C13.6077 15.0233 14.0457 15.0218 14.3684 14.9784C14.671 14.9377 14.7658 14.872 14.8189 14.8189C14.872 14.7658 14.9377 14.671 14.9784 14.3684C15.0218 14.0457 15.0233 13.6077 15.0233 12.9302V11.0698C15.0233 10.3923 15.0218 9.95434 14.9784 9.63166C14.9377 9.32905 14.872 9.2342 14.8189 9.18109C14.7658 9.12798 14.671 9.0623 14.3684 9.02161C14.0457 8.97823 13.6077 8.97675 12.9302 8.97675H11.0698C10.3923 8.97675 9.95434 8.97823 9.63166 9.02161ZM12.9664 10.5451C13.1904 10.2316 13.1177 9.79583 12.8042 9.57187C12.4906 9.34791 12.0549 9.42053 11.831 9.73407L10.502 11.5945C10.3501 11.8072 10.3298 12.0869 10.4494 12.3193C10.569 12.5517 10.8084 12.6977 11.0698 12.6977H11.5745L11.0336 13.455C10.8097 13.7685 10.8823 14.2043 11.1958 14.4282C11.5094 14.6522 11.9451 14.5796 12.1691 14.266L13.498 12.4056C13.6499 12.1929 13.6702 11.9132 13.5506 11.6808C13.431 11.4484 13.1916 11.3024 12.9302 11.3024H12.4255L12.9664 10.5451Z"/><path d="M12.6977 2.69767C12.6977 2.31236 12.3853 2 12 2C11.6147 2 11.3023 2.31236 11.3023 2.69767V5.48837C10.7916 5.48944 10.3283 5.49342 9.90678 5.50495L9.90698 5.48837V2.69767C9.90698 2.31236 9.59462 2 9.2093 2C8.82399 2 8.51163 2.31236 8.51163 2.69767V5.48837C8.51163 5.52487 8.51443 5.56071 8.51984 5.5957C7.58381 5.71067 6.93517 5.94879 6.44198 6.44198C5.94879 6.93517 5.71067 7.58381 5.5957 8.51984C5.56071 8.51443 5.52487 8.51163 5.48837 8.51163H2.69767C2.31236 8.51163 2 8.82399 2 9.2093C2 9.59462 2.31236 9.90698 2.69767 9.90698H5.48837L5.50495 9.90678C5.49342 10.3283 5.48991 10.7916 5.48884 11.3023L2.69767 11.3023C2.31236 11.3023 2 11.6147 2 12C2 12.3853 2.31236 12.6977 2.69767 12.6977H5.48837C5.48944 13.2084 5.49342 13.6717 5.50495 14.0932L5.48837 14.093H2.69767C2.31236 14.093 2 14.4054 2 14.7907C2 15.176 2.31236 15.4884 2.69767 15.4884H5.48837C5.52487 15.4884 5.56071 15.4856 5.5957 15.4802C5.71067 16.4162 5.94879 17.0648 6.44198 17.558C6.93517 18.0512 7.58381 18.2893 8.51984 18.4043C8.51443 18.4393 8.51163 18.4751 8.51163 18.5116V21.3023C8.51163 21.6876 8.82399 22 9.2093 22C9.59462 22 9.90698 21.6876 9.90698 21.3023V18.5116L9.90678 18.495C10.3283 18.5066 10.7916 18.5101 11.3023 18.5112L11.3023 21.3023C11.3023 21.6876 11.6147 22 12 22C12.3853 22 12.6977 21.6876 12.6977 21.3023V18.5116C13.2084 18.5106 13.6717 18.5066 14.0932 18.495L14.093 18.5116V21.3023C14.093 21.6876 14.4054 22 14.7907 22C15.176 22 15.4884 21.6876 15.4884 21.3023V18.5116C15.4884 18.4751 15.4856 18.4393 15.4802 18.4043C16.4162 18.2893 17.0648 18.0512 17.558 17.558C18.0512 17.0648 18.2893 16.4162 18.4043 15.4802C18.4393 15.4856 18.4751 15.4884 18.5116 15.4884H21.3023C21.6876 15.4884 22 15.176 22 14.7907C22 14.4054 21.6876 14.093 21.3023 14.093H18.5116L18.495 14.0932C18.5066 13.6717 18.5101 13.2084 18.5112 12.6977L21.3023 12.6977C21.6876 12.6977 22 12.3853 22 12C22 11.6147 21.6876 11.3023 21.3023 11.3023H18.5116C18.5106 10.7916 18.5066 10.3283 18.495 9.90678L18.5116 9.90698H21.3023C21.6876 9.90698 22 9.59462 22 9.2093C22 8.82399 21.6876 8.51163 21.3023 8.51163H18.5116C18.4751 8.51163 18.4393 8.51443 18.4043 8.51984C18.2893 7.58381 18.0512 6.93517 17.558 6.44198C17.0648 5.94879 16.4162 5.71067 15.4802 5.5957C15.4856 5.56071 15.4884 5.52487 15.4884 5.48837V2.69767C15.4884 2.31236 15.176 2 14.7907 2C14.4054 2 14.093 2.31236 14.093 2.69767V5.48837L14.0932 5.50495C13.6717 5.49342 13.2084 5.48991 12.6977 5.48884V2.69767ZM9.44573 7.63871C9.87247 7.58133 10.4054 7.58136 11.0238 7.5814H12.9762C13.5947 7.58136 14.1275 7.58133 14.5543 7.63871C15.0116 7.70019 15.45 7.83885 15.8056 8.19443C16.1612 8.55001 16.2998 8.98839 16.3613 9.44573C16.4187 9.87246 16.4186 10.4053 16.4186 11.0238V12.9762C16.4186 13.5946 16.4187 14.1275 16.3613 14.5543C16.2998 15.0116 16.1612 15.45 15.8056 15.8056C15.45 16.1612 15.0116 16.2998 14.5543 16.3613C14.1275 16.4187 13.5947 16.4186 12.9762 16.4186H11.0238C10.4054 16.4186 9.87246 16.4187 9.44573 16.3613C8.98839 16.2998 8.55001 16.1612 8.19443 15.8056C7.83885 15.45 7.70019 15.0116 7.63871 14.5543C7.58133 14.1275 7.58136 13.5946 7.5814 12.9762V11.0238C7.58136 10.4054 7.58133 9.87247 7.63871 9.44573C7.70019 8.98839 7.83885 8.55001 8.19443 8.19443C8.55001 7.83885 8.98839 7.70019 9.44573 7.63871Z"/></g></svg>
+                    </div>
+                    <div class="work-body">
+                        <p class="work-title">AI / ML</p>
+                        <p class="work-desc">PyTorch, OpenCV, MediaPipe, LLM integration, NLP.</p>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-thumb" style="background: #2E9E63;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M8 17C5.17157 17 3.75736 17 2.87868 16.1213C2.30938 15.552 2.10893 14.7579 2.03835 13.5H21.9616C21.8911 14.7579 21.6906 15.552 21.1213 16.1213C20.2426 17 18.8284 17 16 17H12.75V21H16C16.4142 21 16.75 21.3358 16.75 21.75C16.75 22.1642 16.4142 22.5 16 22.5H8C7.58579 22.5 7.25 22.1642 7.25 21.75C7.25 21.3358 7.58579 21 8 21H11.25V17H8Z"/><path fill="currentColor" d="M10 2H14C17.7712 2 19.6569 2 20.8284 3.17157C22 4.34315 22 6.22876 22 10V11C22 11.5516 22 12.0494 21.9935 12.5H2.00652C2 12.0494 2 11.5516 2 11V10C2 6.22876 2 4.34315 3.17157 3.17157C4.34315 2 6.22876 2 10 2Z"/></svg>
+                    </div>
+                    <div class="work-body">
+                        <p class="work-title">Web &amp; Desktop</p>
+                        <p class="work-desc">React, Tauri, PyQt6, FastAPI for shipped apps and tools.</p>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-thumb" style="background: #4A7FB5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M7 7.75C4.65279 7.75 2.75 9.65279 2.75 12C2.75 14.3472 4.65279 16.25 7 16.25C7.59689 16.25 8.04496 16.1427 8.40677 15.9664C8.76923 15.7898 9.08603 15.524 9.39303 15.1495C9.93306 14.4908 10.3762 13.5925 10.9602 12.409C11.0769 12.1724 11.1993 11.9244 11.3292 11.6646C11.4455 11.432 11.5589 11.2013 11.6707 10.9741C12.2514 9.7937 12.7873 8.70415 13.447 7.89951C13.8573 7.39899 14.3366 6.97729 14.9362 6.68515C15.5364 6.3927 16.2162 6.25 17 6.25C20.1756 6.25 22.75 8.82436 22.75 12C22.75 15.1756 20.1756 17.75 17 17.75C15.7062 17.75 14.5105 17.3216 13.5495 16.5997C13.2184 16.3509 13.1516 15.8807 13.4003 15.5495C13.6491 15.2184 14.1193 15.1516 14.4505 15.4003C15.1608 15.934 16.0424 16.25 17 16.25C19.3472 16.25 21.25 14.3472 21.25 12C21.25 9.65279 19.3472 7.75 17 7.75C16.4031 7.75 15.955 7.8573 15.5932 8.0336C15.2308 8.21021 14.914 8.47601 14.607 8.85049C14.0669 9.50924 13.6238 10.4075 13.0398 11.591C12.9231 11.8276 12.8007 12.0756 12.6708 12.3354C12.5545 12.568 12.4411 12.7987 12.3293 13.0259C11.7486 14.2063 11.2127 15.2959 10.553 16.1005C10.1427 16.601 9.66335 17.0227 9.06381 17.3148C8.4636 17.6073 7.78382 17.75 7 17.75C3.82436 17.75 1.25 15.1756 1.25 12C1.25 8.82436 3.82436 6.25 7 6.25C8.29384 6.25 9.48982 6.67823 10.451 7.40038C10.7822 7.64919 10.8489 8.11935 10.6001 8.45051C10.3513 8.78167 9.88114 8.84843 9.54998 8.59962C8.83967 8.06595 7.95781 7.75 7 7.75Z"/></svg>
+                    </div>
+                    <div class="work-body">
+                        <p class="work-title">DevOps</p>
+                        <p class="work-desc">Docker, GitHub Actions, CI/CD, Git for solid delivery.</p>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-thumb" style="background: #8E44AD;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9.18109 10.1811C9.2342 10.128 9.32905 10.0623 9.63166 10.0216C9.95434 9.97823 10.3923 9.97675 11.0698 9.97675H12.9302C13.6077 9.97675 14.0457 9.97823 14.3684 10.0216C14.671 10.0623 14.7658 10.128 14.8189 10.1811C14.872 10.2342 14.9377 10.329 14.9784 10.6317C15.0218 10.9543 15.0233 11.3923 15.0233 12.0698V13.9302C15.0233 14.6077 15.0218 15.0457 14.9784 15.3684C14.9377 15.671 14.872 15.7658 14.8189 15.8189C14.7658 15.872 14.671 15.9377 14.3684 15.9784C14.0457 16.0218 13.6077 16.0233 12.9302 16.0233H11.0698C10.3923 16.0233 9.95434 16.0218 9.63166 15.9784C9.32905 15.9377 9.2342 15.872 9.18109 15.8189C9.12798 15.7658 9.0623 15.671 9.02161 15.3684C8.97823 15.0457 8.97675 14.6077 8.97675 13.9302V12.0698C8.97675 11.3923 8.97823 10.9543 9.02161 10.6317C9.0623 10.329 9.12798 10.2342 9.18109 10.1811Z"/><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 3C12.3853 3 12.6977 3.31236 12.6977 3.69767V6.48884C13.2084 6.48991 13.6717 6.49342 14.0932 6.50495L14.093 6.48837V3.69767C14.093 3.31236 14.4054 3 14.7907 3C15.176 3 15.4884 3.31236 15.4884 3.69767V6.48837C15.4884 6.52487 15.4856 6.56071 15.4802 6.5957C16.4162 6.71067 17.0648 6.94879 17.558 7.44198C18.0512 7.93517 18.2893 8.58381 18.4043 9.51984C18.4393 9.51443 18.4751 9.51163 18.5116 9.51163H21.3023C21.6876 9.51163 22 9.82399 22 10.2093C22 10.5946 21.6876 10.907 21.3023 10.907H18.5116L18.495 10.9068C18.5066 11.3283 18.5106 11.7916 18.5116 12.3023H21.3023C21.6876 12.3023 22 12.6147 22 13C22 13.3853 21.6876 13.6977 21.3023 13.6977L18.5112 13.6977C18.5101 14.2084 18.5066 14.6717 18.495 15.0932L18.5116 15.093H21.3023C21.6876 15.093 22 15.4054 22 15.7907C22 16.176 21.6876 16.4884 21.3023 16.4884H18.5116C18.4751 16.4884 18.4393 16.4856 18.4043 16.4802C18.2893 17.4162 18.0512 18.0648 17.558 18.558C17.0648 19.0512 16.4162 19.2893 15.4802 19.4043C15.4856 19.4393 15.4884 19.4751 15.4884 19.5116V22.3023C15.4884 22.6876 15.176 23 14.7907 23C14.4054 23 14.093 22.6876 14.093 22.3023V19.5116L14.0932 19.495C13.6717 19.5066 13.2084 19.5106 12.6977 19.5116V22.3023C12.6977 22.6876 12.3853 23 12 23C11.6147 23 11.3023 22.6876 11.3023 22.3023L11.3023 19.5112C10.7916 19.5101 10.3283 19.5066 9.90678 19.495L9.90698 19.5116V22.3023C9.90698 22.6876 9.59462 23 9.2093 23C8.82399 23 8.51163 22.6876 8.51163 22.3023V19.5116C8.51163 19.4751 8.51443 19.4393 8.51984 19.4043C7.58381 19.2893 6.93517 19.0512 6.44198 18.558C5.94879 18.0648 5.71067 17.4162 5.5957 16.4802C5.56071 16.4856 5.52487 16.4884 5.48837 16.4884H2.69767C2.31236 16.4884 2 16.176 2 15.7907C2 15.4054 2.31236 15.093 2.69767 15.093H5.48837L5.50495 15.0932C5.49342 14.6717 5.48944 14.2084 5.48837 13.6977H2.69767C2.31236 13.6977 2 13.3853 2 13C2 12.6147 2.31236 12.3023 2.69767 12.3023L5.48884 12.3023C5.48991 11.7916 5.49342 11.3283 5.50495 10.9068L5.48837 10.907H2.69767C2.31236 10.907 2 10.5946 2 10.2093C2 9.82399 2.31236 9.51163 2.69767 9.51163H5.48837C5.52487 9.51163 5.56071 9.51443 5.5957 9.51984C5.71067 8.58381 5.94879 7.93517 6.44198 7.44198C6.93517 6.94879 7.58381 6.71067 8.51984 6.5957C8.51443 6.56071 8.51163 6.52487 8.51163 6.48837V3.69767C8.51163 3.31236 8.82399 3 9.2093 3C9.59462 3 9.90698 3.31236 9.90698 3.69767V6.48837L9.90678 6.50495C10.3283 6.49342 10.7916 6.48944 11.3023 6.48837V3.69767C11.3023 3.31236 11.6147 3 12 3ZM11.0238 8.5814C10.4054 8.58136 9.87247 8.58133 9.44573 8.63871C8.98839 8.70019 8.55001 8.83885 8.19443 9.19443C7.83885 9.55001 7.70019 9.98839 7.63871 10.4457C7.58133 10.8725 7.58136 11.4054 7.5814 12.0238V13.9762C7.58136 14.5946 7.58133 15.1275 7.63871 15.5543C7.70019 16.0116 7.83885 16.45 8.19443 16.8056C8.55001 17.1612 8.98839 17.2998 9.44573 17.3613C9.87247 17.4187 10.4054 17.4186 11.0238 17.4186H12.9762C13.5946 17.4186 14.1275 17.4187 14.5543 17.3613C15.0116 17.2998 15.45 17.1612 15.8056 16.8056C16.1612 16.45 16.2998 16.0116 16.3613 15.5543C16.4187 15.1275 16.4186 14.5946 16.4186 13.9762V12.0238C16.4186 11.4054 16.4187 10.8725 16.3613 10.4457C16.2998 9.98839 16.1612 9.55001 15.8056 9.19443C15.45 8.83885 15.0116 8.70019 14.5543 8.63871C14.1275 8.58133 13.5947 8.58136 12.9762 8.5814H11.0238Z"/></svg>
+                    </div>
+                    <div class="work-body">
+                        <p class="work-title">Embedded &amp; Edge</p>
+                        <p class="work-desc">NVIDIA Jetson, AR hardware (Vuzix), edge optimization.</p>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-thumb" style="background: #2E9E63;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M14.2788 2.15224C13.9085 2 13.439 2 12.5 2C11.561 2 11.0915 2 10.7212 2.15224C10.2274 2.35523 9.83509 2.74458 9.63056 3.23463C9.53719 3.45834 9.50065 3.7185 9.48635 4.09799C9.46534 4.65568 9.17716 5.17189 8.69017 5.45093C8.20318 5.72996 7.60864 5.71954 7.11149 5.45876C6.77318 5.2813 6.52789 5.18262 6.28599 5.15102C5.75609 5.08178 5.22018 5.22429 4.79616 5.5472C4.47814 5.78938 4.24339 6.1929 3.7739 6.99993C3.30441 7.80697 3.06967 8.21048 3.01735 8.60491C2.94758 9.1308 3.09118 9.66266 3.41655 10.0835C3.56506 10.2756 3.77377 10.437 4.0977 10.639C4.57391 10.936 4.88032 11.4419 4.88029 12C4.88026 12.5581 4.57386 13.0639 4.0977 13.3608C3.77372 13.5629 3.56497 13.7244 3.41645 13.9165C3.09108 14.3373 2.94749 14.8691 3.01725 15.395C3.06957 15.7894 3.30432 16.193 3.7738 17C4.24329 17.807 4.47804 18.2106 4.79606 18.4527C5.22008 18.7756 5.75599 18.9181 6.28589 18.8489C6.52778 18.8173 6.77305 18.7186 7.11133 18.5412C7.60852 18.2804 8.2031 18.27 8.69012 18.549C9.17714 18.8281 9.46533 19.3443 9.48635 19.9021C9.50065 20.2815 9.53719 20.5417 9.63056 20.7654C9.83509 21.2554 10.2274 21.6448 10.7212 21.8478C11.0915 22 11.561 22 12.5 22C13.439 22 13.9085 22 14.2788 21.8478C14.7726 21.6448 15.1649 21.2554 15.3694 20.7654C15.4628 20.5417 15.4994 20.2815 15.5137 19.902C15.5347 19.3443 15.8228 18.8281 16.3098 18.549C16.7968 18.2699 17.3914 18.2804 17.8886 18.5412C18.2269 18.7186 18.4721 18.8172 18.714 18.8488C19.2439 18.9181 19.7798 18.7756 20.2038 18.4527C20.5219 18.2105 20.7566 17.807 21.2261 16.9999C21.6956 16.1929 21.9303 15.7894 21.9827 15.395C22.0524 14.8691 21.9088 14.3372 21.5835 13.9164C21.4349 13.7243 21.2262 13.5628 20.9022 13.3608C20.4261 13.0639 20.1197 12.558 20.1197 11.9999C20.1197 11.4418 20.4261 10.9361 20.9022 10.6392C21.2263 10.4371 21.435 10.2757 21.5836 10.0835C21.9089 9.66273 22.0525 9.13087 21.9828 8.60497C21.9304 8.21055 21.6957 7.80703 21.2262 7C20.7567 6.19297 20.522 5.78945 20.2039 5.54727C19.7799 5.22436 19.244 5.08185 18.7141 5.15109C18.4722 5.18269 18.2269 5.28136 17.8887 5.4588C17.3915 5.71959 16.7969 5.73002 16.3099 5.45096C15.8229 5.17191 15.5347 4.65566 15.5136 4.09794C15.4993 3.71848 15.4628 3.45833 15.3694 3.23463C15.1649 2.74458 14.7726 2.35523 14.2788 2.15224ZM12.5 15C14.1695 15 15.5228 13.6569 15.5228 12C15.5228 10.3431 14.1695 9 12.5 9C10.8305 9 9.47716 10.3431 9.47716 12C9.47716 13.6569 10.8305 15 12.5 15Z"/></svg>
+                    </div>
+                    <div class="work-body">
+                        <p class="work-title">Tools</p>
+                        <p class="work-desc">Linux, Neovim, Wayland, Agile/Scrum workflow.</p>
                     </div>
                 </div>
             </div>
         </section>
-        </div>
 
-        <!-- Blog View -->
-        <div id="blog-view" style="display: none;">
-            <section style="min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 60px 40px;">
-                <div class="section-content">
-                    <div class="section-text" style="max-width: 600px;">
-                        <h1 class="section-title"><span>blog</span></h1>
-                        <p class="section-description" style="font-size: 1.2em; color: var(--fg-light);">
-no posts yet — check back soon
-                        </p>
-                    </div>
+        <section class="case-section" id="case-study">
+            <span class="case-badge">CASE STUDY 01</span>
+            <h2 class="case-heading block">
+                <span class="script">Research</span>
+                Copilot
+            </h2>
+            <p class="case-sub">REHERO &middot; DESKTOP AI RESEARCH TOOL</p>
+
+            <div class="case-grid">
+                <div class="case-collage">
+                    <div class="case-collage-tile" style="background: #4A7FB5;"><img src="previews/rehero.png" alt="ReHero"></div>
+                    <div class="case-collage-tile" style="background: #8E44AD;"><img src="previews/lipsync.png" alt="LipSync"></div>
+                    <div class="case-collage-tile" style="background: #E67E22;"><img src="previews/gilgamesh.png" alt="Gilgamesh"></div>
+                    <div class="case-collage-tile" style="background: #27AE60;"><img src="previews/tracer.png" alt="Tracer"></div>
                 </div>
-            </section>
-        </div>
+
+                <div>
+                    <div class="case-block">
+                        <p class="case-block-label">THE CHALLENGE</p>
+                        <p>Reading research papers is slow &mdash; switching between the PDF, your own notes, and a search engine breaks focus every few minutes.</p>
+                    </div>
+                    <div class="case-block">
+                        <p class="case-block-label">THE APPROACH</p>
+                        <p>Built a desktop reader that keeps an AI copilot, hand-drawn annotations, and a whiteboard in the same window as the paper, so none of that context-switching is necessary.</p>
+                    </div>
+
+                    <div class="process-row">
+                        <div class="process-step">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5"/></svg>
+                            <span>Research</span>
+                        </div>
+                        <div class="process-step">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m13.78 15.3l6 6l2.11-2.16l-6-6zm3.72-5.2c-.39 0-.81-.05-1.14-.19L4.97 21.25l-2.11-2.11l7.41-7.4L8.5 9.96l-.72.7l-1.45-1.41v2.86l-.7.7l-3.52-3.56l.7-.7h2.81l-1.4-1.41l3.56-3.56a2.976 2.976 0 0 1 4.22 0L9.89 5.74l1.41 1.4l-.71.71l1.79 1.78l1.82-1.88c-.14-.33-.2-.75-.2-1.12a3.49 3.49 0 0 1 3.5-3.52c.59 0 1.11.14 1.58.42L16.41 6.2l1.5 1.5l2.67-2.67c.28.47.42.97.42 1.6c0 1.92-1.55 3.47-3.5 3.47"/></svg>
+                            <span>Build</span>
+                        </div>
+                        <div class="process-step">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2v2h1v14a4 4 0 0 0 4 4a4 4 0 0 0 4-4V4h1V2zm4 14c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m2-4c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m1-5h-4V4h4z"/></svg>
+                            <span>Test</span>
+                        </div>
+                        <div class="process-step">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m13.16 22.19l-1.66-3.84c1.6-.58 3.07-1.35 4.43-2.27l-2.78 6.11m-7.5-9.69l-3.84-1.65l6.11-2.78C7 9.43 6.23 10.91 5.65 12.5M20 4c-2.96-.22-5.2.83-7.55 3.31c-2.36 2.47-3.36 4.5-3.95 6.04l2.17 2.1c2.29-.87 4.33-2.18 6.03-3.89C20 8.27 20.17 5.4 20 4m-9 1.9c2.63-2.8 7-4.82 10.66-3.55c0 0 2.12 4.96-3.55 10.65c-2.2 2.17-4.58 3.5-6.72 4.34c-.24.09-1.15.39-2.13-.46l-2.13-2.13c-.56-.56-.74-1.38-.47-2.13C7.5 10.5 8.41 8.69 11 5.9M6.25 22H4.84l4.09-4.1c.3.21.63.36.97.45zM2 22v-1.41l4.77-4.78l1.43 1.42L3.41 22zm0-2.83v-1.42l3.65-3.65c.09.35.24.68.45.97zM16 6a2 2 0 0 1 2 2c0 1.11-.89 2-2 2a2 2 0 1 1 0-4"/></svg>
+                            <span>Ship</span>
+                        </div>
+                    </div>
+
+                    <div class="stack-badges">
+                        <span class="stack-badge">Python</span>
+                        <span class="stack-badge">PyQt6</span>
+                        <span class="stack-badge">LLM integration</span>
+                        <span class="stack-badge">Open source</span>
+                    </div>
+
+                    <a href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer" class="case-link">View on GitHub &rarr;</a>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <script>
-        // Intro loader: letters already animate in via CSS; here we just lock
-        // scroll during it, then slide the overlay up and remove it.
-        const introOverlay = document.getElementById('intro-overlay');
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (introOverlay) {
-            if (prefersReducedMotion) {
-                introOverlay.remove();
-            } else {
-                document.body.style.overflow = 'hidden';
-                setTimeout(() => {
-                    introOverlay.classList.add('intro-exit');
-                    document.body.style.overflow = '';
-                }, 1300);
-                introOverlay.addEventListener('transitionend', () => introOverlay.remove());
-            }
-        }
-
-        // Email handler
-        const emailLink = document.querySelector('a[href^="mailto:"]');
-        if (emailLink) {
-            emailLink.addEventListener('click', (e) => {
-                const email = 'arefdagmash@gmail.com';
-                // Try to open default email client
-                window.location.href = `mailto:${email}`;
-                // Fallback: copy to clipboard after 500ms if mailto didn't work
-                setTimeout(() => {
-                    navigator.clipboard.writeText(email);
-                    alert('Email copied to clipboard: ' + email);
-                }, 500);
-            });
-        }
-
-        // Theme toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const savedTheme = localStorage.getItem('theme') || 'light';
-
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            themeToggle.textContent = '☀️';
-        } else {
-            themeToggle.textContent = '🌙';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            const isDark = document.body.classList.contains('dark-theme');
-            themeToggle.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('section-visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Navigation and view switching
-        const portfolioView = document.getElementById('portfolio-view');
-        const blogView = document.getElementById('blog-view');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-
-        // Show portfolio view
-        function showPortfolioView() {
-            portfolioView.style.display = 'block';
-            blogView.style.display = 'none';
-        }
-
-        // Show blog view
-        function showBlogView() {
-            portfolioView.style.display = 'none';
-            blogView.style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        // Portfolio section links
-        document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPortfolioView();
-                const sectionId = link.getAttribute('data-section');
-                setTimeout(() => {
-                    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-                closeSidebarOnMobile();
-            });
-        });
-
-        // Blog link
-        document.getElementById('blog-link').addEventListener('click', (e) => {
-            e.preventDefault();
-            showBlogView();
-            closeSidebarOnMobile();
-        });
-
-        // Sidebar toggle on mobile
-        sidebarToggle.addEventListener('click', () => {
-            document.body.classList.toggle('sidebar-open');
-        });
-
-        // Close sidebar when clicking on a link (mobile)
-        function closeSidebarOnMobile() {
-            if (window.innerWidth <= 768) {
-                document.body.classList.remove('sidebar-open');
-            }
-        }
-
-        // Active link tracking while scrolling
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    sidebarLinks.forEach(link => link.classList.remove('active'));
-                    const activeLink = document.querySelector(`.sidebar-link[data-section="${entry.target.id}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active');
-                    }
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('#portfolio-view section').forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-        // Projects: single-slide showcase with prev/next + dot navigation
-        (function initProjectShowcase() {
-            const track = document.getElementById('projectSlides');
-            const prevBtn = document.getElementById('projectPrev');
-            const nextBtn = document.getElementById('projectNext');
-            const dots = Array.from(document.querySelectorAll('.project-dot'));
-            if (!track || !prevBtn || !nextBtn || !dots.length) return;
-
-            const slideCount = track.children.length;
-            let index = 0;
-
-            function render() {
-                track.style.transform = `translateX(-${index * 100}%)`;
-                dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-            }
-
-            function goTo(i) {
-                index = (i + slideCount) % slideCount;
-                render();
-            }
-
-            prevBtn.addEventListener('click', () => goTo(index - 1));
-            nextBtn.addEventListener('click', () => goTo(index + 1));
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => goTo(parseInt(dot.dataset.index, 10)));
-            });
-
-            const projectsSection = document.getElementById('projects');
-            projectsSection.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') goTo(index - 1);
-                if (e.key === 'ArrowRight') goTo(index + 1);
-            });
-        })();
-
-        // Close sidebar when clicking outside (mobile)
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 && document.body.classList.contains('sidebar-open')) {
-                if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                    document.body.classList.remove('sidebar-open');
-                }
-            }
-        });
-
-    </script>
+    <footer id="contact">
+        <h2 class="footer-heading script">Let's build something.</h2>
+        <p>arefdagmash@gmail.com</p>
+        <div class="footer-socials">
+            <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" title="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+            </a>
+            <a href="mailto:arefdagmash@gmail.com" title="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
+            </a>
+        </div>
+    </footer>
 
 </body>
 </html>
