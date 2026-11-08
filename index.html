@@ -27,27 +27,31 @@
         }
 
         :root {
-            /* Light theme (default) */
-            --bg: #F5F5F7;
-            --bg-alt: #EBEBF0;
-            --fg: #1E1E2E;
-            --fg-light: #45475A;
-            --accent-cyan: #0EA5A0;
-            --accent-magenta: #C7559C;
-            --accent-yellow: #D97706;
-            --accent-blue: #3B82F6;
+            /* Light theme (default) — warm cream / navy / steel blue */
+            --bg: #F4F1DE;
+            --bg-alt: #D4C4A8;
+            --fg: #0D1B2A;
+            --fg-light: #3D4F63;
+            --accent-cyan: #415A77;
+            --accent-magenta: #BC6C25;
+            --accent-yellow: #8B6F47;
+            --accent-blue: #415A77;
+            --accent-pop: #F2CB4E;
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         /* Dark theme */
         body.dark-theme {
-            --bg: #1E1E2E;
-            --bg-alt: #313244;
-            --fg: #F5F5F9;
-            --fg-light: #E0E0E8;
-            --accent-cyan: #94E2D5;
-            --accent-magenta: #F5C2E7;
-            --accent-yellow: #F9E2AF;
-            --accent-blue: #89B4FA;
+            --bg: #0D1B2A;
+            --bg-alt: #1B263B;
+            --fg: #F4F1DE;
+            --fg-light: #C9C3AE;
+            --accent-cyan: color-mix(in srgb, #415A77 65%, white 35%);
+            --accent-magenta: color-mix(in srgb, #BC6C25 70%, white 30%);
+            --accent-yellow: color-mix(in srgb, #8B6F47 70%, white 30%);
+            --accent-blue: color-mix(in srgb, #415A77 65%, white 35%);
+            --accent-pop: #F2CB4E;
         }
 
         html {
@@ -70,12 +74,61 @@
             line-height: 1.6;
         }
 
+        /* Intro loader */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 700ms var(--ease-out);
+        }
+
+        #intro-overlay.intro-exit {
+            transform: translateY(-100%);
+        }
+
+        #intro-name {
+            display: flex;
+            font-size: clamp(3em, 11vw, 8em);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--fg);
+        }
+
+        #intro-name span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(28px);
+            animation: introLetter 550ms var(--ease-out) forwards;
+        }
+
+        #intro-name span:nth-child(1) { animation-delay: 0ms; }
+        #intro-name span:nth-child(2) { animation-delay: 90ms; }
+        #intro-name span:nth-child(3) { animation-delay: 180ms; }
+        #intro-name span:nth-child(4) { animation-delay: 270ms; }
+
+        @keyframes introLetter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #intro-overlay {
+                display: none;
+            }
+        }
+
         /* Header section */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(245, 245, 247, 0.95);
+            background: rgba(244, 241, 222, 0.95);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-bottom: 1px solid var(--bg-alt);
@@ -87,7 +140,7 @@
         }
 
         body.dark-theme header {
-            background: rgba(30, 30, 46, 0.95);
+            background: rgba(13, 27, 42, 0.95);
         }
 
         .social-links {
@@ -100,12 +153,17 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 96px;
-            height: 96px;
+            width: 44px;
+            height: 44px;
             border-radius: 6px;
             color: var(--fg);
             transition: all 0.2s ease;
             text-decoration: none;
+        }
+
+        .social-link img {
+            width: 24px;
+            height: 24px;
         }
 
         .social-link:hover {
@@ -136,6 +194,7 @@
         /* Section styles */
         section {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -184,82 +243,254 @@
             color: var(--accent-cyan);
         }
 
-        /* Projects: full-width so the card grid has room to breathe */
+        /* Projects: full-width single-project showcase with prev/next nav */
         #projects .projects-content {
-            max-width: 1200px;
-            grid-template-columns: 1fr;
+            max-width: 1000px;
+            grid-template-columns: minmax(0, 1fr);
         }
 
         #projects .projects-text {
             max-width: 100%;
         }
 
-        /* Hero (whoami) intro: Aref's name as the big centered headline */
-        #whoami .hero-content {
-            max-width: 100%;
-            grid-template-columns: 1fr;
-            justify-items: center;
-            text-align: center;
-        }
-
-        #whoami .hero-text {
-            align-items: center;
-            max-width: 1200px;
-        }
-
-        .hero-letters {
+        .project-showcase {
             display: flex;
-            align-items: flex-end;
-            margin: 0;
-        }
-
-        .hero-letter {
-            height: clamp(4.5em, 16vw, 11em);
+            align-items: center;
+            gap: 16px;
             opacity: 0;
-            transform: translateY(24px) scale(0.85);
-            animation: hero-letter-spawn 0.6s ease-out forwards;
         }
 
-        .hero-letter:not(:first-child) {
-            margin-left: -0.9vw;
+        #projects.section-visible .project-showcase {
+            animation: showcaseIn 550ms var(--ease-out) both;
         }
 
-        .hero-letter:nth-child(1) { animation-delay: 0s; }
-        .hero-letter:nth-child(2) { animation-delay: 0.35s; }
-        .hero-letter:nth-child(3) { animation-delay: 0.7s; }
-        .hero-letter:nth-child(4) { animation-delay: 1.05s; }
-
-        @keyframes hero-letter-spawn {
-            0% {
-                opacity: 0;
-                transform: translateY(24px) scale(0.85);
-            }
-            60% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        body.dark-theme .hero-letter {
-            filter: invert(1) hue-rotate(180deg);
+        @keyframes showcaseIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .hero-letter {
-                animation: none;
-                opacity: 1;
+            .about-photo,
+            .section-visual img.edu-photo {
+                opacity: 0;
+                clip-path: none;
                 transform: none;
+                transition: opacity 300ms ease;
+            }
+
+            section.section-visible .about-photo,
+            section.section-visible .section-visual img.edu-photo {
+                opacity: 1;
+                clip-path: none;
+                transform: none;
+            }
+
+            .project-showcase {
+                opacity: 1;
+                animation: none;
+            }
+
+            .project-slides {
+                transition: none !important;
             }
         }
 
-        .hero-headline {
-            font-size: clamp(1.2em, 2.5vw, 1.8em);
-            font-weight: 500;
-            line-height: 1.4;
+        .project-nav {
+            flex: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--fg);
+            background: var(--bg);
+            color: var(--fg);
+            font-size: 1.2em;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 160ms ease-out, background 160ms ease-out;
+        }
+
+        .project-nav:hover {
+            background: var(--accent-pop);
+            border-color: var(--accent-pop);
+            color: #1a1a1a;
+        }
+
+        .project-nav:active {
+            transform: scale(0.93);
+        }
+
+        .project-slide-viewport {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .project-slides {
+            display: flex;
+            transition: transform 500ms var(--ease-in-out);
+        }
+
+        .project-slide {
+            flex: none;
+            width: 100%;
+            display: flex;
+        }
+
+        .project-slide-visual {
+            flex: none;
+            width: 42%;
+            aspect-ratio: 4 / 3.4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            border-radius: 16px;
+        }
+
+        .project-slide-sprite {
+            width: 55%;
+            height: 55%;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.15));
+        }
+
+        .project-slide-body {
+            flex: 1;
+            padding: 8px 0 8px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-slide-eyebrow {
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             color: var(--fg-light);
+            margin-bottom: 8px;
+        }
+
+        .project-slide-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--fg);
+            margin-bottom: 12px;
+        }
+
+        .project-slide-desc {
+            font-size: 1em;
+            color: var(--fg-light);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .project-slide-link {
+            align-self: flex-start;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .project-slide-link:hover {
+            text-decoration: underline;
+        }
+
+        .project-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .project-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: var(--bg-alt);
+            cursor: pointer;
+            transition: background 160ms ease-out, transform 160ms ease-out;
+        }
+
+        .project-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .project-dot.active {
+            background: var(--accent-pop);
+        }
+
+        @media (max-width: 700px) {
+            .project-slide {
+                flex-direction: column;
+            }
+
+            .project-slide-visual {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+            }
+
+            .project-slide-body {
+                padding: 20px 0 0 0;
+            }
+
+            .project-nav {
+                width: 36px;
+                height: 36px;
+                font-size: 1em;
+            }
+        }
+
+        /* Hero (whoami) intro: sits close under the header instead of
+           centering in a full 100vh block, which read as too spread out */
+        #whoami {
+            min-height: auto;
+            padding-top: 72px;
+            padding-bottom: 72px;
+        }
+
+        #whoami .hero-content {
+            max-width: 100%;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            text-align: left;
+        }
+
+        #whoami .hero-text {
+            align-items: flex-start;
+            max-width: 100%;
+            gap: 28px;
+        }
+
+        .hero-eyebrow {
+            font-size: 1.1em;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-magenta);
+            margin: 0;
+        }
+
+        .hero-name {
+            font-size: clamp(3em, 6.5vw, 5.4em);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--fg);
+            margin: 0;
+        }
+
+        .hero-qualifier {
+            font-size: clamp(1em, 1.6vw, 1.3em);
+            font-weight: 500;
+            color: var(--fg-light);
+            margin: 0;
         }
 
         .section-description {
@@ -273,6 +504,126 @@
         .hl-magenta { color: #c7559c; font-weight: 500; }
         .hl-yellow { color: #b38f3a; font-weight: 500; }
         .hl-blue { color: #5a8de0; font-weight: 500; }
+
+        /* Highlighter-marker behind the key phrase. "AI" and "systems" are
+           separate spans (one per line) so each can sweep in on its own
+           turn instead of both lines filling at once. */
+        .about-highlight {
+            background-image: linear-gradient(var(--accent-pop), var(--accent-pop));
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 0% 100%;
+            color: #1a1a1a;
+            padding: 0.05em 0.3em;
+            border-radius: 2px;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        .hl-step-1 { animation: highlightSweep 1100ms var(--ease-out) 1450ms both; }
+        .hl-step-2 { animation: highlightSweep 1100ms var(--ease-out) 2550ms both; }
+
+        @keyframes highlightSweep {
+            from { background-size: 0% 100%; }
+            to { background-size: 100% 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .about-highlight.hl-step-1,
+            .about-highlight.hl-step-2 {
+                animation: none;
+                background-size: 100% 100%;
+            }
+        }
+
+        .project-explained-btn.about-cta {
+            align-self: flex-start;
+            text-decoration: none;
+            background: var(--accent-pop);
+            color: #1a1a1a;
+            border: 2px solid var(--fg);
+            border-radius: 8px;
+            box-shadow: 4px 4px 0 var(--fg);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            padding: 16px 28px;
+            font-size: 1.2em;
+        }
+
+        .project-explained-btn.about-cta:hover {
+            background: var(--accent-pop);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--fg);
+        }
+
+        /* Education */
+        .edu-school {
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .edu-degree {
+            font-size: 1.3em;
+            color: var(--fg-light);
+        }
+
+        .edu-visual {
+            min-height: auto;
+            padding: 0;
+        }
+
+        .section-visual img.edu-photo {
+            width: 100%;
+            max-width: 340px;
+            max-height: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+            clip-path: inset(0 0 100% 0 round 16px);
+            transform: scale(0.97);
+            transition: clip-path 750ms var(--ease-out), transform 750ms var(--ease-out);
+        }
+
+        section.section-visible .section-visual img.edu-photo {
+            clip-path: inset(0 0 0 0 round 16px);
+            transform: scale(1);
+        }
+
+        body.dark-theme .section-visual img.edu-photo {
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .about-visual {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 640px;
+        }
+
+        .about-visual::before {
+            content: '';
+            position: absolute;
+            inset: 4% 2% 0 2%;
+            background: color-mix(in srgb, var(--accent-cyan) 20%, var(--bg-alt));
+            border-radius: 24px;
+        }
+
+        .about-photo {
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+            clip-path: inset(0 0 100% 0);
+            transform: scale(0.97);
+            transition: clip-path 750ms var(--ease-out), transform 750ms var(--ease-out);
+        }
+
+        section.section-visible .about-photo {
+            clip-path: inset(0 0 0 0);
+            transform: scale(1);
+        }
 
         .section-visual {
             display: flex;
@@ -304,164 +655,6 @@
             transition: filter 0.3s ease;
         }
 
-        /* Project cards */
-        .project-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            align-items: start;
-            gap: 20px;
-        }
-
-        /* Project cards */
-        .project-card {
-            background: var(--bg);
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 24px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        body.dark-theme .project-card {
-            border-color: #444;
-            background: var(--bg-alt);
-        }
-
-        .project-card:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        body.dark-theme .project-card:hover {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-card-main {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .project-card-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--fg);
-            margin-bottom: 8px;
-        }
-
-        .project-card-desc {
-            font-size: 1em;
-            color: var(--fg-light);
-            line-height: 1.6;
-        }
-
-        /* Expandable project cards */
-        .project-card-header {
-            cursor: pointer;
-        }
-
-        .expand-hint {
-            font-size: 0.75em;
-            color: var(--fg-light);
-            opacity: 0.6;
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: opacity 0.2s ease;
-        }
-
-        .project-card:hover .expand-hint {
-            opacity: 1;
-        }
-
-        .expand-hint::after {
-            content: '▼';
-            font-size: 0.7em;
-            transition: transform 0.3s ease;
-            display: inline-block;
-        }
-
-        .project-card.expanded .expand-hint::after {
-            transform: rotate(180deg);
-        }
-
-        .project-details {
-            width: 100%;
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
-            order: 3;
-        }
-
-        .project-card.expanded .project-details {
-            max-height: 600px;
-            opacity: 1;
-            margin-top: 16px;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .tech-tag {
-            font-size: 0.8em;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: rgba(148, 226, 213, 0.15);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(148, 226, 213, 0.3);
-            font-weight: 500;
-        }
-
-        body.dark-theme .tech-tag {
-            background: rgba(148, 226, 213, 0.1);
-            border-color: rgba(148, 226, 213, 0.2);
-        }
-
-        .project-long-desc {
-            font-size: 0.95em;
-            color: var(--fg-light);
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .project-visual {
-            width: 100%;
-            min-height: 120px;
-            background: var(--bg-alt);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--fg-light);
-            font-size: 0.9em;
-            border: 1px dashed #ccc;
-        }
-
-        body.dark-theme .project-visual {
-            border-color: #555;
-        }
-
-        /* Project action buttons */
-        .project-card-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: stretch;
-            align-self: center;
-            flex-shrink: 0;
-        }
-
         .project-explained-btn {
             display: inline-flex;
             align-items: center;
@@ -485,207 +678,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .project-details .project-explained-btn {
-            margin-top: 16px;
-        }
-
-        .project-github-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 8px 16px;
-            background: var(--bg-alt);
-            color: var(--fg-light);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.85em;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .project-github-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        body.dark-theme .project-github-btn {
-            border-color: #444;
-        }
-
-        .project-github-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
-
-        /* Project detail view overlay */
-        .project-detail-view {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--bg);
-            z-index: 200;
-            overflow-y: auto;
-            padding: 60px 40px;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .project-detail-view.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-
-        .project-detail-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .project-detail-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--bg-alt);
-        }
-
-        .project-detail-title {
-            font-size: 2em;
-            font-weight: 700;
-            color: var(--fg);
-        }
-
-        .project-detail-title span {
-            color: var(--accent-cyan);
-        }
-
-        .project-detail-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: var(--bg-alt);
-            color: var(--fg);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.9em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .project-detail-back:hover {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-        }
-
-        body.dark-theme .project-detail-back {
-            border-color: #444;
-        }
-
-        /* Markdown content styles */
-        .project-detail-content {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: var(--fg);
-        }
-
-        .project-detail-content h1 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: var(--accent-cyan);
-        }
-
-        .project-detail-content h2 {
-            font-size: 1.4em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: var(--accent-magenta);
-        }
-
-        .project-detail-content h3 {
-            font-size: 1.2em;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            color: var(--fg);
-        }
-
-        .project-detail-content p {
-            margin-bottom: 16px;
-            color: var(--fg-light);
-        }
-
-        .project-detail-content img {
-            width: 100%;
-            max-width: 100%;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .project-detail-content strong {
-            color: var(--fg);
-            font-weight: 700;
-        }
-
-        .project-detail-content hr {
-            border: none;
-            border-top: 1px solid var(--bg-alt);
-            margin: 30px 0;
-        }
-
-        .project-detail-content code {
-            background: var(--bg-alt);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: var(--accent-yellow);
-        }
-
-        .project-detail-content pre {
-            background: var(--bg-alt);
-            padding: 20px;
-            border-radius: 12px;
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-
-        .project-detail-content pre code {
-            background: none;
-            padding: 0;
-            color: var(--fg-light);
-        }
-
-        .project-detail-content ul,
-        .project-detail-content ol {
-            margin: 16px 0;
-            padding-left: 24px;
-        }
-
-        .project-detail-content li {
-            margin-bottom: 8px;
-            color: var(--fg-light);
-        }
-
-        .project-detail-content blockquote {
-            border-left: 3px solid var(--accent-cyan);
-            padding-left: 20px;
-            margin: 20px 0;
-            color: var(--fg-light);
-            font-style: italic;
-        }
-
         /* Smooth transitions */
         section {
             transition: all 0.3s ease;
@@ -698,6 +690,7 @@
             top: 0;
             width: 200px;
             height: 100vh;
+            height: 100dvh;
             background-color: var(--bg-alt);
             border-right: 1px solid #ddd;
             padding: 20px;
@@ -798,7 +791,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(245, 245, 247, 0.95);
+            background: rgba(244, 241, 222, 0.95);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-bottom: 1px solid var(--bg-alt);
@@ -813,11 +806,11 @@
             background: none;
             border: none;
             color: var(--fg);
-            font-size: 4.5em;
+            font-size: 1.6em;
             cursor: pointer;
             padding: 0;
-            width: 96px;
-            height: 96px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -834,11 +827,11 @@
             background: none;
             border: none;
             color: var(--fg);
-            font-size: 3.6em;
+            font-size: 1.3em;
             cursor: pointer;
             padding: 0;
-            width: 96px;
-            height: 96px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -850,25 +843,6 @@
         .theme-toggle:hover {
             color: var(--accent-cyan);
             background-color: rgba(148, 226, 213, 0.1);
-        }
-
-        /* Stack layout */
-        .stack-lines {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .stack-line {
-            font-size: 1.3em;
-            color: var(--fg-light);
-            line-height: 1.8;
-        }
-
-        .stack-label {
-            font-weight: 500;
-            color: var(--fg);
-            margin-right: 8px;
         }
 
         .stack-focus {
@@ -959,16 +933,6 @@
                 gap: 8px;
             }
 
-            .social-link {
-                width: 24px;
-                height: 24px;
-            }
-
-            .social-link svg {
-                width: 14px;
-                height: 14px;
-            }
-
             .scroll-hint {
                 display: none;
             }
@@ -979,8 +943,26 @@
             }
 
             .section-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
                 gap: 12px;
+            }
+
+            #whoami .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            #whoami .hero-text {
+                align-items: center;
+                order: 2;
+            }
+
+            #whoami .about-visual {
+                order: 1;
+            }
+
+            .about-visual {
+                min-height: auto;
             }
 
             .section-text {
@@ -1040,12 +1022,6 @@
                 align-items: center;
             }
 
-            .project-github-btn {
-                min-height: 44px;
-                padding: 12px 16px;
-                font-size: 0.9em;
-            }
-
             .project-explained-btn {
                 min-height: 44px;
                 padding: 14px 18px;
@@ -1053,45 +1029,7 @@
                 justify-content: center;
             }
 
-            .project-detail-back {
-                min-height: 44px;
-            }
-
-            /* Project card actions: stack full-width on mobile */
-            .project-card-actions {
-                width: 100%;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-
-            .project-github-btn {
-                flex: 1;
-            }
-
-            /* Project detail overlay: safe padding */
-            .project-detail-view {
-                padding: 24px 16px;
-                padding-top: max(24px, env(safe-area-inset-top));
-                padding-bottom: max(24px, env(safe-area-inset-bottom));
-            }
-
-            .project-detail-title {
-                font-size: 1.4em;
-            }
-
-            .project-detail-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-                margin-bottom: 24px;
-            }
-
             /* Touch feedback (replaces hover on iOS) */
-            .project-card:active {
-                border-color: var(--accent-cyan);
-                transform: scale(0.99);
-            }
-
             .contact-item:active {
                 transform: scale(0.97);
                 background: rgba(0, 0, 0, 0.05);
@@ -1101,14 +1039,8 @@
                 background: rgba(255, 255, 255, 0.07);
             }
 
-            .project-github-btn:active,
             .project-explained-btn:active {
                 opacity: 0.8;
-            }
-
-            /* Stack section font */
-            .stack-line {
-                font-size: 1.1em;
             }
 
             /* Contact items: better touch area */
@@ -1127,31 +1059,11 @@
                 gap: 24px;
             }
 
-            /* Hide project descriptions on mobile, show on expand */
-            .project-card-desc {
-                display: none;
-            }
-
-            .project-card.expanded .project-card-desc {
-                display: block;
-                margin-top: 8px;
-            }
-
         }
 
         /* Disable hover transforms on touch devices to avoid sticky states */
         @media (hover: none) {
-            .project-card:hover {
-                box-shadow: none;
-                border-color: inherit;
-            }
-
             .project-explained-btn:hover {
-                transform: none;
-                box-shadow: none;
-            }
-
-            .project-github-btn:hover {
                 transform: none;
                 box-shadow: none;
             }
@@ -1168,14 +1080,21 @@
     </style>
 </head>
 <body>
+    <!-- Intro loader -->
+    <div id="intro-overlay" aria-hidden="true">
+        <h1 id="intro-name">
+            <span>A</span><span>r</span><span>e</span><span>f</span>
+        </h1>
+    </div>
+
     <!-- Sidebar Navigation -->
     <aside id="sidebar">
 
         <nav class="sidebar-nav">
             <div class="sidebar-section-label">— portfolio —</div>
             <a href="#whoami" class="sidebar-link" data-section="whoami">whoami</a>
+            <a href="#education" class="sidebar-link" data-section="education">education</a>
             <a href="#projects" class="sidebar-link" data-section="projects">projects</a>
-            <a href="#stack" class="sidebar-link" data-section="stack">stack</a>
             <a href="#contact" class="sidebar-link" data-section="contact">contact</a>
 
             <div class="sidebar-section-label" style="margin-top: 20px;">— blog —</div>
@@ -1191,10 +1110,10 @@
                 <div class="social-links">
                     <button id="theme-toggle" class="theme-toggle" title="Toggle theme">🌙</button>
                     <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
-                        <img src="github-logo.png" alt="GitHub" style="width:72px;height:72px">
+                        <img src="github-logo.png" alt="GitHub">
                     </a>
                     <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
-                        <img src="linkedin-logo.png" alt="LinkedIn" style="width:72px;height:72px">
+                        <img src="linkedin-logo.png" alt="LinkedIn">
                     </a>
                 </div>
             </div>
@@ -1206,13 +1125,28 @@
     <section id="whoami">
         <div class="section-content hero-content">
             <div class="section-text hero-text">
-                <h1 class="hero-letters" role="img" aria-label="Aref">
-                    <img src="A.excalidraw.svg" alt="" class="hero-letter">
-                    <img src="r.excalidraw.svg" alt="" class="hero-letter">
-                    <img src="e.excalidraw.svg" alt="" class="hero-letter">
-                    <img src="f.excalidraw.svg" alt="" class="hero-letter">
-                </h1>
-                <p class="hero-headline">Ai Engineer · System Designer · Agentic Workflow</p>
+                <p class="hero-eyebrow">System Architect</p>
+                <h1 class="hero-name">I build <span class="about-highlight hl-step-1">AI</span> <span class="about-highlight hl-step-2">systems</span>.</h1>
+                <p class="hero-qualifier">Custom, intuitive, and functional.</p>
+                <a href="#projects" class="project-explained-btn about-cta">See my work &#8594;</a>
+            </div>
+            <div class="about-visual">
+                <img src="aref-photo.png" alt="Aref" class="about-photo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="section-content">
+            <div class="section-text">
+                <h1 class="section-title"><span>education</span></h1>
+                <div class="section-divider"></div>
+                <p class="section-description edu-school">American University of Sharjah</p>
+                <p class="edu-degree">B.S. in Computer Science &mdash; Class of 2026</p>
+            </div>
+            <div class="section-visual edu-visual">
+                <img src="graduation-photo.jpg" alt="Aref at graduation, American University of Sharjah" class="edu-photo">
             </div>
         </div>
     </section>
@@ -1223,167 +1157,68 @@
             <div class="section-text projects-text">
                 <h1 class="section-title"><span>projects</span></h1>
                 <div class="section-divider"></div>
-                <div class="project-cards">
-                    <div class="project-card" data-project="rehero">
-                        <div class="project-card-main">
-                            <div class="project-card-header">
-                                <div class="project-card-title">ReHero</div>
-                                <div class="project-card-desc">Desktop research paper reader with an AI copilot, hand-drawn annotations, and a built-in whiteboard. Bring your own LLM or run one locally.</div>
-                            </div>
-                            <div class="expand-hint">click to expand</div>
-                        </div>
-                        <div class="project-card-actions">
-                            <a href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer" class="project-github-btn">
-                                <img src="github-logo.png" alt="GitHub" style="width:16px;height:16px">
-                                GitHub
-                            </a>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-tech">
-                                <span class="tech-tag">Tauri</span>
-                                <span class="tech-tag">TypeScript</span>
-                                <span class="tech-tag">React</span>
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">LLM</span>
-                            </div>
-                            <div class="project-long-desc">
-                                A Tauri desktop app that puts AI explanations, hand-drawn annotations, and an Excalidraw canvas right alongside your PDF. Highlight text and the AI simplifies, explains, illustrates, or diagrams it without leaving the page. Features semantic arXiv search with AI-ranked results, Kokoro TTS audio narration, and Scholar XP — a gamification system with 7 tier levels and 18 achievements for reading streaks and annotations.
-                            </div>
-                            <button class="project-explained-btn" data-project="rehero">&#128196; How It Works</button>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="lipsync">
-                        <div class="project-card-main">
-                            <div class="project-card-header">
-                                <div class="project-card-title">LipSync</div>
-                                <div class="project-card-desc">Real-time lip reading pipeline for AR glasses. Runs a custom ONNX model on Jetson Orin, streaming decoded speech to Vuzix Z-4K.</div>
-                            </div>
-                            <div class="expand-hint">click to expand</div>
-                        </div>
-                        <div class="project-card-actions">
-                            <a href="https://github.com/ArefDagmash/Visual_Speech_Recognition_for_Multiple_Languages" target="_blank" rel="noopener noreferrer" class="project-github-btn">
-                                <img src="github-logo.png" alt="GitHub" style="width:16px;height:16px">
-                                GitHub
-                            </a>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">ONNX</span>
-                                <span class="tech-tag">OpenCV</span>
-                                <span class="tech-tag">Jetson</span>
-                                <span class="tech-tag">AR</span>
-                            </div>
-                            <div class="project-long-desc">
-                                Built an end-to-end visual speech recognition system optimized for edge deployment. The pipeline captures video from AR glasses, processes frames through a lightweight lip-reading model, and streams decoded text in real-time. Trained on multiple languages with data augmentation for robustness in noisy environments.
-                            </div>
-                            <button class="project-explained-btn" data-project="lipsync">&#128196; How It Works</button>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="gilgamesh">
-                        <div class="project-card-main">
-                            <div class="project-card-header">
-                                <div class="project-card-title">Gilgamesh</div>
-                                <div class="project-card-desc">Cross-platform hand tracking that turns your fingers into animated swords. Uses MediaPipe for hand detection with OpenCV and PyQt6.</div>
-                            </div>
-                            <div class="expand-hint">click to expand</div>
-                        </div>
-                        <div class="project-card-actions">
-                            <a href="https://github.com/ArefDagmash/Gilgamesh" target="_blank" rel="noopener noreferrer" class="project-github-btn">
-                                <img src="github-logo.png" alt="GitHub" style="width:16px;height:16px">
-                                GitHub
-                            </a>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">MediaPipe</span>
-                                <span class="tech-tag">OpenCV</span>
-                                <span class="tech-tag">PyQt6</span>
-                                <span class="tech-tag">Computer Vision</span>
-                            </div>
-                            <div class="project-long-desc">
-                                A gesture-controlled application that maps hand landmarks to animated sword trails in real-time. Leverages MediaPipe's hand tracking model with custom gesture recognition to trigger effects. Built with a PyQt6 interface for cross-platform support and OpenCV for frame processing and rendering.
-                            </div>
-                            <button class="project-explained-btn" data-project="gilgamesh">&#128196; How It Works</button>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="tracer">
-                        <div class="project-card-main">
-                            <div class="project-card-header">
-                                <div class="project-card-title">Tracer</div>
-                                <div class="project-card-desc">CLI tool that scans code repositories and generates Mermaid architecture diagrams. Supports Python, JS/TS, Rust, Go, Java, and C++ — no LLM required.</div>
-                            </div>
-                            <div class="expand-hint">click to expand</div>
-                        </div>
-                        <div class="project-card-actions">
-                            <a href="https://github.com/ArefDagmash/Tracer" target="_blank" rel="noopener noreferrer" class="project-github-btn">
-                                <img src="github-logo.png" alt="GitHub" style="width:16px;height:16px">
-                                GitHub
-                            </a>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Mermaid</span>
-                                <span class="tech-tag">CLI</span>
-                                <span class="tech-tag">Static Analysis</span>
-                            </div>
-                            <div class="project-long-desc">
-                                Tracer parses import statements, class hierarchies, and function calls across multiple languages to build accurate dependency graphs. It outputs clean Mermaid diagram files that can be rendered anywhere. Works with both local repositories and GitHub URLs, with optional LLM backends for enhanced summaries.
-                            </div>
-                            <button class="project-explained-btn" data-project="tracer">&#128196; How It Works</button>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="cicd">
-                        <div class="project-card-main">
-                            <div class="project-card-header">
-                                <div class="project-card-title">CICD Is Overrated</div>
-                                <div class="project-card-desc">FastAPI app with a full CI/CD pipeline. Lint, test, coverage, type checking, security scanning, and Docker deployment to GitHub Container Registry.</div>
-                            </div>
-                            <div class="expand-hint">click to expand</div>
-                        </div>
-                        <div class="project-card-actions">
-                            <a href="https://github.com/ArefDagmash/CICD_Is_overrated" target="_blank" rel="noopener noreferrer" class="project-github-btn">
-                                <img src="github-logo.png" alt="GitHub" style="width:16px;height:16px">
-                                GitHub
-                            </a>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-tech">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">FastAPI</span>
-                                <span class="tech-tag">Docker</span>
-                                <span class="tech-tag">GitHub Actions</span>
-                                <span class="tech-tag">CI/CD</span>
-                            </div>
-                            <div class="project-long-desc">
-                                A production-ready FastAPI application demonstrating enterprise-grade CI/CD practices. Features six parallel GitHub Actions jobs (lint, test, coverage, type-check, security, audit), semantic-release auto-versioning, and multi-stage Docker builds pushed to GHCR. Coverage gate set at 90% with Bandit security scanning and pip-audit vulnerability checks.
-                            </div>
-                            <button class="project-explained-btn" data-project="cicd">&#128196; How It Works</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Stack Section -->
-    <section id="stack">
-        <div class="section-content">
-            <div class="section-text">
-                <h1 class="section-title"><span>stack</span></h1>
-                <div class="section-divider"></div>
-                <div class="stack-lines">
-                    <div class="stack-line"><span class="stack-label">Languages</span> Go, Rust, C, Python, Java</div>
-                    <div class="stack-line"><span class="stack-label">Environment</span> Linux (Nobara / Niri)</div>
-                    <div class="stack-line"><span class="stack-label">Shell</span> Fish, Bash, Zsh</div>
-                    <div class="stack-line"><span class="stack-label">Editor</span> Neovim + custom config</div>
+                <div class="project-showcase">
+                    <button class="project-nav project-nav-prev" id="projectPrev" aria-label="Previous project">&#8592;</button>
 
+                    <div class="project-slide-viewport">
+                        <div class="project-slides" id="projectSlides">
+                            <article class="project-slide">
+                                <div class="project-slide-visual" style="background: var(--accent-cyan);">
+                                    <img src="previews/rehero.png" alt="ReHero icon" loading="lazy" class="project-slide-sprite">
+                                </div>
+                                <div class="project-slide-body">
+                                    <p class="project-slide-eyebrow">01 &mdash; ReHero</p>
+                                    <h3 class="project-slide-title">ReHero</h3>
+                                    <p class="project-slide-desc">Desktop research paper reader with an AI copilot, hand-drawn annotations, and a built-in whiteboard.</p>
+                                    <a href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
+                                </div>
+                            </article>
+                            <article class="project-slide">
+                                <div class="project-slide-visual" style="background: var(--accent-magenta);">
+                                    <img src="previews/lipsync.png" alt="LipSync icon" loading="lazy" class="project-slide-sprite">
+                                </div>
+                                <div class="project-slide-body">
+                                    <p class="project-slide-eyebrow">02 &mdash; LipSync</p>
+                                    <h3 class="project-slide-title">LipSync</h3>
+                                    <p class="project-slide-desc">Real-time lip reading pipeline for AR glasses, streaming decoded speech to a Vuzix display.</p>
+                                    <a href="https://github.com/ArefDagmash/Visual_Speech_Recognition_for_Multiple_Languages" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
+                                </div>
+                            </article>
+                            <article class="project-slide">
+                                <div class="project-slide-visual" style="background: var(--accent-pop);">
+                                    <img src="previews/gilgamesh.png" alt="Gilgamesh sword sprite" loading="lazy" class="project-slide-sprite">
+                                </div>
+                                <div class="project-slide-body">
+                                    <p class="project-slide-eyebrow">03 &mdash; Gilgamesh</p>
+                                    <h3 class="project-slide-title">Gilgamesh</h3>
+                                    <p class="project-slide-desc">Hand tracking that turns your fingers into animated swords, using MediaPipe and OpenCV.</p>
+                                    <a href="https://github.com/ArefDagmash/Gilgamesh" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
+                                </div>
+                            </article>
+                            <article class="project-slide">
+                                <div class="project-slide-visual" style="background: var(--accent-cyan);">
+                                    <img src="previews/tracer.png" alt="Tracer icon" loading="lazy" class="project-slide-sprite">
+                                </div>
+                                <div class="project-slide-body">
+                                    <p class="project-slide-eyebrow">04 &mdash; Tracer</p>
+                                    <h3 class="project-slide-title">Tracer</h3>
+                                    <p class="project-slide-desc">CLI tool that scans a repo and generates Mermaid architecture diagrams &mdash; no LLM required.</p>
+                                    <a href="https://github.com/ArefDagmash/Tracer" target="_blank" rel="noopener noreferrer" class="project-slide-link">GitHub &#8594;</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <button class="project-nav project-nav-next" id="projectNext" aria-label="Next project">&#8594;</button>
                 </div>
-            </div>
-            <div class="section-visual">
-                <img src="Stack.svg" alt="Tech Stack" style="width: 100%; height: 100%; object-fit: contain;">
+
+                <div class="project-dots" id="projectDots">
+                    <button class="project-dot active" data-index="0" aria-label="Go to ReHero"></button>
+                    <button class="project-dot" data-index="1" aria-label="Go to LipSync"></button>
+                    <button class="project-dot" data-index="2" aria-label="Go to Gilgamesh"></button>
+                    <button class="project-dot" data-index="3" aria-label="Go to Tracer"></button>
+                </div>
             </div>
         </div>
     </section>
@@ -1423,7 +1258,7 @@
 
         <!-- Blog View -->
         <div id="blog-view" style="display: none;">
-            <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 40px;">
+            <section style="min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 60px 40px;">
                 <div class="section-content">
                     <div class="section-text" style="max-width: 600px;">
                         <h1 class="section-title"><span>blog</span></h1>
@@ -1437,6 +1272,24 @@ no posts yet — check back soon
     </div>
 
     <script>
+        // Intro loader: letters already animate in via CSS; here we just lock
+        // scroll during it, then slide the overlay up and remove it.
+        const introOverlay = document.getElementById('intro-overlay');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (introOverlay) {
+            if (prefersReducedMotion) {
+                introOverlay.remove();
+            } else {
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    introOverlay.classList.add('intro-exit');
+                    document.body.style.overflow = '';
+                }, 1300);
+                introOverlay.addEventListener('transitionend', () => introOverlay.remove());
+            }
+        }
+
         // Email handler
         const emailLink = document.querySelector('a[href^="mailto:"]');
         if (emailLink) {
@@ -1469,14 +1322,6 @@ no posts yet — check back soon
             themeToggle.textContent = isDark ? '☀️' : '🌙';
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
-
-        // Change "click to expand" to "tap to expand" on touch devices
-        const isTouchDevice = window.matchMedia('(hover: none)').matches;
-        if (isTouchDevice) {
-            document.querySelectorAll('.expand-hint').forEach(hint => {
-                hint.textContent = 'tap to expand';
-            });
-        }
 
         // Intersection Observer for scroll animations
         const observer = new IntersectionObserver((entries) => {
@@ -1560,6 +1405,40 @@ no posts yet — check back soon
             sectionObserver.observe(section);
         });
 
+        // Projects: single-slide showcase with prev/next + dot navigation
+        (function initProjectShowcase() {
+            const track = document.getElementById('projectSlides');
+            const prevBtn = document.getElementById('projectPrev');
+            const nextBtn = document.getElementById('projectNext');
+            const dots = Array.from(document.querySelectorAll('.project-dot'));
+            if (!track || !prevBtn || !nextBtn || !dots.length) return;
+
+            const slideCount = track.children.length;
+            let index = 0;
+
+            function render() {
+                track.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+            }
+
+            function goTo(i) {
+                index = (i + slideCount) % slideCount;
+                render();
+            }
+
+            prevBtn.addEventListener('click', () => goTo(index - 1));
+            nextBtn.addEventListener('click', () => goTo(index + 1));
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => goTo(parseInt(dot.dataset.index, 10)));
+            });
+
+            const projectsSection = document.getElementById('projects');
+            projectsSection.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') goTo(index - 1);
+                if (e.key === 'ArrowRight') goTo(index + 1);
+            });
+        })();
+
         // Close sidebar when clicking outside (mobile)
         document.addEventListener('click', (e) => {
             if (window.innerWidth <= 768 && document.body.classList.contains('sidebar-open')) {
@@ -1569,149 +1448,7 @@ no posts yet — check back soon
             }
         });
 
-        // Expandable project cards
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Don't toggle if clicking a link, button, or the project-explained button
-                if (e.target.closest('a') || e.target.closest('button')) return;
-                // Collapse other cards for cleaner UX
-                document.querySelectorAll('.project-card.expanded').forEach(other => {
-                    if (other !== card) other.classList.remove('expanded');
-                });
-                card.classList.toggle('expanded');
-            });
-        });
-
     </script>
 
-    <!-- Project Detail View Overlay -->
-    <div class="project-detail-view" id="project-detail-view">
-        <div class="project-detail-container">
-            <div class="project-detail-header">
-                <h2 class="project-detail-title" id="project-detail-title">Project Details</h2>
-                <button class="project-detail-back" id="project-detail-back">&#8592; Back to Projects</button>
-            </div>
-            <div class="project-detail-content" id="project-detail-content"></div>
-        </div>
-    </div>
-
-    <script>
-        // Project detail view - runs after DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            const projectDetailView = document.getElementById('project-detail-view');
-            const projectDetailTitle = document.getElementById('project-detail-title');
-            const projectDetailContent = document.getElementById('project-detail-content');
-            const projectDetailBack = document.getElementById('project-detail-back');
-
-            const projectContent = {
-                'cicd': `# Visual Walkthrough
-
-Modern software teams don't manually test and ship code. They build a pipeline that does it for them. Every push, automatically. Here's how I did it.
-
----
-
-![The Workspace](Pasted image 20260610232724.png)
-
-**The Workspace**
-
-Everything lives inside GitHub — you (the developer) and the main branch, which is the official stable version of the codebase. Nothing reaches main without going through the pipeline first.
-
----
-
-![The Inspectors](Pasted image 20260610232736.png)
-
-**The Inspectors**
-
-Every push triggers 6 checks in parallel. Each one looks at your code from a different angle — style, correctness, coverage, types, security, and dependency vulnerabilities. If any one of them fails, the push gets handed back. Fix it, push again.
-
----
-
-![Pass or Fail](Pasted image 20260610232759.png)
-
-**Pass or Fail**
-
-If all 6 sign off, the code gets merged into main and semantic-release reads your commit messages to decide the new version number. A \`fix:\` bumps a patch, a \`feat:\` bumps a minor, a breaking change bumps a major. That version tag is what kicks off deployment.
-
----
-
-![Packaging and Delivery](Pasted image 20260610232811.png)
-
-**Packaging and Delivery**
-
-Docker builds an image — your code, Python runtime, and all dependencies bundled into one sealed artifact. The delivery guy pushes it to GHCR, where every version ever shipped is stored and pullable. The server pulls the image and runs it.
-
----
-
-(i got tired of drawing)
-
-![Handling a Request](Pasted image 20260610232833.png)
-
-**Handling a Request**
-
-Once the server is running the image, this is what happens on every single request. Uvicorn sits on port 8000 and receives incoming HTTP requests. FastAPI matches the path and calls the right function. The function runs and returns a Python dict. FastAPI converts it to JSON and sends it back.`
-            };
-
-            const projectNames = {
-                'rehero': 'ReHero',
-                'lipsync': 'LipSync',
-                'gilgamesh': 'Gilgamesh',
-                'tracer': 'Tracer',
-                'cicd': 'CICD Is Overrated'
-            };
-
-            function parseMarkdown(md) {
-                md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-                md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-                md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-                md = md.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="documentation/$2" alt="$1">');
-                md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-                md = md.replace(/`([^`]+)`/g, '<code>$1</code>');
-                md = md.replace(/\n\n/g, '</p><p>');
-                md = '<p>' + md + '</p>';
-                md = md.replace(/<p><\/p>/g, '');
-                md = md.replace(/<p>---<\/p>/g, '<hr>');
-                return md;
-            }
-
-            function showProjectDetail(projectKey) {
-                const name = projectNames[projectKey] || 'Project Details';
-                projectDetailTitle.innerHTML = `<span>${name}</span>`;
-                
-                if (projectContent[projectKey]) {
-                    projectDetailContent.innerHTML = parseMarkdown(projectContent[projectKey]);
-                } else {
-                    projectDetailContent.innerHTML = '<p>Detailed documentation coming soon.</p>';
-                }
-
-                projectDetailView.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function hideProjectDetail() {
-                projectDetailView.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            // Handle Project Explained button clicks
-            document.querySelectorAll('.project-explained-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const projectKey = btn.getAttribute('data-project');
-                    showProjectDetail(projectKey);
-                });
-            });
-
-            // Handle back button
-            projectDetailBack.addEventListener('click', hideProjectDetail);
-
-            // Handle escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && projectDetailView.classList.contains('active')) {
-                    hideProjectDetail();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
