@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Aref Dagmash — Dev Portfolio</title>
-    <meta name="description" content="Aref Dagmash — System Architect building AI systems, AR pipelines, and dev tools.">
-    <meta property="og:title" content="Aref Dagmash — Dev Portfolio">
-    <meta property="og:description" content="Aref Dagmash — System Architect.">
+    <title>Aref Dogmosh — Dev Portfolio</title>
+    <meta name="description" content="Aref Dogmosh — System Architect building AI systems, automation, and dev tools.">
+    <meta property="og:title" content="Aref Dogmosh — Dev Portfolio">
+    <meta property="og:description" content="Aref Dogmosh — System Architect.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://arefdagmash.com/">
+    <meta property="og:image" content="https://arefdagmash.com/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/png" href="tab-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
     <style>
-        @font-face {
-            font-family: 'Caveat';
-            src: url('Caveat-Bold.woff2') format('woff2');
-            font-weight: 700;
-            font-display: swap;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -27,22 +25,40 @@
         }
 
         :root {
-            --ink: #161616;
-            --cream: #F7F2E7;
+            /* palette pulled from the hero photo: sea #656e78, sky #8eade3/#b9cff0, coat #322f32 */
+            --bg: #161b22;
+            --ink: #e6e9ee;
             --white: #FFFFFF;
-            --muted: #5c5c5c;
-            --blue: #6FA8DC;
-            --pink: #F3B6C8;
-            --orange: #F2A65A;
-            --green: #B7D98C;
+            --muted: #8593a3;
+            --line: rgba(185,207,240,0.16);
+            --blue: #8eade3;
             --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--cream);
+            background: var(--bg);
             color: var(--ink);
             line-height: 1.5;
+        }
+
+        .mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .label {
+            font-size: 0.7em;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .hairline {
+            width: 100%;
+            height: 1px;
+            background: var(--line);
+            margin: 8px 0;
         }
 
         a {
@@ -55,11 +71,6 @@
             padding: 0 32px;
         }
 
-        .script {
-            font-family: 'Caveat', cursive;
-            font-weight: 700;
-        }
-
         .block {
             font-family: 'Anton', sans-serif;
             font-weight: 400;
@@ -67,743 +78,994 @@
             letter-spacing: 0.01em;
         }
 
-        /* ---------- Nav ---------- */
-
-        nav.topnav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 28px 0;
+        /* ---------- Hero -> About glitch transition (stage pins, canvas tears the hero apart) ---------- */
+        .gt-stage {
+            position: relative;
+            height: 1302vh;   /* 120vh of scroll: the glitch tears the hero away. 190vh: the statement writes itself. 748vh: the four chapters. 144vh: the contact page */
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
         }
 
-        .nav-name {
-            font-weight: 700;
-            font-size: 1.1em;
-            letter-spacing: 0.04em;
+        .gt-pin {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
+        .gt-pin .hero {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            margin: 0;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9em;
-            letter-spacing: 0.03em;
+
+        /* ---------- Paper world: the doodle about + the chapters. Same palette as the hero, flipped. ---------- */
+        @font-face { font-family: Caveat; src: url(Caveat-Bold.woff2) format('woff2'); font-weight: 700; }
+        .paperworld { --paper: #e9eef7; --ink: #0c0f14; --muted: #4a5563; --blue: #8eade3; --blue-deep: #3f62a8; --card: #ffffff; color: var(--ink); background: var(--paper); }
+        .paperworld .hand { font-family: Caveat, cursive; font-weight: 700; }
+        .gt-about.paperworld { position: absolute; inset: 0; max-width: none; margin: 0; padding: 0; display: block; }
+
+        :root {
+          /* the hero palette, flipped: paper is pale sky, ink is the hero's navy, accent stays the pill blue */
+          --paper: #e9eef7; --ink: #0c0f14; --muted: #4a5563; --blue: #8eade3; --blue-deep: #3f62a8;
         }
 
-        .nav-links a:hover {
-            text-decoration: underline;
+        .gt-about .paper { position: absolute; inset: 0; background: var(--paper); background-image: radial-gradient(rgba(12,15,20,.07) 1px, transparent 1px); background-size: 22px 22px; }
+        svg.ink { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 6; overflow: visible; }
+
+
+        .lbl { font-size: clamp(1.1em, 1.8vw, 1.5em); color: var(--muted); clip-path: inset(0 100% 0 0); }
+        .line { font-size: clamp(1.9em, 3.6vw, 3.2em); line-height: 1.12; color: var(--ink); clip-path: inset(0 100% 0 0); white-space: nowrap; }
+  .creed { margin-top: 4vh; max-width: 44ch; text-wrap: balance; color: var(--ink); font-family: Newsreader, Georgia, serif; font-size: clamp(1.25em, 1.75vw, 1.6em); line-height: 1.32; font-optical-sizing: auto; opacity: 0; }
+  .creed .hl { font-style: italic; }
+  .creed .hl { color: var(--ink); background: linear-gradient(transparent 58%, rgba(142,173,227,.55) 58%, rgba(142,173,227,.55) 92%, transparent 92%); padding: 0 .1em; }
+
+        /* the meat: the four, right side */
+        .four { position: absolute; right: 6vw; bottom: 7vh; z-index: 7; text-align: right; }
+        .four .line { font-size: clamp(1.5em, 2.6vw, 2.3em); line-height: 1.16; }
+        .four .lbl { font: 400 11px/1.6 'Space Mono', monospace; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+        /* the stack, left side */
+        .stack { position: absolute; left: 6vw; top: 13vh; z-index: 7; width: 88vw; }
+        .stack .line { font-size: clamp(3em, min(8.4vw, 15vh), 7.6em); line-height: .98; width: max-content; }
+
+
+        /* the talking side */
+        .talk { position: absolute; left: 6vw; top: 12vh; width: 34vw; z-index: 7; }
+        .num { font: 700 11px/1 'Space Mono'; letter-spacing: .25em; color: var(--muted); text-transform: uppercase; }
+        .title { font-size: clamp(2.6em, 5.6vw, 5em); line-height: .95; margin: 10px 0 18px; clip-path: inset(0 100% 0 0); }
+        .say { font-size: clamp(1em, 1.25vw, 1.15em); color: var(--ink); max-width: 38ch; opacity: 0; }
+        .say + .say { margin-top: 12px; color: var(--muted); }
+        .say b { font-weight: 600; }
+        .see { color: var(--blue-deep); font-weight: 600; text-decoration: none; white-space: nowrap; border-bottom: 1.5px solid currentColor; }
+        .chap.on .see { pointer-events: auto; }   /* the chapters are stacked: only the one showing may be clicked */
+
+        /* the drawing side: nodes are DOM so the ink can find them */
+        .board { position: absolute; left: 46vw; right: 6vw; top: 10vh; bottom: 10vh; z-index: 7; }
+        .node { position: absolute; padding: 10px 16px; font-size: clamp(1.1em, 1.7vw, 1.5em); line-height: 1.05; white-space: nowrap; clip-path: inset(0 100% 0 0); }
+        .node small { display: block; font: 400 10px/1.5 'Space Mono'; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+        .node.hi { color: var(--blue-deep); }
+
+        /* a taped print of the user's own drawing */
+        .print { position: absolute; background: var(--card); padding: 10px; box-shadow: 0 18px 40px rgba(12,15,20,.16); transform: rotate(-1.5deg); opacity: 0; }
+        .print img { display: block; width: 100%; }
+        .tape { position: absolute; width: 90px; height: 24px; background: rgba(142,173,227,.6); }
+
+        @media (max-width: 900px) { .talk { width: 88vw; } .board { left: 6vw; top: 52vh; } }
+        @media (prefers-reduced-motion: reduce) { .title, .node { clip-path: none !important; } .say, .print { opacity: 1 !important; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .paperworld .lbl, .paperworld .line, .paperworld .title, .paperworld .node { clip-path: none !important; }
+            .paperworld .creed, .paperworld .say, .paperworld .print { opacity: 1 !important; }
+        }
+
+        /* the four words travel: list on page 2 -> chapter title -> dock. Placeholders (.ph) mark the landing spots. */
+        .ph { visibility: hidden; }
+        .chap { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+        .word { position: absolute; left: 0; top: 0; z-index: 9; white-space: nowrap; transform-origin: 0 0; will-change: transform; pointer-events: none; font-size: clamp(2.6em, 5.6vw, 5em); line-height: .95; color: var(--ink); }
+        .word .wt { display: inline-block; padding-right: .14em; clip-path: inset(0 100% 0 0); }   /* padding: Caveat overhangs its box, the clip would shave the last letter */
+        .word .tk { position: absolute; right: 100%; top: 0; margin-right: .3em; color: var(--blue-deep); font-family: Inter, sans-serif; font-weight: 700; font-size: .7em; line-height: 1.36; opacity: 0; }
+        .dock { position: absolute; left: calc(6vw + 30px); bottom: 7vh; }
+        .dock .line { font-size: clamp(1.15em, 1.7vw, 1.5em); line-height: 1.25; }
+        .title { white-space: nowrap; }
+        @media (prefers-reduced-motion: reduce) {
+            .chap { position: relative; min-height: 100vh; opacity: 1 !important; }
+            .see { pointer-events: auto; }
+            .chap[data-ch="ai"] { margin-top: 100vh; }
+            .chap .title.ph, .four .line.ph { visibility: visible; }
+            .word, .dock { display: none; }
+        }
+
+        /* ---------- Contact: the last diagram's boxes fly together, the card drops there and gets pinned ---------- */
+        .contact { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+        .contact > * { position: absolute; }
+        .c-me { left: -10vw; bottom: 0; height: 80vh; opacity: 0; }   /* the png has wide transparent margins */
+        .c-shadow { left: 5vw; bottom: 0; width: 60vh; height: 8vh; background: radial-gradient(ellipse at center, rgba(12,15,20,.22), transparent 70%); opacity: 0; }
+        .c-right { left: 50vw; right: 6vw; top: 16vh; }
+        .c-lead { font-size: clamp(2.4em, 4.8vw, 4.4em); line-height: 1; width: max-content; clip-path: inset(0 100% -20% 0); }
+        .c-card { position: relative; margin-top: 7vh; width: 36vw; background: var(--card); border: 2px solid var(--ink); border-radius: 4px; padding: 5.6vh 2.6vw 2.6vh; box-shadow: 8px 9px 0 rgba(12,15,20,.92); transform: rotate(-1.5deg); transform-origin: 50% 18px; opacity: 0; }
+        .c-card a { display: flex; justify-content: space-between; align-items: baseline; gap: 2vw; padding: 2.4vh 0; border-bottom: 1px solid rgba(12,15,20,.18); font-size: clamp(1.15em, 1.6vw, 1.45em); font-weight: 500; color: var(--ink); text-decoration: none; }
+        .c-card a:last-child { border-bottom: 0; padding-bottom: .6vh; }
+        .c-card a:hover { color: var(--blue-deep); }
+        .c-card .k { font: 400 11px/1.6 'Space Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+        .c-pin { position: absolute; left: 50%; top: 6px; width: 26px; height: 26px; margin-left: -13px; border-radius: 50%; border: 2px solid var(--ink); background: radial-gradient(circle at 35% 30%, #a9c2ee 0 20%, var(--blue-deep) 21%); box-shadow: 3px 4px 0 rgba(12,15,20,.9); opacity: 0; }
+        /* the card and pin play on their own clock once you arrive; they are not scrubbed */
+        .contact.go .c-card { pointer-events: auto; animation: card-drop 1.7s both; }
+        .contact.go .c-pin { animation: pin-land .22s .7s cubic-bezier(.5, 0, .9, .4) both; }
+        @keyframes card-drop { 0% { opacity: 0; transform: translateY(-34px) rotate(-8deg); } 22% { opacity: 1; transform: translateY(0) rotate(-5deg); } 50% { opacity: 1; transform: rotate(-5deg); } 64% { transform: rotate(.8deg); } 78% { transform: rotate(-2.6deg); } 90% { transform: rotate(-1deg); } 100% { opacity: 1; transform: rotate(-1.5deg); } }
+        @keyframes pin-land { from { opacity: 0; transform: translateY(-52px) scale(1.9); box-shadow: 16px 22px 0 rgba(12,15,20,.25); } to { opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) {
+            .contact { position: relative; min-height: 100vh; }
+            .c-me, .c-shadow, .c-card, .c-pin { opacity: 1; animation: none !important; }
+            .c-card { pointer-events: auto; }
+            .c-lead { clip-path: none; }
+        }
+
+        .gt-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+        }
+
+        .hero.is-torn { background: transparent; }
+        .hero.is-torn .hero-photo,
+        .hero.is-torn .hero-glitch { visibility: hidden; }
+        /* shade and grain stay above the canvas while it tears, so the hero keeps its darker grade */
+        .gt-canvas { z-index: 1; filter: contrast(1.08) saturate(1.05) brightness(0.96); }
+        .hero.is-torn .hero-shade,
+        .hero.is-torn .hero-grain { z-index: 2; }
+        .hero-overlay { z-index: 3; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gt-stage { height: auto; }
+            .gt-pin { position: static; height: auto; overflow: visible; }
+            .gt-pin .hero { position: relative; min-height: 92vh; }
+            .gt-about { position: relative; min-height: 100vh; }
+            .gt-canvas { display: none; }
         }
 
         /* ---------- Hero ---------- */
 
         .hero {
-            display: grid;
-            grid-template-columns: 1.1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            padding: 20px 0 60px;
+            position: relative;
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            min-height: 92vh;
+            overflow: hidden;
+            background: #000;
         }
 
-        .hero-headline {
-            font-size: clamp(2.6em, 5vw, 3.4em);
-            line-height: 0.95;
-        }
-
-        .hero-headline .script {
+        .hero-photo {
+            width: 100%;
+            height: 100%;
+            min-height: 92vh;
+            object-fit: cover;
+            object-position: 50% 32%;
+            filter: contrast(1.08) saturate(1.05) brightness(0.96);
             display: block;
-            font-size: 1.3em;
-            line-height: 1;
         }
 
-        .hero-sub {
-            margin-top: 24px;
-            max-width: 440px;
-            color: var(--muted);
-            font-size: 1.05em;
+        .hero-photo-bg,
+        .hero-photo-person {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
         }
 
-        .cta-row {
+        .hero-photo-bg {
+            animation: hero-fade-in 2.1s var(--ease-out) 0.15s forwards;
+            transform: scale(1.04);
+        }
+
+        .hero-photo-person {
+            animation: hero-person-in 1.4s var(--ease-out) 0.75s forwards;
+        }
+
+        .hero-glitch {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 92vh;
+            display: block;
+            opacity: 0;
+            filter: contrast(1.08) saturate(1.05) brightness(0.96);
+        }
+
+        .hero-glitch.is-live { opacity: 1; }
+        .hero.glitch-live .hero-photo-person { visibility: hidden; }
+
+        @keyframes hero-fade-in {
+            from { opacity: 0; filter: blur(22px) contrast(1.08) saturate(1.05) brightness(0.8); }
+            40%  { opacity: 1; filter: blur(22px) contrast(1.08) saturate(1.05) brightness(0.8); }
+            to   { opacity: 1; filter: blur(0) contrast(1.08) saturate(1.05) brightness(0.96); }
+        }
+
+        @keyframes hero-person-in {
+            from { opacity: 0; filter: blur(14px) contrast(1.08) saturate(1.05) brightness(0.96); }
+            to { opacity: 1; filter: blur(0) contrast(1.08) saturate(1.05) brightness(0.96); }
+        }
+
+        @keyframes reveal-up-kf {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes reveal-fade-kf {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .reveal-up {
+            opacity: 0;
+            animation: reveal-up-kf 0.9s var(--ease-out) forwards;
+        }
+
+        .reveal-fade {
+            opacity: 0;
+            animation: reveal-fade-kf 0.9s var(--ease-out) forwards;
+        }
+
+        .scroll-cue {
+            position: absolute;
+            left: 50%;
+            bottom: 26px;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scroll-cue .corner-sub {
+            color: #c7ccd3;
+            letter-spacing: 0.16em;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 26px;
+            background: linear-gradient(180deg, rgba(233,231,225,0.8), rgba(233,231,225,0));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            animation: scroll-line-run 1.8s ease-in-out infinite;
+        }
+
+        @keyframes scroll-line-run {
+            0% { top: -100%; }
+            60% { top: 100%; }
+            100% { top: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-photo-bg,
+            .hero-photo-person,
+            .reveal-up,
+            .reveal-fade {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .scroll-line::after {
+                animation: none !important;
+            }
+        }
+
+        .hero-shade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(5,7,10,.55) 0%, rgba(5,7,10,.1) 28%, rgba(5,7,10,.15) 60%, rgba(5,7,10,.75) 100%);
+        }
+
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.18;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .corner-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .corner {
+            max-width: 220px;
+        }
+
+        .corner .label {
+            color: #cfd4da;
+        }
+
+        .corner .corner-sub {
+            margin-top: 6px;
+            font-size: 0.78em;
+            color: #aab1bb;
+            line-height: 1.4;
+        }
+
+        .corner .hairline {
+            background: rgba(233,231,225,0.3);
+            margin: 6px 0;
+        }
+
+        .hero-name {
+            font-size: clamp(2.6em, 9vw, 6em);
+            line-height: 0.92;
+            color: var(--white);
+            text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+        }
+
+        .hero-foot {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .hero-role {
+            font-size: 0.85em;
+            color: #d8dce1;
+            max-width: 280px;
+            line-height: 1.5;
+        }
+
+        .hero-role b {
+            color: var(--white);
+        }
+
+        .hero-mark {
+            text-align: right;
+        }
+
+        .hero-mark svg {
+            width: 22px;
+            height: 22px;
+            color: #cfd4da;
+        }
+
+        .hero-mark .corner-sub {
+            margin-top: 8px;
+            color: #9aa1ab;
+        }
+
+        .intro-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 32px;
+            gap: 20px;
+            margin-top: 18px;
         }
 
-        .cta-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
+        .hero .cta-btn {
             background: var(--blue);
-            flex: none;
+            color: #0c0f14;
         }
 
-        .cta-line {
-            width: 28px;
-            height: 2px;
-            background: var(--blue);
-            flex: none;
+        .hero .hero-socials a {
+            border-color: rgba(255,255,255,0.45);
+            color: var(--white);
+        }
+
+        .hero .hero-socials a:hover {
+            border-color: var(--blue);
+            color: var(--blue);
         }
 
         .cta-btn {
-            background: var(--blue);
-            color: var(--ink);
+            background: var(--ink);
+            color: var(--bg);
             font-weight: 700;
             text-decoration: none;
-            padding: 14px 28px;
+            padding: 12px 22px;
             border-radius: 999px;
-            font-size: 0.95em;
-            letter-spacing: 0.02em;
+            font-size: 0.78em;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .hero-socials {
             display: flex;
-            gap: 12px;
-            margin-top: 28px;
+            gap: 10px;
         }
 
         .hero-socials a {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: var(--ink);
-            color: var(--cream);
+            border: 1px solid var(--line);
+            color: var(--ink);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 140ms var(--ease-out);
+            transition: border-color 140ms var(--ease-out);
         }
 
         .hero-socials a:hover {
-            transform: translateY(-3px);
+            border-color: var(--ink);
         }
 
         .hero-socials svg {
-            width: 19px;
-            height: 19px;
-        }
-
-        .hero-visual {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .hero-photo-frame {
-            width: 100%;
-            max-width: 340px;
-            aspect-ratio: 3 / 3.6;
-            background: var(--blue);
-            border-radius: 16px;
-            position: relative;
-            overflow: visible;
-        }
-
-        .hero-photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 16px;
-        }
-
-        .sticker {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .sticker-folder {
-            width: 54px;
-            height: 40px;
-        }
-
-        .sticker-label {
-            font-size: 0.68em;
-            font-weight: 600;
-            background: var(--white);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .sticker-1 { top: -18px; left: -28px; transform: rotate(-8deg); }
-        .sticker-2 { top: -10px; right: -24px; transform: rotate(6deg); }
-        .sticker-3 { bottom: 60px; left: -36px; transform: rotate(10deg); }
-        .sticker-4 { bottom: 40px; right: -30px; transform: rotate(-6deg); }
-
-        .hero-caption {
-            margin-top: 20px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            font-size: 0.95em;
-        }
-
-        /* ---------- Bio section ---------- */
-
-        .bio-section {
-            display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 48px;
-            align-items: center;
-            padding: 60px 0;
-        }
-
-        .browser-frame {
-            border-radius: 14px;
-            border: 1px solid #ddd;
-            overflow: hidden;
-            background: var(--white);
-        }
-
-        .browser-bar {
-            display: flex;
-            gap: 6px;
-            padding: 10px 12px;
-            background: #EDEDED;
-        }
-
-        .browser-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-        }
-
-        .browser-dot:nth-child(1) { background: #FF5F57; }
-        .browser-dot:nth-child(2) { background: #FEBC2E; }
-        .browser-dot:nth-child(3) { background: #28C840; }
-
-        .browser-frame img {
-            width: 100%;
-            display: block;
-            object-fit: cover;
-            aspect-ratio: 1 / 1;
-        }
-
-        .bio-heading {
-            font-size: 2.2em;
-        }
-
-        .bio-text {
-            margin-top: 16px;
-            color: var(--muted);
-            max-width: 520px;
-        }
-
-        .bio-text b {
-            color: var(--ink);
-        }
-
-        .tool-logos {
-            display: flex;
-            gap: 26px;
-            margin-top: 28px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .tool-logos svg {
-            width: 26px;
-            height: 26px;
-            color: var(--ink);
-            opacity: 0.75;
-        }
-
-        /* ---------- Work grid ---------- */
-
-        .work-section {
-            padding: 40px 0 70px;
-        }
-
-        .work-heading {
-            font-size: 2.4em;
-            margin-bottom: 32px;
-        }
-
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .work-card {
-            background: var(--white);
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #e8e2d4;
-        }
-
-        .work-thumb {
-            aspect-ratio: 16 / 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .work-thumb svg {
-            width: 34%;
-            height: 34%;
-            color: #fff;
-        }
-
-        .work-body {
-            padding: 14px 16px 18px;
-        }
-
-        .work-title {
-            font-weight: 700;
-            font-size: 0.95em;
-            margin-bottom: 6px;
-        }
-
-        .work-desc {
-            font-size: 0.82em;
-            color: var(--muted);
-            line-height: 1.5;
-        }
-
-        /* ---------- Case study ---------- */
-
-        .case-section {
-            padding: 20px 0 80px;
-        }
-
-        .case-badge {
-            display: inline-block;
-            background: var(--white);
-            border: 1px solid var(--ink);
-            border-radius: 999px;
-            padding: 6px 16px;
-            font-size: 0.8em;
-            font-weight: 700;
-            margin-bottom: 18px;
-        }
-
-        .case-heading {
-            font-size: 2.6em;
-            line-height: 0.95;
-        }
-
-        .case-heading .script {
-            display: block;
-            font-size: 1.2em;
-        }
-
-        .case-sub {
-            margin-top: 8px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            font-size: 0.85em;
-            color: var(--muted);
-        }
-
-        .case-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 32px;
-            align-items: start;
-        }
-
-        .case-collage {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .case-collage-tile {
-            aspect-ratio: 1;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .case-collage-tile img {
-            width: 44%;
-            height: 44%;
-            object-fit: contain;
-        }
-
-        .case-block {
-            margin-bottom: 20px;
-        }
-
-        .case-block-label {
-            font-weight: 700;
-            font-size: 0.85em;
-            letter-spacing: 0.08em;
-            margin-bottom: 6px;
-        }
-
-        .case-block p {
-            color: var(--muted);
-            font-size: 0.92em;
-        }
-
-        .process-row {
-            display: flex;
-            gap: 16px;
-            margin: 24px 0;
-        }
-
-        .process-step {
-            flex: 1;
-            text-align: center;
-            background: var(--white);
-            border: 1px solid #e8e2d4;
-            border-radius: 12px;
-            padding: 14px 8px;
-        }
-
-        .process-step svg {
-            width: 20px;
-            height: 20px;
-            margin-bottom: 6px;
-        }
-
-        .process-step span {
-            display: block;
-            font-size: 0.72em;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-        }
-
-        .stack-badges {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .stack-badge {
-            background: var(--ink);
-            color: var(--cream);
-            font-size: 0.78em;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 999px;
-        }
-
-        .case-link {
-            display: inline-block;
-            margin-top: 20px;
-            font-weight: 700;
-            text-decoration: none;
-            border-bottom: 2px solid var(--ink);
-            padding-bottom: 2px;
-        }
-
-        /* ---------- Footer ---------- */
-
-        footer {
-            background: var(--ink);
-            color: var(--cream);
-            padding: 48px 0;
-            text-align: center;
-        }
-
-        .footer-heading {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .footer-socials {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .footer-socials a {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: var(--cream);
-            color: var(--ink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .footer-socials svg {
-            width: 19px;
-            height: 19px;
+            width: 17px;
+            height: 17px;
         }
 
         /* ---------- Mobile ---------- */
 
         @media (max-width: 860px) {
-            .nav-links {
+            .hero-name {
+                font-size: clamp(2.2em, 11vw, 4em);
+            }
+
+            .scroll-cue {
                 display: none;
             }
 
-            .hero,
-            .bio-section,
-            .case-grid {
-                grid-template-columns: 1fr;
+            .corner-row {
+                flex-direction: column;
+                gap: 16px;
             }
 
-            .hero-visual {
-                order: -1;
-            }
-
-            .work-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .sticker {
-                display: none;
-            }
-
-            .process-row {
-                flex-wrap: wrap;
-            }
-
-            .process-step {
-                flex: 1 1 40%;
-            }
         }
+        /* ---------- Phones: one column. Words on top, the diagram under them, the dock is one row along the bottom ---------- */
+        @media (max-width: 700px) {
+            .gt-pin { height: 100dvh; }   /* the visible viewport, so the bottom row never sits under the browser bar */
+            .hero-overlay { padding: 28px 22px; }
+            .hero-mark { display: none; }
 
-        @media (max-width: 520px) {
-            .work-grid {
-                grid-template-columns: 1fr;
-            }
+            .stack { top: 11vh; }
+            .stack .line { font-size: min(8.6vw, 3em); }
+            .creed { font-size: 1.1em; margin-top: 3vh; }
+            .four { bottom: 5vh; }
+
+            .chap { display: flex; flex-direction: column; padding: 5dvh 6vw 64px; }
+            .talk { position: static; width: auto; }
+            .title { margin: 6px 0 10px; }
+            .say { font-size: 14.5px; line-height: 1.45; max-width: none; }
+            .say + .say { margin-top: 8px; }
+            .board { position: relative; inset: auto; flex: 1; min-height: 0; margin-top: 18px; }
+            .print { display: none; }
+            .node { padding: 6px 10px; font-size: 15px; }
+            .node small { font-size: 9px; letter-spacing: .1em; }
+            /* the diagrams, re-laid for a narrow board (the inline positions are the desktop ones) */
+            [data-ch="ai"] .node:nth-child(2) { left: 0 !important; top: 0 !important; }
+            [data-ch="ai"] .node:nth-child(3) { left: auto !important; right: 0; top: 4% !important; }
+            [data-ch="ai"] .node:nth-child(4) { left: 0 !important; top: 58% !important; }
+            [data-ch="ai"] .node:nth-child(5) { left: 42% !important; top: 80% !important; }
+            [data-ch="ai"] .node:nth-child(6) { left: auto !important; right: 0; top: 58% !important; }
+            [data-ch="auto"] .node:nth-child(2) { left: 0 !important; top: 0 !important; }
+            [data-ch="auto"] .node:nth-child(3) { left: 0 !important; top: 30% !important; }
+            [data-ch="auto"] .node:nth-child(4) { left: 0 !important; top: 64% !important; }
+            [data-ch="auto"] .node:nth-child(5) { left: auto !important; right: 0; top: auto !important; bottom: 0; }
+            [data-ch="int"] .node:nth-child(1) { left: 0 !important; top: 0 !important; }
+            [data-ch="int"] .node:nth-child(2) { left: auto !important; right: 0; top: 10% !important; }
+            [data-ch="int"] .node:nth-child(3) { left: 0 !important; top: 42% !important; }
+            [data-ch="int"] .node:nth-child(4) { left: auto !important; right: 0; top: 56% !important; }
+            [data-ch="int"] .node:nth-child(5) { left: 12% !important; top: auto !important; bottom: 0; }
+            [data-ch="arch"] .node:nth-child(1) { left: 42% !important; top: 0 !important; }
+            [data-ch="arch"] .node:nth-child(2) { left: 0 !important; top: 24% !important; }
+            [data-ch="arch"] .node:nth-child(3) { left: auto !important; right: 0; top: 24% !important; }
+            [data-ch="arch"] .node:nth-child(4) { left: 34% !important; top: 52% !important; }
+            [data-ch="arch"] .node:nth-child(5) { left: auto !important; right: 0; top: auto !important; bottom: 0; }
+            [data-ch="arch"] .node:nth-child(6) { left: 0 !important; top: auto !important; bottom: 0; }
+
+            .dock { left: calc(6vw + 16px); right: 6vw; bottom: 22px; display: flex; gap: 24px; }
+            .dock .line { font-size: min(15px, 3.7vw); }
         }
+        /* contact, phones and upright tablets: card on top, photo under it */
+        @media (max-width: 900px) {
+            .c-right { left: 6vw; right: 6vw; top: 8dvh; }
+            .c-lead { font-size: min(2.4em, 8vw); }
+            .c-card { width: auto; max-width: 520px; margin-top: 4dvh; padding: 44px 18px 10px; }
+            .c-card a { padding: 14px 0; gap: 12px; font-size: 1.05em; }
+            .c-me { height: 40dvh; left: 50%; margin-left: -28dvh; }   /* the png is 1.4 wide: half its width */
+            .c-shadow { left: 50%; margin-left: min(-30vw, -20dvh); width: max(60vw, 40dvh); }
+        }
+        @media (max-width: 700px) and (max-height: 620px) { .node small { display: none; } }
     </style>
 </head>
 <body>
 
     <div class="wrap">
-        <nav class="topnav">
-            <span class="nav-name">AREF DAGMASH</span>
-            <ul class="nav-links">
-                <li><a href="#work">Projects</a></li>
-                <li><a href="#case-study">Case Study</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="gt-stage">
+            <div class="gt-pin">
+                <div class="gt-about paperworld" id="skills">
+    <div class="paper"></div>
+    <svg class="ink" id="ink"></svg>
 
-        <section class="hero">
-            <div>
-                <h1 class="hero-headline block">
-                    <span class="script">Dev</span>
-                    Portfolio
-                </h1>
-                <p class="hero-sub">Developer portfolio built to showcase AI systems, AR pipelines, and dev tools &mdash; from research prototypes to shipped projects.</p>
-
-                <div class="cta-row">
-                    <span class="cta-dot"></span>
-                    <span class="cta-line"></span>
-                    <a href="mailto:arefdagmash@gmail.com" class="cta-btn">LET'S CONNECT</a>
-                </div>
-
-                <div class="hero-socials">
-                    <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" title="GitHub">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
-                    </a>
-                    <a href="mailto:arefdagmash@gmail.com" title="Email">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
-                    </a>
-                </div>
-            </div>
-
-            <div class="hero-visual">
-                <div class="hero-photo-frame">
-                    <img src="aref-photo-head.png" alt="Aref Dagmash">
-
-                    <div class="sticker sticker-1">
-                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--pink)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#E899AE"/></svg>
-                        <span class="sticker-label">projects_01</span>
-                    </div>
-                    <div class="sticker sticker-2">
-                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--orange)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#D98A41"/></svg>
-                        <span class="sticker-label">skills_02</span>
-                    </div>
-                    <div class="sticker sticker-3">
-                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--blue)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#5389C2"/></svg>
-                        <span class="sticker-label">stack_03</span>
-                    </div>
-                    <div class="sticker sticker-4">
-                        <svg class="sticker-folder" viewBox="0 0 48 40"><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4h18c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V12z" fill="var(--green)"/><path d="M4 12c0-2.21 1.79-4 4-4h10l4 4H4z" fill="#9BC068"/></svg>
-                        <span class="sticker-label">resume_04</span>
-                    </div>
-                </div>
-                <p class="hero-caption">AREF DAGMASH</p>
-            </div>
-        </section>
-
-        <section class="bio-section" id="skills">
-            <div class="browser-frame">
-                <div class="browser-bar">
-                    <span class="browser-dot"></span>
-                    <span class="browser-dot"></span>
-                    <span class="browser-dot"></span>
-                </div>
-                <img src="aref-photo-head.png" alt="Aref Dagmash">
-            </div>
-
-            <div>
-                <h2 class="bio-heading script">Hi, I'm Aref!</h2>
-                <p class="bio-text"><b>System Architect</b> passionate about building things end to end &mdash; from research prototypes to AR hardware.</p>
-                <p class="bio-text" style="margin-top: 10px;">I specialize in <b>AI systems, computer vision, and desktop tooling</b>, working across <b>C++, Python, Rust, and TypeScript</b> to ship projects that are custom, intuitive, and functional.</p>
-
-                <div class="tool-logos" title="Core stack">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m14.25.18l.9.2l.73.26l.59.3l.45.32l.34.34l.25.34l.16.33l.1.3l.04.26l.02.2l-.01.13V8.5l-.05.63l-.13.55l-.21.46l-.26.38l-.3.31l-.33.25l-.35.19l-.35.14l-.33.1l-.3.07l-.26.04l-.21.02H8.77l-.69.05l-.59.14l-.5.22l-.41.27l-.33.32l-.27.35l-.2.36l-.15.37l-.1.35l-.07.32l-.04.27l-.02.21v3.06H3.17l-.21-.03l-.28-.07l-.32-.12l-.35-.18l-.36-.26l-.36-.36l-.35-.46l-.32-.59l-.28-.73l-.21-.88l-.14-1.05l-.05-1.23l.06-1.22l.16-1.04l.24-.87l.32-.71l.36-.57l.4-.44l.42-.33l.42-.24l.4-.16l.36-.1l.32-.05l.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75l-.02-.37l.05-.34l.11-.31l.17-.28l.25-.26l.31-.23l.38-.2l.44-.18l.51-.15l.58-.12l.64-.1l.71-.06l.77-.04l.84-.02l1.27.05zm-6.3 1.98l-.23.33l-.08.41l.08.41l.23.34l.33.22l.41.09l.41-.09l.33-.22l.23-.34l.08-.41l-.08-.41l-.23-.33l-.33-.22l-.41-.09l-.41.09zm13.09 3.95l.28.06l.32.12l.35.18l.36.27l.36.35l.35.47l.32.59l.28.73l.21.88l.14 1.04l.05 1.23l-.06 1.23l-.16 1.04l-.24.86l-.32.71l-.36.57l-.4.45l-.42.33l-.42.24l-.4.16l-.36.09l-.32.05l-.24.02l-.16-.01h-8.22v.82h5.84l.01 2.76l.02.36l-.05.34l-.11.31l-.17.29l-.25.25l-.31.24l-.38.2l-.44.17l-.51.15l-.58.13l-.64.09l-.71.07l-.77.04l-.84.01l-1.27-.04l-1.07-.14l-.9-.2l-.73-.25l-.59-.3l-.45-.33l-.34-.34l-.25-.34l-.16-.33l-.1-.3l-.04-.25l-.02-.2l.01-.13v-5.34l.05-.64l.13-.54l.21-.46l.26-.38l.3-.32l.33-.24l.35-.2l.35-.14l.33-.1l.3-.06l.26-.04l.21-.02l.13-.01h5.84l.69-.05l.59-.14l.5-.21l.41-.28l.33-.32l.27-.35l.2-.36l.15-.36l.1-.35l.07-.32l.04-.28l.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33l-.08.41l.08.41l.23.33l.33.23l.41.08l.41-.08l.33-.23l.23-.33l.08-.41l-.08-.41l-.23-.33l-.33-.23l-.41-.08l-.41.08z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91s.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69s.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91M12 19.11c-3.92 0-7.109-3.19-7.109-7.11s3.19-7.11 7.11-7.11a7.13 7.13 0 0 1 6.156 3.553l-3.076 1.78a3.57 3.57 0 0 0-3.08-1.78A3.56 3.56 0 0 0 8.444 12A3.56 3.56 0 0 0 12 15.555a3.57 3.57 0 0 0 3.08-1.778l3.078 1.78A7.14 7.14 0 0 1 12 19.11"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12.005 0L4.952 7.053a9.865 9.865 0 0 0 0 14.022a9.866 9.866 0 0 0 14.022 0c3.984-3.9 3.986-10.205.085-14.023l-1.744 1.743c2.904 2.905 2.904 7.634 0 10.538s-7.634 2.904-10.538 0s-2.904-7.634 0-10.538l4.647-4.646l.582-.665zm3.568 3.899a1.327 1.327 0 0 0-1.327 1.327a1.327 1.327 0 0 0 1.327 1.328A1.327 1.327 0 0 0 16.9 5.226A1.327 1.327 0 0 0 15.573 3.9z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75q.918 0 1.627.111a6.4 6.4 0 0 1 1.306.34v2.458a4 4 0 0 0-.643-.361a5 5 0 0 0-.717-.26a5.5 5.5 0 0 0-1.426-.2q-.45 0-.819.086a2.1 2.1 0 0 0-.623.242q-.254.156-.393.374a.9.9 0 0 0-.14.49q0 .294.156.529q.156.234.443.444c.287.21.423.276.696.41q.41.203.926.416q.705.296 1.266.628q.561.333.963.753q.402.418.614.957q.213.538.214 1.253q0 .986-.373 1.656a3 3 0 0 1-1.012 1.085a4.4 4.4 0 0 1-1.487.596q-.85.18-1.79.18a10 10 0 0 1-1.84-.164a5.5 5.5 0 0 1-1.512-.493v-2.63a5.03 5.03 0 0 0 3.237 1.2q.5 0 .872-.09q.373-.09.623-.25q.249-.162.373-.38a1.02 1.02 0 0 0-.074-1.089a2.1 2.1 0 0 0-.537-.5a5.6 5.6 0 0 0-.807-.444a28 28 0 0 0-1.007-.436q-1.377-.575-2.053-1.405t-.676-2.005q0-.92.369-1.582q.368-.662 1.004-1.089a4.5 4.5 0 0 1 1.47-.629a7.5 7.5 0 0 1 1.77-.201m-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.185.186.186M23.763 9.89c-.065-.051-.672-.51-1.954-.51q-.508.001-1.01.087c-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199l-.226.327c-.284.438-.49.922-.612 1.43c-.23.97-.09 1.882.403 2.661c-.595.332-1.55.413-1.744.42H.751a.75.75 0 0 0-.75.748a11.4 11.4 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124c1.18.723 3.1 1.137 5.275 1.137a15.7 15.7 0 0 0 2.93-.266a12.3 12.3 0 0 0 3.823-1.389a10.5 10.5 0 0 0 2.61-2.136c1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009c.309-.293.55-.65.707-1.046l.098-.288Z"/></svg>
-                </div>
-            </div>
-        </section>
-
-        <section class="work-section" id="work">
-            <h2 class="work-heading block">What I Build</h2>
-            <div class="work-grid">
-                <div class="work-card">
-                    <div class="work-thumb" style="background: #4A7FB5;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M8.50226 5.38707C8.81015 5.10997 8.8351 4.63576 8.55801 4.32787C8.28092 4.01999 7.8067 3.99503 7.49882 4.27213L5.76133 5.83587C5.02499 6.49853 4.41418 7.04822 3.99477 7.54679C3.55374 8.07104 3.24023 8.6343 3.24023 9.3296C3.24023 10.0249 3.55374 10.5882 3.99477 11.1124C4.41418 11.611 5.02498 12.1607 5.76132 12.8233L7.49882 14.3871C7.8067 14.6642 8.28092 14.6392 8.55801 14.3313C8.8351 14.0234 8.81015 13.5492 8.50226 13.2721L6.80579 11.7453C6.01792 11.0362 5.48672 10.5558 5.14262 10.1468C4.81237 9.7542 4.74023 9.52502 4.74023 9.3296C4.74023 9.13417 4.81237 8.90499 5.14262 8.51241C5.48672 8.10338 6.01792 7.62298 6.80579 6.91389L8.50226 5.38707Z"/><path fill="currentColor" d="M14.18 4.27517C14.5803 4.38157 14.8185 4.79234 14.7121 5.19266L10.7253 20.1927C10.6189 20.593 10.2082 20.8312 9.80784 20.7248C9.40752 20.6184 9.16926 20.2077 9.27565 19.8074L13.2625 4.80735C13.3689 4.40704 13.7796 4.16877 14.18 4.27517Z"/><path fill="currentColor" d="M15.443 10.4983C15.7201 10.1904 16.1943 10.1654 16.5022 10.4425L18.2397 12.0063C18.976 12.6689 19.5868 13.2186 20.0063 13.7172C20.4473 14.2415 20.7608 14.8047 20.7608 15.5C20.7608 16.1953 20.4473 16.7586 20.0063 17.2828C19.5868 17.7814 18.976 18.3311 18.2397 18.9937L16.5022 20.5575C16.1943 20.8346 15.7201 20.8096 15.443 20.5017C15.1659 20.1938 15.1909 19.7196 15.4988 19.4425L17.1952 17.9157C17.9831 17.2066 18.5143 16.7262 18.8584 16.3172C19.1887 15.9246 19.2608 15.6954 19.2608 15.5C19.2608 15.3046 19.1887 15.0754 18.8584 14.6828C18.5143 14.2738 17.9831 13.7934 17.1952 13.0843L15.4988 11.5575C15.1909 11.2804 15.1659 10.8062 15.443 10.4983Z"/></svg>
-                    </div>
-                    <div class="work-body">
-                        <p class="work-title">Languages</p>
-                        <p class="work-desc">C++, Python, Java, Rust, TypeScript, SQL &mdash; the core toolkit across every project.</p>
-                    </div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-thumb" style="background: #8E44AD;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M9.63166 9.02161C9.32905 9.0623 9.2342 9.12798 9.18109 9.18109C9.12798 9.2342 9.0623 9.32905 9.02161 9.63166C8.97823 9.95434 8.97675 10.3923 8.97675 11.0698V12.9302C8.97675 13.6077 8.97823 14.0457 9.02161 14.3684C9.0623 14.671 9.12798 14.7658 9.18109 14.8189C9.2342 14.872 9.32905 14.9377 9.63166 14.9784C9.95434 15.0218 10.3923 15.0233 11.0698 15.0233H12.9302C13.6077 15.0233 14.0457 15.0218 14.3684 14.9784C14.671 14.9377 14.7658 14.872 14.8189 14.8189C14.872 14.7658 14.9377 14.671 14.9784 14.3684C15.0218 14.0457 15.0233 13.6077 15.0233 12.9302V11.0698C15.0233 10.3923 15.0218 9.95434 14.9784 9.63166C14.9377 9.32905 14.872 9.2342 14.8189 9.18109C14.7658 9.12798 14.671 9.0623 14.3684 9.02161C14.0457 8.97823 13.6077 8.97675 12.9302 8.97675H11.0698C10.3923 8.97675 9.95434 8.97823 9.63166 9.02161ZM12.9664 10.5451C13.1904 10.2316 13.1177 9.79583 12.8042 9.57187C12.4906 9.34791 12.0549 9.42053 11.831 9.73407L10.502 11.5945C10.3501 11.8072 10.3298 12.0869 10.4494 12.3193C10.569 12.5517 10.8084 12.6977 11.0698 12.6977H11.5745L11.0336 13.455C10.8097 13.7685 10.8823 14.2043 11.1958 14.4282C11.5094 14.6522 11.9451 14.5796 12.1691 14.266L13.498 12.4056C13.6499 12.1929 13.6702 11.9132 13.5506 11.6808C13.431 11.4484 13.1916 11.3024 12.9302 11.3024H12.4255L12.9664 10.5451Z"/><path d="M12.6977 2.69767C12.6977 2.31236 12.3853 2 12 2C11.6147 2 11.3023 2.31236 11.3023 2.69767V5.48837C10.7916 5.48944 10.3283 5.49342 9.90678 5.50495L9.90698 5.48837V2.69767C9.90698 2.31236 9.59462 2 9.2093 2C8.82399 2 8.51163 2.31236 8.51163 2.69767V5.48837C8.51163 5.52487 8.51443 5.56071 8.51984 5.5957C7.58381 5.71067 6.93517 5.94879 6.44198 6.44198C5.94879 6.93517 5.71067 7.58381 5.5957 8.51984C5.56071 8.51443 5.52487 8.51163 5.48837 8.51163H2.69767C2.31236 8.51163 2 8.82399 2 9.2093C2 9.59462 2.31236 9.90698 2.69767 9.90698H5.48837L5.50495 9.90678C5.49342 10.3283 5.48991 10.7916 5.48884 11.3023L2.69767 11.3023C2.31236 11.3023 2 11.6147 2 12C2 12.3853 2.31236 12.6977 2.69767 12.6977H5.48837C5.48944 13.2084 5.49342 13.6717 5.50495 14.0932L5.48837 14.093H2.69767C2.31236 14.093 2 14.4054 2 14.7907C2 15.176 2.31236 15.4884 2.69767 15.4884H5.48837C5.52487 15.4884 5.56071 15.4856 5.5957 15.4802C5.71067 16.4162 5.94879 17.0648 6.44198 17.558C6.93517 18.0512 7.58381 18.2893 8.51984 18.4043C8.51443 18.4393 8.51163 18.4751 8.51163 18.5116V21.3023C8.51163 21.6876 8.82399 22 9.2093 22C9.59462 22 9.90698 21.6876 9.90698 21.3023V18.5116L9.90678 18.495C10.3283 18.5066 10.7916 18.5101 11.3023 18.5112L11.3023 21.3023C11.3023 21.6876 11.6147 22 12 22C12.3853 22 12.6977 21.6876 12.6977 21.3023V18.5116C13.2084 18.5106 13.6717 18.5066 14.0932 18.495L14.093 18.5116V21.3023C14.093 21.6876 14.4054 22 14.7907 22C15.176 22 15.4884 21.6876 15.4884 21.3023V18.5116C15.4884 18.4751 15.4856 18.4393 15.4802 18.4043C16.4162 18.2893 17.0648 18.0512 17.558 17.558C18.0512 17.0648 18.2893 16.4162 18.4043 15.4802C18.4393 15.4856 18.4751 15.4884 18.5116 15.4884H21.3023C21.6876 15.4884 22 15.176 22 14.7907C22 14.4054 21.6876 14.093 21.3023 14.093H18.5116L18.495 14.0932C18.5066 13.6717 18.5101 13.2084 18.5112 12.6977L21.3023 12.6977C21.6876 12.6977 22 12.3853 22 12C22 11.6147 21.6876 11.3023 21.3023 11.3023H18.5116C18.5106 10.7916 18.5066 10.3283 18.495 9.90678L18.5116 9.90698H21.3023C21.6876 9.90698 22 9.59462 22 9.2093C22 8.82399 21.6876 8.51163 21.3023 8.51163H18.5116C18.4751 8.51163 18.4393 8.51443 18.4043 8.51984C18.2893 7.58381 18.0512 6.93517 17.558 6.44198C17.0648 5.94879 16.4162 5.71067 15.4802 5.5957C15.4856 5.56071 15.4884 5.52487 15.4884 5.48837V2.69767C15.4884 2.31236 15.176 2 14.7907 2C14.4054 2 14.093 2.31236 14.093 2.69767V5.48837L14.0932 5.50495C13.6717 5.49342 13.2084 5.48991 12.6977 5.48884V2.69767ZM9.44573 7.63871C9.87247 7.58133 10.4054 7.58136 11.0238 7.5814H12.9762C13.5947 7.58136 14.1275 7.58133 14.5543 7.63871C15.0116 7.70019 15.45 7.83885 15.8056 8.19443C16.1612 8.55001 16.2998 8.98839 16.3613 9.44573C16.4187 9.87246 16.4186 10.4053 16.4186 11.0238V12.9762C16.4186 13.5946 16.4187 14.1275 16.3613 14.5543C16.2998 15.0116 16.1612 15.45 15.8056 15.8056C15.45 16.1612 15.0116 16.2998 14.5543 16.3613C14.1275 16.4187 13.5947 16.4186 12.9762 16.4186H11.0238C10.4054 16.4186 9.87246 16.4187 9.44573 16.3613C8.98839 16.2998 8.55001 16.1612 8.19443 15.8056C7.83885 15.45 7.70019 15.0116 7.63871 14.5543C7.58133 14.1275 7.58136 13.5946 7.5814 12.9762V11.0238C7.58136 10.4054 7.58133 9.87247 7.63871 9.44573C7.70019 8.98839 7.83885 8.55001 8.19443 8.19443C8.55001 7.83885 8.98839 7.70019 9.44573 7.63871Z"/></g></svg>
-                    </div>
-                    <div class="work-body">
-                        <p class="work-title">AI / ML</p>
-                        <p class="work-desc">PyTorch, OpenCV, MediaPipe, LLM integration, NLP.</p>
-                    </div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-thumb" style="background: #2E9E63;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M8 17C5.17157 17 3.75736 17 2.87868 16.1213C2.30938 15.552 2.10893 14.7579 2.03835 13.5H21.9616C21.8911 14.7579 21.6906 15.552 21.1213 16.1213C20.2426 17 18.8284 17 16 17H12.75V21H16C16.4142 21 16.75 21.3358 16.75 21.75C16.75 22.1642 16.4142 22.5 16 22.5H8C7.58579 22.5 7.25 22.1642 7.25 21.75C7.25 21.3358 7.58579 21 8 21H11.25V17H8Z"/><path fill="currentColor" d="M10 2H14C17.7712 2 19.6569 2 20.8284 3.17157C22 4.34315 22 6.22876 22 10V11C22 11.5516 22 12.0494 21.9935 12.5H2.00652C2 12.0494 2 11.5516 2 11V10C2 6.22876 2 4.34315 3.17157 3.17157C4.34315 2 6.22876 2 10 2Z"/></svg>
-                    </div>
-                    <div class="work-body">
-                        <p class="work-title">Web &amp; Desktop</p>
-                        <p class="work-desc">React, Tauri, PyQt6, FastAPI for shipped apps and tools.</p>
-                    </div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-thumb" style="background: #4A7FB5;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M7 7.75C4.65279 7.75 2.75 9.65279 2.75 12C2.75 14.3472 4.65279 16.25 7 16.25C7.59689 16.25 8.04496 16.1427 8.40677 15.9664C8.76923 15.7898 9.08603 15.524 9.39303 15.1495C9.93306 14.4908 10.3762 13.5925 10.9602 12.409C11.0769 12.1724 11.1993 11.9244 11.3292 11.6646C11.4455 11.432 11.5589 11.2013 11.6707 10.9741C12.2514 9.7937 12.7873 8.70415 13.447 7.89951C13.8573 7.39899 14.3366 6.97729 14.9362 6.68515C15.5364 6.3927 16.2162 6.25 17 6.25C20.1756 6.25 22.75 8.82436 22.75 12C22.75 15.1756 20.1756 17.75 17 17.75C15.7062 17.75 14.5105 17.3216 13.5495 16.5997C13.2184 16.3509 13.1516 15.8807 13.4003 15.5495C13.6491 15.2184 14.1193 15.1516 14.4505 15.4003C15.1608 15.934 16.0424 16.25 17 16.25C19.3472 16.25 21.25 14.3472 21.25 12C21.25 9.65279 19.3472 7.75 17 7.75C16.4031 7.75 15.955 7.8573 15.5932 8.0336C15.2308 8.21021 14.914 8.47601 14.607 8.85049C14.0669 9.50924 13.6238 10.4075 13.0398 11.591C12.9231 11.8276 12.8007 12.0756 12.6708 12.3354C12.5545 12.568 12.4411 12.7987 12.3293 13.0259C11.7486 14.2063 11.2127 15.2959 10.553 16.1005C10.1427 16.601 9.66335 17.0227 9.06381 17.3148C8.4636 17.6073 7.78382 17.75 7 17.75C3.82436 17.75 1.25 15.1756 1.25 12C1.25 8.82436 3.82436 6.25 7 6.25C8.29384 6.25 9.48982 6.67823 10.451 7.40038C10.7822 7.64919 10.8489 8.11935 10.6001 8.45051C10.3513 8.78167 9.88114 8.84843 9.54998 8.59962C8.83967 8.06595 7.95781 7.75 7 7.75Z"/></svg>
-                    </div>
-                    <div class="work-body">
-                        <p class="work-title">DevOps</p>
-                        <p class="work-desc">Docker, GitHub Actions, CI/CD, Git for solid delivery.</p>
-                    </div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-thumb" style="background: #8E44AD;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9.18109 10.1811C9.2342 10.128 9.32905 10.0623 9.63166 10.0216C9.95434 9.97823 10.3923 9.97675 11.0698 9.97675H12.9302C13.6077 9.97675 14.0457 9.97823 14.3684 10.0216C14.671 10.0623 14.7658 10.128 14.8189 10.1811C14.872 10.2342 14.9377 10.329 14.9784 10.6317C15.0218 10.9543 15.0233 11.3923 15.0233 12.0698V13.9302C15.0233 14.6077 15.0218 15.0457 14.9784 15.3684C14.9377 15.671 14.872 15.7658 14.8189 15.8189C14.7658 15.872 14.671 15.9377 14.3684 15.9784C14.0457 16.0218 13.6077 16.0233 12.9302 16.0233H11.0698C10.3923 16.0233 9.95434 16.0218 9.63166 15.9784C9.32905 15.9377 9.2342 15.872 9.18109 15.8189C9.12798 15.7658 9.0623 15.671 9.02161 15.3684C8.97823 15.0457 8.97675 14.6077 8.97675 13.9302V12.0698C8.97675 11.3923 8.97823 10.9543 9.02161 10.6317C9.0623 10.329 9.12798 10.2342 9.18109 10.1811Z"/><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 3C12.3853 3 12.6977 3.31236 12.6977 3.69767V6.48884C13.2084 6.48991 13.6717 6.49342 14.0932 6.50495L14.093 6.48837V3.69767C14.093 3.31236 14.4054 3 14.7907 3C15.176 3 15.4884 3.31236 15.4884 3.69767V6.48837C15.4884 6.52487 15.4856 6.56071 15.4802 6.5957C16.4162 6.71067 17.0648 6.94879 17.558 7.44198C18.0512 7.93517 18.2893 8.58381 18.4043 9.51984C18.4393 9.51443 18.4751 9.51163 18.5116 9.51163H21.3023C21.6876 9.51163 22 9.82399 22 10.2093C22 10.5946 21.6876 10.907 21.3023 10.907H18.5116L18.495 10.9068C18.5066 11.3283 18.5106 11.7916 18.5116 12.3023H21.3023C21.6876 12.3023 22 12.6147 22 13C22 13.3853 21.6876 13.6977 21.3023 13.6977L18.5112 13.6977C18.5101 14.2084 18.5066 14.6717 18.495 15.0932L18.5116 15.093H21.3023C21.6876 15.093 22 15.4054 22 15.7907C22 16.176 21.6876 16.4884 21.3023 16.4884H18.5116C18.4751 16.4884 18.4393 16.4856 18.4043 16.4802C18.2893 17.4162 18.0512 18.0648 17.558 18.558C17.0648 19.0512 16.4162 19.2893 15.4802 19.4043C15.4856 19.4393 15.4884 19.4751 15.4884 19.5116V22.3023C15.4884 22.6876 15.176 23 14.7907 23C14.4054 23 14.093 22.6876 14.093 22.3023V19.5116L14.0932 19.495C13.6717 19.5066 13.2084 19.5106 12.6977 19.5116V22.3023C12.6977 22.6876 12.3853 23 12 23C11.6147 23 11.3023 22.6876 11.3023 22.3023L11.3023 19.5112C10.7916 19.5101 10.3283 19.5066 9.90678 19.495L9.90698 19.5116V22.3023C9.90698 22.6876 9.59462 23 9.2093 23C8.82399 23 8.51163 22.6876 8.51163 22.3023V19.5116C8.51163 19.4751 8.51443 19.4393 8.51984 19.4043C7.58381 19.2893 6.93517 19.0512 6.44198 18.558C5.94879 18.0648 5.71067 17.4162 5.5957 16.4802C5.56071 16.4856 5.52487 16.4884 5.48837 16.4884H2.69767C2.31236 16.4884 2 16.176 2 15.7907C2 15.4054 2.31236 15.093 2.69767 15.093H5.48837L5.50495 15.0932C5.49342 14.6717 5.48944 14.2084 5.48837 13.6977H2.69767C2.31236 13.6977 2 13.3853 2 13C2 12.6147 2.31236 12.3023 2.69767 12.3023L5.48884 12.3023C5.48991 11.7916 5.49342 11.3283 5.50495 10.9068L5.48837 10.907H2.69767C2.31236 10.907 2 10.5946 2 10.2093C2 9.82399 2.31236 9.51163 2.69767 9.51163H5.48837C5.52487 9.51163 5.56071 9.51443 5.5957 9.51984C5.71067 8.58381 5.94879 7.93517 6.44198 7.44198C6.93517 6.94879 7.58381 6.71067 8.51984 6.5957C8.51443 6.56071 8.51163 6.52487 8.51163 6.48837V3.69767C8.51163 3.31236 8.82399 3 9.2093 3C9.59462 3 9.90698 3.31236 9.90698 3.69767V6.48837L9.90678 6.50495C10.3283 6.49342 10.7916 6.48944 11.3023 6.48837V3.69767C11.3023 3.31236 11.6147 3 12 3ZM11.0238 8.5814C10.4054 8.58136 9.87247 8.58133 9.44573 8.63871C8.98839 8.70019 8.55001 8.83885 8.19443 9.19443C7.83885 9.55001 7.70019 9.98839 7.63871 10.4457C7.58133 10.8725 7.58136 11.4054 7.5814 12.0238V13.9762C7.58136 14.5946 7.58133 15.1275 7.63871 15.5543C7.70019 16.0116 7.83885 16.45 8.19443 16.8056C8.55001 17.1612 8.98839 17.2998 9.44573 17.3613C9.87247 17.4187 10.4054 17.4186 11.0238 17.4186H12.9762C13.5946 17.4186 14.1275 17.4187 14.5543 17.3613C15.0116 17.2998 15.45 17.1612 15.8056 16.8056C16.1612 16.45 16.2998 16.0116 16.3613 15.5543C16.4187 15.1275 16.4186 14.5946 16.4186 13.9762V12.0238C16.4186 11.4054 16.4187 10.8725 16.3613 10.4457C16.2998 9.98839 16.1612 9.55001 15.8056 9.19443C15.45 8.83885 15.0116 8.70019 14.5543 8.63871C14.1275 8.58133 13.5947 8.58136 12.9762 8.5814H11.0238Z"/></svg>
-                    </div>
-                    <div class="work-body">
-                        <p class="work-title">Embedded &amp; Edge</p>
-                        <p class="work-desc">NVIDIA Jetson, AR hardware (Vuzix), edge optimization.</p>
-                    </div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-thumb" style="background: #2E9E63;">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M14.2788 2.15224C13.9085 2 13.439 2 12.5 2C11.561 2 11.0915 2 10.7212 2.15224C10.2274 2.35523 9.83509 2.74458 9.63056 3.23463C9.53719 3.45834 9.50065 3.7185 9.48635 4.09799C9.46534 4.65568 9.17716 5.17189 8.69017 5.45093C8.20318 5.72996 7.60864 5.71954 7.11149 5.45876C6.77318 5.2813 6.52789 5.18262 6.28599 5.15102C5.75609 5.08178 5.22018 5.22429 4.79616 5.5472C4.47814 5.78938 4.24339 6.1929 3.7739 6.99993C3.30441 7.80697 3.06967 8.21048 3.01735 8.60491C2.94758 9.1308 3.09118 9.66266 3.41655 10.0835C3.56506 10.2756 3.77377 10.437 4.0977 10.639C4.57391 10.936 4.88032 11.4419 4.88029 12C4.88026 12.5581 4.57386 13.0639 4.0977 13.3608C3.77372 13.5629 3.56497 13.7244 3.41645 13.9165C3.09108 14.3373 2.94749 14.8691 3.01725 15.395C3.06957 15.7894 3.30432 16.193 3.7738 17C4.24329 17.807 4.47804 18.2106 4.79606 18.4527C5.22008 18.7756 5.75599 18.9181 6.28589 18.8489C6.52778 18.8173 6.77305 18.7186 7.11133 18.5412C7.60852 18.2804 8.2031 18.27 8.69012 18.549C9.17714 18.8281 9.46533 19.3443 9.48635 19.9021C9.50065 20.2815 9.53719 20.5417 9.63056 20.7654C9.83509 21.2554 10.2274 21.6448 10.7212 21.8478C11.0915 22 11.561 22 12.5 22C13.439 22 13.9085 22 14.2788 21.8478C14.7726 21.6448 15.1649 21.2554 15.3694 20.7654C15.4628 20.5417 15.4994 20.2815 15.5137 19.902C15.5347 19.3443 15.8228 18.8281 16.3098 18.549C16.7968 18.2699 17.3914 18.2804 17.8886 18.5412C18.2269 18.7186 18.4721 18.8172 18.714 18.8488C19.2439 18.9181 19.7798 18.7756 20.2038 18.4527C20.5219 18.2105 20.7566 17.807 21.2261 16.9999C21.6956 16.1929 21.9303 15.7894 21.9827 15.395C22.0524 14.8691 21.9088 14.3372 21.5835 13.9164C21.4349 13.7243 21.2262 13.5628 20.9022 13.3608C20.4261 13.0639 20.1197 12.558 20.1197 11.9999C20.1197 11.4418 20.4261 10.9361 20.9022 10.6392C21.2263 10.4371 21.435 10.2757 21.5836 10.0835C21.9089 9.66273 22.0525 9.13087 21.9828 8.60497C21.9304 8.21055 21.6957 7.80703 21.2262 7C20.7567 6.19297 20.522 5.78945 20.2039 5.54727C19.7799 5.22436 19.244 5.08185 18.7141 5.15109C18.4722 5.18269 18.2269 5.28136 17.8887 5.4588C17.3915 5.71959 16.7969 5.73002 16.3099 5.45096C15.8229 5.17191 15.5347 4.65566 15.5136 4.09794C15.4993 3.71848 15.4628 3.45833 15.3694 3.23463C15.1649 2.74458 14.7726 2.35523 14.2788 2.15224ZM12.5 15C14.1695 15 15.5228 13.6569 15.5228 12C15.5228 10.3431 14.1695 9 12.5 9C10.8305 9 9.47716 10.3431 9.47716 12C9.47716 13.6569 10.8305 15 12.5 15Z"/></svg>
-                    </div>
-                    <div class="work-body">
-                        <p class="work-title">Tools</p>
-                        <p class="work-desc">Linux, Neovim, Wayland, Agile/Scrum workflow.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="case-section" id="case-study">
-            <span class="case-badge">CASE STUDY 01</span>
-            <h2 class="case-heading block">
-                <span class="script">Research</span>
-                Copilot
-            </h2>
-            <p class="case-sub">REHERO &middot; DESKTOP AI RESEARCH TOOL</p>
-
-            <div class="case-grid">
-                <div class="case-collage">
-                    <div class="case-collage-tile" style="background: #4A7FB5;"><img src="previews/rehero.png" alt="ReHero"></div>
-                    <div class="case-collage-tile" style="background: #8E44AD;"><img src="previews/lipsync.png" alt="LipSync"></div>
-                    <div class="case-collage-tile" style="background: #E67E22;"><img src="previews/gilgamesh.png" alt="Gilgamesh"></div>
-                    <div class="case-collage-tile" style="background: #27AE60;"><img src="previews/tracer.png" alt="Tracer"></div>
-                </div>
-
-                <div>
-                    <div class="case-block">
-                        <p class="case-block-label">THE CHALLENGE</p>
-                        <p>Reading research papers is slow &mdash; switching between the PDF, your own notes, and a search engine breaks focus every few minutes.</p>
-                    </div>
-                    <div class="case-block">
-                        <p class="case-block-label">THE APPROACH</p>
-                        <p>Built a desktop reader that keeps an AI copilot, hand-drawn annotations, and a whiteboard in the same window as the paper, so none of that context-switching is necessary.</p>
-                    </div>
-
-                    <div class="process-row">
-                        <div class="process-step">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5"/></svg>
-                            <span>Research</span>
-                        </div>
-                        <div class="process-step">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m13.78 15.3l6 6l2.11-2.16l-6-6zm3.72-5.2c-.39 0-.81-.05-1.14-.19L4.97 21.25l-2.11-2.11l7.41-7.4L8.5 9.96l-.72.7l-1.45-1.41v2.86l-.7.7l-3.52-3.56l.7-.7h2.81l-1.4-1.41l3.56-3.56a2.976 2.976 0 0 1 4.22 0L9.89 5.74l1.41 1.4l-.71.71l1.79 1.78l1.82-1.88c-.14-.33-.2-.75-.2-1.12a3.49 3.49 0 0 1 3.5-3.52c.59 0 1.11.14 1.58.42L16.41 6.2l1.5 1.5l2.67-2.67c.28.47.42.97.42 1.6c0 1.92-1.55 3.47-3.5 3.47"/></svg>
-                            <span>Build</span>
-                        </div>
-                        <div class="process-step">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2v2h1v14a4 4 0 0 0 4 4a4 4 0 0 0 4-4V4h1V2zm4 14c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m2-4c-.6 0-1-.4-1-1s.4-1 1-1s1 .4 1 1s-.4 1-1 1m1-5h-4V4h4z"/></svg>
-                            <span>Test</span>
-                        </div>
-                        <div class="process-step">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m13.16 22.19l-1.66-3.84c1.6-.58 3.07-1.35 4.43-2.27l-2.78 6.11m-7.5-9.69l-3.84-1.65l6.11-2.78C7 9.43 6.23 10.91 5.65 12.5M20 4c-2.96-.22-5.2.83-7.55 3.31c-2.36 2.47-3.36 4.5-3.95 6.04l2.17 2.1c2.29-.87 4.33-2.18 6.03-3.89C20 8.27 20.17 5.4 20 4m-9 1.9c2.63-2.8 7-4.82 10.66-3.55c0 0 2.12 4.96-3.55 10.65c-2.2 2.17-4.58 3.5-6.72 4.34c-.24.09-1.15.39-2.13-.46l-2.13-2.13c-.56-.56-.74-1.38-.47-2.13C7.5 10.5 8.41 8.69 11 5.9M6.25 22H4.84l4.09-4.1c.3.21.63.36.97.45zM2 22v-1.41l4.77-4.78l1.43 1.42L3.41 22zm0-2.83v-1.42l3.65-3.65c.09.35.24.68.45.97zM16 6a2 2 0 0 1 2 2c0 1.11-.89 2-2 2a2 2 0 1 1 0-4"/></svg>
-                            <span>Ship</span>
-                        </div>
-                    </div>
-
-                    <div class="stack-badges">
-                        <span class="stack-badge">Python</span>
-                        <span class="stack-badge">PyQt6</span>
-                        <span class="stack-badge">LLM integration</span>
-                        <span class="stack-badge">Open source</span>
-                    </div>
-
-                    <a href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer" class="case-link">View on GitHub &rarr;</a>
-                </div>
-            </div>
-        </section>
+    <div class="four" id="four">
+      <div class="lbl" data-w=".56,.05">what I do</div>
+      <div class="line hand ph" data-a="list">AI systems</div>
+      <div class="line hand ph" data-a="list">Automation</div>
+      <div class="line hand ph" data-a="list">Integration</div>
+      <div class="line hand ph" data-a="list">Architecture</div>
     </div>
 
-    <footer id="contact">
-        <h2 class="footer-heading script">Let's build something.</h2>
-        <p>arefdagmash@gmail.com</p>
-        <div class="footer-socials">
-            <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" title="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
-            </a>
-            <a href="mailto:arefdagmash@gmail.com" title="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
-            </a>
-        </div>
-    </footer>
+    <div class="stack" id="stack">
+      <div class="line hand" data-w="0,.12">Anyone can write code now.</div>
+      <div class="line hand" data-w=".12,.11"><span id="craft">Designing</span> a good system</div>
+      <div class="line hand" data-w=".23,.08">is the craft.</div>
+      <p class="creed" data-f=".42,.09">And that’s <span class="hl">my specialty</span>. I’ve built it over years of projects and clients, so most problems never get the chance to happen.</p>
+    </div>
 
+    <div class="dock">
+      <div class="line hand ph" data-a="dock">AI systems</div><div class="line hand ph" data-a="dock">Automation</div><div class="line hand ph" data-a="dock">Integration</div><div class="line hand ph" data-a="dock">Architecture</div>
+    </div>
+
+    <div class="layer chap" data-ch="ai">
+      <svg class="ink"></svg>
+      <div class="talk"><div class="num">01 / 04</div><div class="title hand ph">AI systems</div>
+        <p class="say" data-f=".08,.06">A model on its own is a demo. An AI system is a model wired into the place where someone is actually working, doing one useful thing without being asked twice.</p>
+        <p class="say" data-f=".14,.06">ReHero is my research reader. Select a passage in a paper and the model simplifies it, answers questions about it, or reads it to you, right there in the margin. The paper never leaves the screen. <a class="see" href="https://github.com/ArefDagmash/ReHero" target="_blank" rel="noopener noreferrer">See ReHero&nbsp;→</a></p></div>
+      <div class="board">
+        <div class="print" style="left:0;top:0;width:58%" data-f=".20,.08"><img loading="lazy" src="previews/rehero-simplify.webp" alt="ReHero simplifying a selected passage">
+          <div class="tape" style="left:-18px;top:-8px;transform:rotate(-10deg)"></div><div class="tape" style="right:-16px;top:-6px;transform:rotate(7deg)"></div></div>
+        <div class="node" style="left:64%;top:4%" data-w=".32,.05">a passage<small>you select</small></div>
+        <div class="node hi" style="left:64%;top:30%" data-w=".42,.05">the model<small>with the paper as context</small></div>
+        <div class="node" style="left:50%;top:60%" data-w=".52,.05">simplify</div>
+        <div class="node" style="left:84%;top:60%" data-w=".56,.05">ask</div>
+        <div class="node" style="left:68%;top:82%" data-w=".60,.05">listen</div>
+      </div>
+    </div>
+
+    <div class="layer chap" data-ch="auto">
+      <svg class="ink"></svg>
+      <div class="talk"><div class="num">02 / 04</div><div class="title hand ph">Automation</div>
+        <p class="say" data-f=".08,.06">If I have to do something twice, the second time is a script. If a team has to do it every day, it's a pipeline.</p>
+        <p class="say" data-f=".14,.06">My CI/CD setup runs six inspectors in parallel on every push: style, tests, coverage, types, security, dependencies. Pass all six and the code versions itself, builds a Docker image, and ships. I don't touch it.</p></div>
+      <div class="board">
+        <div class="print" style="left:0;top:0;width:60%" data-f=".20,.08"><img loading="lazy" src="previews/ci-inspectors.webp" alt="The six inspectors, drawn by Aref">
+          <div class="tape" style="left:-20px;top:-8px;transform:rotate(-12deg)"></div><div class="tape" style="right:-18px;top:-6px;transform:rotate(8deg)"></div></div>
+        <div class="node" style="left:66%;top:8%" data-w=".32,.05">push</div>
+        <div class="node hi" style="left:66%;top:30%" data-w=".42,.05">6 checks<small>in parallel</small></div>
+        <div class="node" style="left:66%;top:52%" data-w=".54,.05">version<small>semantic-release</small></div>
+        <div class="node" style="left:66%;top:74%" data-w=".64,.05">ship<small>docker → ghcr → server</small></div>
+      </div>
+    </div>
+
+    <div class="layer chap" data-ch="int">
+      <svg class="ink"></svg>
+      <div class="talk"><div class="num">03 / 04</div><div class="title hand ph">Integration</div>
+        <p class="say" data-f=".08,.06">Most of the value in a system is in the joints: the places where one thing has to talk to another thing that wasn't designed for it.</p>
+        <p class="say" data-f=".14,.06">LipSync is a camera, a Jetson, a model, a stream and a pair of AR glasses, from four different vendors, behaving like one device. Getting that chain to hold is the job. <a class="see" href="https://github.com/ArefDagmash/Visual_Speech_Recognition_for_Multiple_Languages" target="_blank" rel="noopener noreferrer">See LipSync&nbsp;→</a></p></div>
+      <div class="board">
+        <div class="node" style="left:0;top:4%" data-w=".22,.05">camera</div>
+        <div class="node hi" style="left:26%;top:22%" data-w=".30,.05">Jetson Orin<small>runs the model</small></div>
+        <div class="node" style="left:4%;top:52%" data-w=".40,.05">stream<small>decoded words</small></div>
+        <div class="node" style="left:50%;top:60%" data-w=".50,.05">AR glasses<small>Vuzix Z-4K</small></div>
+        <div class="node" style="left:60%;top:4%" data-w=".58,.05">the wearer<small>sees the words</small></div>
+      </div>
+    </div>
+
+    <div class="layer chap" data-ch="arch">
+      <svg class="ink"></svg>
+      <div class="talk"><div class="num">04 / 04</div><div class="title hand ph">Architecture</div>
+        <p class="say" data-f=".08,.06">Before I write code I want to see the shape of the thing. So I built a tool that draws it for me.</p>
+        <p class="say" data-f=".14,.06">Tracer reads a repository, follows the imports, class hierarchies and calls across six languages, and outputs a Mermaid diagram of how it all fits. No LLM required. It's how I start every project, including other people's. <a class="see" href="https://github.com/ArefDagmash/Tracer" target="_blank" rel="noopener noreferrer">See Tracer&nbsp;→</a></p></div>
+      <div class="board">
+        <div class="node hi" style="left:30%;top:0" data-w=".22,.05">cli</div>
+        <div class="node" style="left:0;top:30%" data-w=".30,.05">parsers<small>6 languages</small></div>
+        <div class="node" style="left:56%;top:30%" data-w=".38,.05">resolver<small>imports · calls</small></div>
+        <div class="node" style="left:28%;top:58%" data-w=".46,.05">graph<small>dependency</small></div>
+        <div class="node" style="left:62%;top:82%" data-w=".54,.05">mermaid<small>.md out</small></div>
+        <div class="node" style="left:0;top:84%" data-w=".60,.05">github url<small>or local</small></div>
+      </div>
+    </div>
+
+    <div class="contact" id="contact">
+      <div class="c-shadow"></div><img class="c-me" src="aref-photo-head.webp" loading="lazy" alt="Aref Dogmosh">
+      <div class="c-right">
+        <div class="c-lead hand">Here’s where to find me.</div>
+        <div class="c-card"><div class="c-pin"></div>
+          <a href="mailto:arefdagmash@gmail.com"><span class="k">Email</span><span>arefdagmash@gmail.com</span></a>
+          <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer"><span class="k">LinkedIn</span><span>in/arefdogmosh</span></a>
+          <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer"><span class="k">GitHub</span><span>ArefDagmash</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="word hand"><span class="tk">✓</span><span class="wt" data-w=".62,.07">AI systems</span></div>
+    <div class="word hand"><span class="tk">✓</span><span class="wt" data-w=".69,.07">Automation</span></div>
+    <div class="word hand"><span class="tk">✓</span><span class="wt" data-w=".76,.07">Integration</span></div>
+    <div class="word hand"><span class="tk">✓</span><span class="wt" data-w=".83,.07">Architecture</span></div>
+                </div>
+        <section class="hero">
+            <img class="hero-photo hero-photo-bg" src="sea-background.webp" alt="">
+            <img class="hero-photo hero-photo-person" src="person-cutout.webp" alt="Aref Dogmosh standing before the sea">
+            <canvas class="hero-glitch" aria-hidden="true"></canvas>
+            <div class="hero-shade"></div>
+            <div class="hero-grain"></div>
+
+            <div class="hero-overlay">
+                <div class="corner-row reveal-up" style="animation-delay: 1.3s;">
+                    <div class="corner">
+                        <span class="label">Portfolio</span>
+                        <div class="hairline"></div>
+                        <span class="corner-sub mono">Systems / AI / Automation</span>
+                    </div>
+                </div>
+
+                <h1 class="hero-name block reveal-up" style="animation-delay: 1.5s;">AREF<br>DOGMOSH</h1>
+
+                <div class="hero-foot reveal-up" style="animation-delay: 1.75s;">
+                    <div>
+                        <p class="hero-role">Based in the <b>UAE</b>, building <b>AI systems, automation,</b> and <b>integration</b>.</p>
+                        <div class="intro-actions">
+                        <a href="mailto:arefdagmash@gmail.com" class="cta-btn">Let's connect</a>
+                        <div class="hero-socials">
+                            <a href="https://github.com/ArefDagmash" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/arefdogmosh" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+                            </a>
+                            <a href="mailto:arefdagmash@gmail.com" title="Email" aria-label="Email">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="hero-mark">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5L21 20.5H3z"/></svg>
+                        <span class="corner-sub mono">AD &middot; 2026</span>
+                    </div>
+                </div>
+
+                <div class="scroll-cue reveal-fade" style="animation-delay: 2.1s;">
+                    <span class="corner-sub mono">Scroll</span>
+                    <span class="scroll-line"></span>
+                </div>
+            </div>
+        </section>
+                <canvas class="gt-canvas" aria-hidden="true"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        // Hero glitch: logic ported from capri-desktop's sprite shader (random horizontal bands shift
+        // sideways, red/blue channels pull apart), drawn on twos. The <img> stays as the no-JS /
+        // no-WebGL / reduced-motion fallback.
+        (() => {
+            const hero = document.querySelector('.hero'), canvas = hero.querySelector('.hero-glitch');
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: true });
+            if (!gl) return;
+            const vs = 'attribute vec2 a; varying vec2 v; void main(){ v = a * 0.5 + 0.5; gl_Position = vec4(a, 0.0, 1.0); }';
+            const fs = `precision highp float; uniform sampler2D t; uniform vec2 res, img; uniform float glitch, seed, split, dissolve; varying vec2 v;
+                float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+                vec2 cover(vec2 px){ float s = max(res.x/img.x, res.y/img.y); vec2 sz = img*s; vec2 o = (res - sz) * vec2(0.5, 0.32); return (px - o) / sz; }
+                vec4 rig(vec2 px){ vec2 uv = cover(px); if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) return vec4(0.0); return texture2D(t, vec2(uv.x, 1.0 - uv.y)); }
+                void main(){
+                    vec2 q = vec2(v.x, 1.0 - v.y) * res;
+                    if (dissolve > 0.0) { vec2 cell = floor(q / vec2(16.0, 9.0)); if (hash(cell + floor(seed)) < dissolve) discard; }
+                    if (glitch > 0.0) {
+                        float bh = mix(5.0, 26.0, hash(vec2(seed, 7.0)));
+                        float band = floor(q.y / bh);
+                        float on = step(1.0 - glitch * 0.6, hash(vec2(band, seed)));
+                        q.x += on * (hash(vec2(band + 3.0, seed)) - 0.5) * 72.0 * glitch;
+                    }
+                    vec4 c = rig(q); vec3 col = c.rgb; float a = c.a;
+                    if (split > 0.0) {
+                        vec4 cr = rig(q + vec2(split, 0.0)), cb = rig(q - vec2(split, split * 0.3));
+                        col = vec3(cr.r, col.g, cb.b); a = max(a, max(cr.a, cb.a));
+                    }
+                    gl_FragColor = vec4(col * a, a);
+                }`;
+            const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+            const prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(prog);
+            if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+            canvas.classList.add('is-live'); hero.classList.add('glitch-live');
+            gl.useProgram(prog);
+            gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+            const a = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+            const u = {}; ['t', 'res', 'img', 'glitch', 'seed', 'split', 'dissolve'].forEach(n => u[n] = gl.getUniformLocation(prog, n));
+            gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+            const tex = gl.createTexture(), image = new Image();
+            image.onload = () => {
+                gl.bindTexture(gl.TEXTURE_2D, tex);
+                gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.uniform2f(u.img, image.width, image.height);
+                introAt = performance.now() + Math.max(0, 750 - performance.now()); // same cue as the old blur-in
+                loop(0);
+            };
+            image.src = 'person-cutout.webp';
+
+            const size = () => { const r = canvas.getBoundingClientRect(), d = Math.min(devicePixelRatio, 2);
+                canvas.width = r.width * d; canvas.height = r.height * d; gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(u.res, r.width, r.height); };
+            size(); addEventListener('resize', size);
+
+            // timing from capri.js: idle twitch, two frames on twos, no easing; click = big hit, eased out
+            const rand = (lo, hi) => lo + Math.random() * (hi - lo), ON_TWOS = 1000 / 12;
+            const p = { glitch: 0, seed: Math.random() * 100, split: 0, dissolve: 0 };
+            let next = performance.now() + rand(3000, 5000), last = 0, timer, big = null, introAt = null, frames = 0;
+            const twitch = () => { p.seed = Math.random() * 100; p.glitch = rand(0.15, 0.3); p.split = 2;
+                clearTimeout(timer); timer = setTimeout(() => { p.glitch = 0; p.split = 0; }, ON_TWOS * 2); };
+            hero.addEventListener('click', () => { p.seed = Math.random() * 100; big = performance.now(); });
+            const loop = now => {
+                requestAnimationFrame(loop);
+                if (document.hidden) return;
+                if (introAt !== null) {
+                    const e = now - introAt;
+                    if (e < 0) return;
+                    const k = Math.min(e / 900, 1);
+                    if (k < 0.55) { const t = k / 0.55, ei = t * t;                 // materialise: cells fill, heavy slices
+                        p.dissolve = 0.95 * (1 - ei); p.glitch = 1 - 0.4 * ei; p.split = 9 - 3 * ei;
+                        if (frames % 7 === 0) p.seed = Math.random() * 100; }
+                    else { const t = (k - 0.55) / 0.45, eo = 1 - (1 - t) * (1 - t);  // settle
+                        p.dissolve = 0; p.glitch = 0.6 * (1 - eo); p.split = 6 * (1 - eo); }
+                    if (k >= 1) { introAt = null; p.glitch = 0; p.split = 0; next = now + rand(2500, 5000); }
+                } else if (now > next) { next = now + rand(2000, 6000); twitch(); }
+                if (big !== null) { const k = Math.min((now - big) / 450, 1), e = 1 - (1 - k) * (1 - k);
+                    p.glitch = 0.7 * (1 - e); p.split = 7 * (1 - e); if (k >= 1) big = null; }
+                if (now - last < ON_TWOS) return; last = now; frames++;
+                gl.uniform1f(u.glitch, p.glitch); gl.uniform1f(u.seed, p.seed); gl.uniform1f(u.split, p.split); gl.uniform1f(u.dissolve, p.dissolve);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+                if (introAt !== null && now - introAt < 300 && frames % 2) return;   // flicker on alternate frames while arriving
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            };
+        })();
+    </script>
+
+    <script>
+        // Hero -> About: the same Capri shader, driven by scroll. The hero tears into bands, drops out
+        // as cells, and the headshot materialises into the frame. Seeds step with progress (frames, not a tween).
+        (() => {
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const stage = document.querySelector('.gt-stage'), pin = stage.querySelector('.gt-pin'), hero = pin.querySelector('.hero');
+            const canvas = pin.querySelector('.gt-canvas'), overlay = hero.querySelector('.hero-overlay');
+            const shade = hero.querySelector('.hero-shade'), grain = hero.querySelector('.hero-grain');
+            const gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: true });
+            if (!gl) return;
+            const vs = 'attribute vec2 a; varying vec2 v; void main(){ v = a * 0.5 + 0.5; gl_Position = vec4(a, 0.0, 1.0); }';
+            const fs = `precision highp float; uniform sampler2D tA; uniform float p; uniform vec2 res, imgA; varying vec2 v;
+                float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+                float inside(vec2 uv){ return step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0); }
+                vec4 pick(sampler2D t, vec2 px, vec2 o, vec2 box, vec2 img, float split, out float a){
+                    float s = max(box.x/img.x, box.y/img.y); vec2 sz = img*s; vec2 org = o + (box - sz) * vec2(0.5, 0.32);
+                    vec2 uv = (px - org) / sz, uvr = (px + vec2(split, 0.0) - org) / sz, uvb = (px - vec2(split, split*0.3) - org) / sz;
+                    vec4 c = texture2D(t, vec2(uv.x, 1.0 - uv.y)), cr = texture2D(t, vec2(uvr.x, 1.0 - uvr.y)), cb = texture2D(t, vec2(uvb.x, 1.0 - uvb.y));
+                    float iA = inside(uv), iR = inside(uvr), iB = inside(uvb);
+                    a = max(c.a * iA, max(cr.a * iR, cb.a * iB));
+                    return vec4(cr.r * iR, c.g * iA, cb.b * iB, a);
+                }
+                vec2 slices(vec2 q, float g, float seed, float amp){
+                    float bh = mix(5.0, 26.0, hash(vec2(seed, 7.0))); float band = floor(q.y / bh);
+                    float on = step(1.0 - g * 0.6, hash(vec2(band, seed)));
+                    return q + vec2(on * (hash(vec2(band + 3.0, seed)) - 0.5) * amp * g, 0.0);
+                }
+                float cells(vec2 q, float seed, float d){ vec2 cell = floor(q / vec2(16.0, 9.0)); return step(d, hash(cell + floor(seed))); }
+                void main(){
+                    vec2 q = vec2(v.x, 1.0 - v.y) * res;
+                    float seed = floor(p * 48.0) * 7.1;
+                    float g = smoothstep(0.0, 0.5, p), d = smoothstep(0.2, 0.55, p);
+                    float aa; vec4 A = pick(tA, slices(q, g, seed, 140.0), vec2(0.0), res, imgA, 9.0 * g, aa);
+                    aa *= cells(q, seed, d);
+                    gl_FragColor = vec4(A.rgb * aa, aa);
+                }`;
+            const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+            const prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(prog);
+            if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+            gl.useProgram(prog);
+            gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+            const a = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+            const u = {}; ['tA', 'p', 'res', 'imgA'].forEach(n => u[n] = gl.getUniformLocation(prog, n));
+            gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+            let ready = 0;
+            const load = (src, unit, uTex, uImg) => { const tex = gl.createTexture(), im = new Image(); im.onload = () => {
+                gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, tex);
+                gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.uniform1i(uTex, unit); gl.uniform2f(uImg, im.width, im.height); ready++; lastP = -1; }; im.src = src; };
+            load('sea-portrait.webp', 0, u.tA, u.imgA);
+
+            const size = () => {
+                const r = canvas.getBoundingClientRect(), d = Math.min(devicePixelRatio, 2);
+                canvas.width = r.width * d; canvas.height = r.height * d; gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.uniform2f(u.res, r.width, r.height); lastP = -1;
+            };
+            const smooth = (lo, hi, x) => { const t = Math.min(Math.max((x - lo) / (hi - lo), 0), 1); return t * t * (3 - 2 * t); };
+            let lastP = -1;
+            const END = 0.55;   // the shader has dissolved the whole hero by p = 0.55
+            const progress = () => { const r = stage.getBoundingClientRect(); return Math.min(Math.max(-r.top / (1.2 * stage.offsetHeight / 13.02), 0), 1) * END; };   // offsetHeight / 13.02 = 100vh (the stage is 1302vh); innerHeight jumps when a phone's browser bar hides   // first 120vh of scroll
+            const tick = () => {
+                requestAnimationFrame(tick);
+                const p = progress();
+                if (p === lastP) return; lastP = p;
+                hero.classList.toggle('is-torn', p > 0);
+                overlay.style.opacity = 1 - smooth(0.08, 0.35, p);
+                const keep = 1 - smooth(0.3, 0.55, p); shade.style.opacity = keep; grain.style.opacity = 0.18 * keep;
+                overlay.style.pointerEvents = p > 0.2 ? 'none' : '';
+                gl.clear(gl.COLOR_BUFFER_BIT);
+                if (p > 0 && p < END && ready === 1) { gl.uniform1f(u.p, p); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); }
+            };
+            size(); addEventListener('resize', size); tick();
+        })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
+        <script>
+        // ---------- the doodle about: draws itself over the second half of the pinned stage
+        (() => {
+  const svg = document.getElementById('ink'), stage = document.querySelector('.gt-stage'), pin = stage.firstElementChild;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const INK = css('--ink'), BLUE = css('--blue-deep');
+  const rect = el => { const r = el.getBoundingClientRect(), p = pin.getBoundingClientRect(); return { x: r.left - p.left, y: r.top - p.top, w: r.width, h: r.height, cx: r.left - p.left + r.width / 2, cy: r.top - p.top + r.height / 2 }; };
+
+  // ---- geometry helpers. Everything is polylines so Rough.js never has to parse an arc or a curve.
+  const poly = pts => pts.map((p, i) => (i ? 'L' : 'M') + ` ${p[0].toFixed(1)} ${p[1].toFixed(1)} `).join('');
+
+  // ---- strokes, computed from where the text actually is, so arrows always land
+  const strokes = () => { const r = rect(document.getElementById('craft'));   // one pass of the pen under "Designing", after the word is written
+    return [{ d: poly([[r.x, r.y + r.h * .86], [r.x + r.w + 8, r.y + r.h * .85]]), o: { stroke: BLUE, strokeWidth: 6, roughness: 1.4, disableMultiStroke: true }, at: .33, len: .07 }]; };
+  const writes = [...document.querySelectorAll('[data-w],[data-f]')].filter(el => !el.closest('.chap')).map(el => { const [at, len] = (el.dataset.w || el.dataset.f).split(',').map(Number); return { el, at, len, clip: 'w' in el.dataset }; });
+
+  let paths = [], seed = 7;
+  const build = () => {
+    svg.innerHTML = ''; paths = []; const rc = rough.svg(svg);
+    strokes().forEach(s => {
+      const g = rc.path(s.d, { stroke: INK, roughness: 1.2, bowing: 1.2, seed, ...s.o }); svg.appendChild(g);
+      const ps = [...g.querySelectorAll('path')].map(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.style.strokeLinecap = 'round'; p.style.strokeLinejoin = 'round'; return { p, L }; });
+      paths.push({ ps, at: s.at, len: s.len });
+    });
+  };
+  const ease = t => t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t);
+  const progress = () => { const r = stage.getBoundingClientRect(); return Math.min(Math.max((-r.top / (stage.offsetHeight / 13.02) - 1.2) / 1.9, 0), 1); };   // the next 190vh of scroll
+  let lastP = -1;
+  const render = force => {
+    const p = reduced ? 1 : progress(); if (p === lastP && !force) return; lastP = p;
+    paths.forEach(({ ps, at, len }) => { const k = ease((p - at) / len), n = ps.length; ps.forEach(({ p: el, L }, i) => { el.style.strokeDashoffset = L * (1 - ease(k * n - i)); }); });
+    writes.forEach(({ el, at, len, clip }) => { const k = ease((p - at) / len); if (clip) el.style.clipPath = `inset(0 ${(1 - k) * 106 - 6}% -20% 0)`; else el.style.opacity = k; });   // negative insets: Caveat overhangs its box
+  };
+  const start = () => { build(); render(true); };
+  start(); addEventListener('load', start);
+  document.fonts && document.fonts.ready.then(start);
+  addEventListener('scroll', () => render(), { passive: true });
+  addEventListener('resize', start);
+  if (!reduced) setInterval(() => { if (lastP <= 0 || svg.style.opacity === '0') return; seed = (seed * 9301 + 49297) % 233280; build(); render(true); }, 700);   // line boil
+})();
+    </script>
+    <script>
+        // ---------- the chapters: one stage, the four words travel list -> title -> dock
+(() => {
+  const stage = document.querySelector('.gt-stage'), pin = stage.querySelector('.gt-about');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const p2 = [...pin.querySelectorAll('#ink, #four .lbl, #stack')];   // everything on page 2 except the four words
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const INK = css('--ink'), BLUE = css('--blue-deep');
+  const rect = (el, rel = pin) => { const r = el.getBoundingClientRect(), p = rel.getBoundingClientRect(); return { x: r.left - p.left, y: r.top - p.top, w: r.width, h: r.height, cx: r.left - p.left + r.width / 2, cy: r.top - p.top + r.height / 2 }; };
+  const clamp = t => t < 0 ? 0 : t > 1 ? 1 : t, ease = t => { t = clamp(t); return t * t * (3 - 2 * t); };
+  const seg = (t, a, b) => ease((t - a) / (b - a));           // eased 0..1 as t goes a..b
+  const mix = (a, b, k) => ({ x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k, s: a.s + (b.s - a.s) * k });
+
+  // ---- diagram ink (same plans as the chapters page)
+  const poly = pts => pts.map((p, i) => (i ? 'L' : 'M') + ` ${p[0].toFixed(1)} ${p[1].toFixed(1)} `).join('');
+  const curve = (a, b, bend, n = 18) => { const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
+    const c = [mx - dy / L * bend * L, my + dx / L * bend * L], pts = []; for (let i = 0; i <= n; i++) { const t = i / n; pts.push([(1 - t) ** 2 * a[0] + 2 * (1 - t) * t * c[0] + t * t * b[0], (1 - t) ** 2 * a[1] + 2 * (1 - t) * t * c[1] + t * t * b[1]]); } return { pts, c }; };
+  const arrow = (a, b, bend = .12) => { const { pts, c } = curve(a, b, bend), ang = Math.atan2(b[1] - c[1], b[0] - c[0]), s = 16;
+    return poly(pts) + poly([[b[0] - Math.cos(ang - .55) * s, b[1] - Math.sin(ang - .55) * s], b, [b[0] - Math.cos(ang + .55) * s, b[1] - Math.sin(ang + .55) * s]]); };
+  const box = r => { const p = 2; return poly([[r.x - p, r.y - p], [r.x + r.w + p, r.y - p + 1], [r.x + r.w + p + 1, r.y + r.h + p], [r.x - p + 1, r.y + r.h + p - 1], [r.x - p, r.y - p + 4]]); };
+  const tick = (x, y) => poly([[x, y], [x + 7, y + 8], [x + 20, y - 10]]);
+  const edge = (a, b, bend = .12, gap = 10) => { const dx = b.cx - a.cx, dy = b.cy - a.cy; const horiz = Math.abs(dx) * a.h > Math.abs(dy) * a.w;
+    const from = horiz ? [dx > 0 ? a.x + a.w + gap : a.x - gap, a.cy] : [a.cx, dy > 0 ? a.y + a.h + gap : a.y - gap];
+    const to = horiz ? [dx > 0 ? b.x - gap : b.x + b.w + gap, b.cy] : [b.cx, dy > 0 ? b.y - gap : b.y + b.h + gap]; return arrow(from, to, bend); };
+  const plans = {
+    ai: n => [ { d: box(n(0)), at: .32 }, { d: edge(n(0), n(1), 0), at: .38 }, { d: box(n(1)), o: { stroke: BLUE }, at: .42 },
+      { d: edge(n(1), n(2), -.1), at: .48 }, { d: box(n(2)), at: .52 }, { d: edge(n(1), n(3), .1), at: .50 }, { d: box(n(3)), at: .56 }, { d: edge(n(1), n(4), 0), at: .54 }, { d: box(n(4)), at: .60 } ],
+    auto: n => [ { d: box(n(0)), at: .32 }, { d: edge(n(0), n(1), 0), at: .38 }, { d: box(n(1)), o: { stroke: BLUE }, at: .42 },
+      ...[0, 1, 2, 3, 4, 5].map(i => ({ d: tick(n(1).x + n(1).w + 16 + i * 26, n(1).cy), o: { stroke: BLUE, strokeWidth: 2.2 }, at: .46 + i * .013, len: .03 })),
+      { d: edge(n(1), n(2), 0), at: .50 }, { d: box(n(2)), at: .54 }, { d: edge(n(2), n(3), 0), at: .60 }, { d: box(n(3)), at: .64 } ],
+    int: n => [ { d: box(n(0)), at: .22 }, { d: edge(n(0), n(1), -.15), at: .28 }, { d: box(n(1)), o: { stroke: BLUE }, at: .30 },
+      { d: edge(n(1), n(2), -.15), at: .38 }, { d: box(n(2)), at: .40 }, { d: edge(n(2), n(3), .15), at: .48 }, { d: box(n(3)), at: .50 }, { d: edge(n(3), n(4), -.2), at: .56 }, { d: box(n(4)), at: .58 } ],
+    arch: n => [ { d: box(n(0)), o: { stroke: BLUE }, at: .22 }, { d: edge(n(0), n(1), -.12), at: .28 }, { d: box(n(1)), at: .30 }, { d: edge(n(0), n(2), .12), at: .36 }, { d: box(n(2)), at: .38 },
+      { d: edge(n(1), n(3), -.1), at: .44 }, { d: edge(n(2), n(3), .1), at: .45 }, { d: box(n(3)), at: .46 }, { d: edge(n(3), n(4), -.1), at: .52 }, { d: box(n(4)), at: .54 }, { d: edge(n(5), n(1), -.1), at: .60 }, { d: box(n(5)), at: .60 } ],
+  };
+
+  let seed = 3;
+  const chaps = [...pin.querySelectorAll('.chap')].map(el => {
+    const svg = el.querySelector('svg'), nodes = [...el.querySelectorAll('.node')];
+    const writes = [...el.querySelectorAll('[data-w],[data-f]')].map(w => { const [at, len] = (w.dataset.w || w.dataset.f).split(',').map(Number); return { el: w, at, len, clip: 'w' in w.dataset }; });
+    const c = { el, paths: [], q: 0, op: 0 };
+    c.build = () => { svg.innerHTML = ''; c.paths = []; const rc = rough.svg(svg);
+      plans[el.dataset.ch](i => rect(nodes[i], el)).forEach(s => { const g = rc.path(s.d, { stroke: INK, strokeWidth: 2.2, roughness: 1.1, bowing: 1, seed, ...(s.o || {}) }); svg.appendChild(g);
+        const ps = [...g.querySelectorAll('path')].map(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.style.strokeLinecap = 'round'; p.style.strokeLinejoin = 'round'; return { p, L }; });
+        c.paths.push({ ps, at: s.at, len: s.len || .06 }); }); };
+    c.draw = () => { const q = c.q;
+      c.paths.forEach(({ ps, at, len }) => { const k = ease((q - at) / len), n = ps.length; ps.forEach(({ p, L }, i) => { p.style.strokeDashoffset = L * (1 - ease(k * n - i)); }); });
+      writes.forEach(({ el: w, at, len, clip }) => { const k = ease((q - at) / len); if (clip) w.style.clipPath = `inset(0 ${(1 - k) * 100}% 0 0)`; else w.style.opacity = k; }); };
+    return c;
+  });
+
+  // ---- the words: three places each can be (list on page 2, chapter title, dock), measured from placeholders
+  const words = [...pin.querySelectorAll('.word')], ph = a => [...pin.querySelectorAll(`[data-a="${a}"]`)], titles = [...pin.querySelectorAll('.chap .title')];
+  let spots = [];
+  const measure = () => { spots = words.map((w, i) => { const h = w.offsetHeight, fs = parseFloat(getComputedStyle(w).fontSize);
+    const at = el => { const r = rect(el), s = parseFloat(getComputedStyle(el).fontSize) / fs; return { x: r.x, y: r.y + (r.h - h * s) / 2, s }; };
+    return { list: at(ph('list')[i]), dock: at(ph('dock')[i]), title: at(titles[i]) }; });
+    const card = rect(contact.querySelector('.c-card'));   // where each box of the last diagram has to fly to
+    archNodes = [...arch.el.querySelectorAll('.node')].map(el => { el.style.transform = ''; const r = rect(el); return { el, dx: card.cx - r.cx, dy: card.cy - r.cy }; }); };
+  const contact = pin.querySelector('.contact'), arch = chaps[3], archRest = [...arch.el.querySelectorAll('.talk, svg')];
+  const cMe = [...contact.querySelectorAll('.c-me, .c-shadow')], cLead = contact.querySelector('.c-lead');
+  let archNodes = [], lastE = 0;
+
+  // ---- timeline, in units: a short hold on page 2, then per chapter a handover and a draw
+  const HOLD = .15, T = .7, C = 1.6, E = 1.8, UNIT = .8;   // one unit = 80vh of scroll; 4 chapters = 748vh, contact = 144vh
+  const progress = () => (-stage.getBoundingClientRect().top / (stage.offsetHeight / 13.02) - 3.1) / UNIT;   // units scrolled past the end of the doodle
+  let lastP = -1;
+  const render = force => {
+    const u = Math.max(progress(), 0); if (u === lastP && !force) return; lastP = u;
+    const t = [0, 1, 2, 3].map(i => clamp((u - HOLD - i * (T + C)) / T)); t.push(0);              // handover into chapter i
+    const c = [0, 1, 2, 3].map(i => clamp((u - HOLD - i * (T + C) - T) / C));                      // chapter i being drawn
+    const o2 = 1 - seg(t[0], 0, .35); p2.forEach(el => el.style.opacity = o2);
+    chaps.forEach((ch, i) => { ch.op = seg(t[i], .6, 1) * (1 - seg(t[i + 1], 0, .35)); ch.q = .08 + c[i] * .72; ch.el.style.opacity = ch.op; ch.el.classList.toggle('on', ch.op > .5); ch.draw(); });
+    const e = lastE = clamp((u - HOLD - 4 * (T + C)) / E), away = 1 - seg(e, 0, .18);             // handover into the contact page
+    words.forEach((w, i) => {
+      const s = spots[i], toDock = i ? seg(t[0], .2, .7) : 0, toTitle = seg(t[i], .15, .75), done = seg(t[i + 1], .1, .6);
+      const pos = mix(mix(mix(s.list, s.dock, toDock), s.title, toTitle), s.dock, done);
+      w.style.transform = `translate(${pos.x.toFixed(1)}px, ${pos.y.toFixed(1)}px) scale(${pos.s.toFixed(4)})`;
+      w.style.opacity = (1 - .55 * toDock * (1 - toTitle)) * away;                                // waiting in the dock: dimmed
+      w.firstElementChild.style.opacity = seg(t[i + 1], .4, .7);                                 // ticked once its chapter is done
+    });
+    // the last diagram lets go of its arrows; its boxes fly together to where the card will be pinned, while the photo walks in
+    archRest.forEach(el => el.style.opacity = away);
+    archNodes.forEach(({ el, dx, dy }, i) => { const k = clamp((e - .12 - i * .025) / .34) ** 2;
+      el.style.transform = e > 0 ? `translate(${(dx * k).toFixed(1)}px, ${(dy * k).toFixed(1)}px) scale(${(1 - .5 * k).toFixed(3)})` : ''; el.style.opacity = 1 - clamp((e - .43 - i * .025) / .06);
+      el.style.boxShadow = e > 0 ? `inset 0 0 0 2.2px rgba(${el.classList.contains('hi') ? '63,98,168' : '12,15,20'},${1 - away})` : ''; });   // the hand-drawn boxes fade with the arrows, so each box keeps a plain outline while it flies
+    const x = clamp((e - .4) / .3), walk = 1 - (1 - x) ** 2;
+    cMe.forEach(el => { el.style.transform = `translateX(${(-40 * (1 - walk)).toFixed(2)}%)`; el.style.opacity = x; });
+    cLead.style.clipPath = `inset(0 ${(1 - seg(e, .7, .9)) * 106 - 6}% -20% 0)`;
+    contact.classList.toggle('go', e >= .62);
+  };
+  if (reduced) { const all = () => chaps.forEach(ch => { ch.q = 1; ch.build(); ch.draw(); }); all(); addEventListener('load', all); addEventListener('resize', all); return; }
+  const start = () => { measure(); chaps.forEach(ch => ch.build()); render(true); };
+  start(); document.fonts && document.fonts.ready.then(start);
+  addEventListener('load', start); addEventListener('resize', start);
+  addEventListener('scroll', () => render(), { passive: true });
+  setInterval(() => { const ch = chaps.find(c => c.op > 0); if (!ch || lastE > .1) return; seed = (seed * 9301 + 49297) % 233280; ch.build(); ch.draw(); }, 700);   // line boil
+})();
+    </script>
 </body>
 </html>
